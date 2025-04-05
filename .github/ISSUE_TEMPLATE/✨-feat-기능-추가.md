@@ -1,9 +1,10 @@
 ---
-name: 기능 추가 (Feature Request)
+name: "✨ Feat 기능 추가"
 about: 새로운 기능을 추가하거나 개선 시 사용하는 템플릿입니다.
 title: "[Feat] ✨ 기능 제목을 입력해주세요"
 labels: feature
-assignees: ""
+assignees: ''
+
 ---
 
 ### ✨ 기능 요약

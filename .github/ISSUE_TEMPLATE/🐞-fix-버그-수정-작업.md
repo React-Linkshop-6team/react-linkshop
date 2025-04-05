@@ -1,5 +1,5 @@
 ---
-name: " [Fix] 버그 수정 작업"
+name: "\U0001F41E Fix 버그 수정 작업"
 about: 어떤 버그가 있었나요?
 title: "\U0001F41E [Fix] 버그 수정 작업"
 labels: bug
