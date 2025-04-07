@@ -9,12 +9,19 @@ export default [
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 2022,
       sourceType: 'module',
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
+      },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
       },
     },
     plugins: {
@@ -27,11 +34,6 @@ export default [
       react: {
         version: 'detect',
       },
-    },
-    env: {
-      browser: true,
-      node: true,
-      es6: true,
     },
     ignores: ['node_modules/', 'dist/'],
     rules: {
