@@ -1,5 +1,5 @@
 const App = () => {
-  return <div>App</div>
+  return <div>hi~ this is tesecode</div>
 }
 
 export default App
