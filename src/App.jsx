@@ -6,7 +6,7 @@ import Create from './pages/Create'
 import Edit from './pages/Edit'
 import Header from './components/Header'
 
-import './assets/scss/Style.scss'
+import './assets/scss/Styles.scss'
 
 const App = () => {
   return (
