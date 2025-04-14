@@ -5,3 +5,7 @@
 // SCSS를 CSS로 컴파일할 때, 그 결과물 CSS의 제일 위에 @charset이 있어야 유효해.
 
 //@import '../scss/setting.scss'; 이런식으로 import 시켜주세요!
+
+@import './Setting.scss';
+@import './Header.scss';
+@import './Button.scss';

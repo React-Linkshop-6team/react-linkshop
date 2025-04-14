@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 32px;
+}
+
+// .header-right .create-button {
+//   width: 98px;
+//   height: 36px;
+//   border-radius: 37px;
+//   background-color: #3e45ec;
+//   color: #fff;
+//   font-size: 14px;
+//   font-weight: 500;
+//   cursor: pointer;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 0;
+//   border: none;
+// }
