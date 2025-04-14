@@ -10,6 +10,12 @@
 25.04.14 - 25.05.02
 
 ---
+## 기술 스택
+**Frontend**: React, SCSS (Sass), JavaScript
+
+**Version Control**: GitHub
+ 
+---
 ## 멤버 구성
 영현 - 리스트 페이지 구현 `/list`
 
