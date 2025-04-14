@@ -6,8 +6,6 @@
 
 //@import '../scss/setting.scss'; 이런식으로 import 시켜주세요!
 
-.app-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+@import './Setting.scss';
+@import './Header.scss';
+@import './Button.scss';
