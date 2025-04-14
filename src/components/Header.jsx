@@ -1,5 +1,5 @@
 import logo from '../assets/images/logo.png'
-import '../assets/scss/Setting.scss'
+import Button from './common/Button'
 
 const Header = () => {
   return (
@@ -8,7 +8,7 @@ const Header = () => {
         <img src={logo} alt="Linkshop logo" className="header-logo" />
       </div>
       <div className="header-right">
-        <button className="create-button">생성하기</button>
+        <Button to="/create">생성하기</Button>
       </div>
     </header>
   )
