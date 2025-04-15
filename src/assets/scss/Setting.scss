@@ -1,4 +1,21 @@
 // 기본 세팅 scss 파일입니다.
+$text-black: #14151a;
+$text-gray-900: #888790;
+$text-gray-600: #a2a2ac;
+$text-gray-300: #dddcdf;
+$text-white-900: #fafafb;
+$text-white-600: #fafafb;
+$text-white-300: #ffffff;
+$brand-red: #fb545b;
+$brand-blue: #3e45ec;
+
+$font-family-base: 'Pretendard', sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
 * {
   margin: 0;
   box-sizing: border-box;
