@@ -1,5 +1,5 @@
 import ShopLike from '../ShopLike/ShopLike'
-import ShopProfile from '../shopProfile/shopProfile'
+import ShopProfile from '../ShopProfile/ShopProfile'
 import ThumbnailList from '../ThumbnailList/ThumbnailList'
 
 // ShopCard 컴포넌트
