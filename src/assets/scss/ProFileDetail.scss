@@ -1,0 +1,29 @@
+.top-image {
+  width: 100%;
+  /*max-width: 1920px;
+  height: 70px;
+  background-image: url(../images/detail-img.png);
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto; */
+}
+
+.back-button {
+  background-color: white;
+  border: none;
+  margin: 20px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.go-to-back {
+  color: rgba(136, 135, 144, 1);
+  text-decoration: none;
+}
+
+.click-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
