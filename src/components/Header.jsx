@@ -1,7 +1,13 @@
+import { useLocation } from 'react-router-dom'
+
 import logo from '../assets/images/logo.png'
 import Button from './common/Button'
 
 const Header = () => {
+  const location = useLocation()
+
+  if (location.pathname === '/profile') return null
+
   return (
     <header className="header">
       <div className="header-left">
