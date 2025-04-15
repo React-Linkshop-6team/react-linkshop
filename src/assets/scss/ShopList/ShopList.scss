@@ -1,0 +1,11 @@
+.shop-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+
+  // 각 카드가 전체의 반에서 gap 절반(12px)을 뺀 만큼의 고정 너비를 가지게하는 스타일
+  > * {
+    flex: 0 0 calc(50% - 12px);
+  }
+}

@@ -1,0 +1,17 @@
+.shop-card {
+  background-color: #fafafb;
+  border-radius: 25px;
+  width: 587px;
+  height: 237px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.shop-card-header {
+  display: flex;
+  justify-content: space-between;
+  //   align-items: flex-start;
+}
