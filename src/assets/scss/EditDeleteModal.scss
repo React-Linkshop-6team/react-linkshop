@@ -1,0 +1,28 @@
+.edit-delete-modal {
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-modal {
+  border-bottom: 1px solid rgba(221, 221, 221, 1);
+  padding: 9px 23px;
+  background-color: white;
+  border: 1px solid rgba(221, 221, 221, 1);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-modal {
+  padding: 9px 23px;
+  background-color: white;
+  border: 1px solid rgba(221, 221, 221, 1);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  cursor: pointer;
+}
