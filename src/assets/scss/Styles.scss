@@ -9,8 +9,13 @@
 @import './Setting.scss';
 @import './Header.scss';
 @import './Button.scss';
+
+// 메인 페이지에서 사용되는 scss
 @import './ShopList/ShopList.scss';
 @import './ShopCard/ShopCard.scss';
 @import './ShopProfile/ShopProfile.scss';
 @import './ShopLike/ShopLike.scss';
 @import '../scss/ProFileDetail.scss';
+@import './NoResult/NoResult.scss';
+@import './SearchBar/SearchBar.scss';
+@import './FilterModal/FilterModal.scss';
