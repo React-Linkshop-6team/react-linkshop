@@ -16,6 +16,9 @@ export default [
           jsx: true,
         },
       },
+      env: {
+        browser: true,
+      },
       globals: {
         window: 'readonly',
         document: 'readonly',
