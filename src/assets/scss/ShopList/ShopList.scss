@@ -9,3 +9,15 @@
     flex: 0 0 calc(50% - 12px);
   }
 }
+
+.shop-filter-toggle {
+  border: none;
+  background: none;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
