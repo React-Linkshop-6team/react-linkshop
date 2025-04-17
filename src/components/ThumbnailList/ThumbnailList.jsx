@@ -3,9 +3,14 @@
 // 각 상품의 imageUrl 속성에 해당하는 이미지를 보여줌
 const ThumbnailList = ({ products }) => {
   return (
-    <div>
+    <div className="thumbnail-list">
       {products.slice(0, 3).map(product => (
-        <img key={product.id} src={product.imageUrl} alt={product.name} width="60" height="60" />
+        <img
+          key={product.id}
+          src={product.imageUrl}
+          alt={product.name}
+          className="thumbnail-list-item"
+        />
       ))}
     </div>
   )
