@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import EditDeleteModal from '../components/EditDeleteModal'
+
+import ParentModal from '../components/ParentModal'
 
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
@@ -54,7 +55,7 @@ const ProfileDetail = () => {
           </button>
           {openModal && (
             <section>
-              <EditDeleteModal />
+              <ParentModal />
             </section>
           )}
         </div>
