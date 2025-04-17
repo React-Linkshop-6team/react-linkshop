@@ -15,8 +15,13 @@
 @import './ShopCard/ShopCard.scss';
 @import './ShopProfile/ShopProfile.scss';
 @import './ShopLike/ShopLike.scss';
+
+// 상세페이지 scss
 @import '../scss/ProFileDetail.scss';
+@import '../scss/EditDeleteModal.scss';
+
 @import './NoResult/NoResult.scss';
 @import './SearchBar/SearchBar.scss';
 @import './FilterModal/FilterModal.scss';
 @import './ThumbnailList/ThumbnailList.scss';
+
