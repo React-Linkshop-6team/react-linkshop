@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 import logo from '../assets/images/logo.png'
 import Button from './common/Button'
@@ -11,7 +11,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <img src={logo} alt="Linkshop logo" className="header-logo" />
+        <Link to="/">
+          <img src={logo} alt="Linkshop logo" className="header-logo" />
+        </Link>
       </div>
       <div className="header-right">
         <Button to="/create">생성하기</Button>
