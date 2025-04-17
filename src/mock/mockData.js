@@ -3,25 +3,34 @@ export const mockData = {
   list: [
     {
       id: 1,
-      name: '귀여운 고양이샵',
+      name: '신발 가게',
       likes: 10,
       shop: {
-        imageUrl: 'https://example.com/shop1.png',
-        urlName: 'cat-shop',
-        shopUrl: 'https://example.com/cat-shop',
+        imageUrl:
+          'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2304&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        urlName: 'shoes-shop',
+        shopUrl: 'https://example.com/shoes-shop',
         id: 1,
       },
-      productsCount: 2,
+      productsCount: 3,
       products: [
         {
           id: 101,
-          name: '고양이 장난감',
-          imageUrl: 'https://example.com/product1.png',
+          name: '신발 1',
+          imageUrl:
+            'https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         },
         {
           id: 102,
-          name: '고양이 침대',
-          imageUrl: 'https://example.com/product2.png',
+          name: '신발 2',
+          imageUrl:
+            'https://plus.unsplash.com/premium_photo-1663100769321-9eb8fe5a8e6b?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        },
+        {
+          id: 103,
+          name: '신발 3',
+          imageUrl:
+            'https://images.unsplash.com/photo-1543508282-6319a3e2621f?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         },
       ],
       teamId: 'team123',

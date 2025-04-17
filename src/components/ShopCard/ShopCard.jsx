@@ -1,4 +1,4 @@
-import ShopLike from '../ShopLike/ShopLike'
+import ShopLike from '../common/ShopLike'
 import ShopProfile from '../ShopProfile/ShopProfile'
 import ThumbnailList from '../ThumbnailList/ThumbnailList'
 
