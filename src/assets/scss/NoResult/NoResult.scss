@@ -1,0 +1,23 @@
+.no-result {
+  margin: 0 auto;
+  padding-top: 324px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  img {
+    width: 375px;
+    height: 182px;
+    margin: 0 auto 20px;
+  }
+
+  p {
+    color: #14151a;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 17px;
+    margin: 4px 0;
+  }
+}
