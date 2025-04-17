@@ -20,7 +20,6 @@ const ParentModal = () => {
       setDeleteConfirm={setDeleteConfirm}
       handleClickEdit={handleClickEdit}
       handleDelete={handleDelete}
-      checkDelete={checkDelete}
     />
   )
 }
