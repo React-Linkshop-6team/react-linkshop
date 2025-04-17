@@ -1,12 +1,12 @@
 .search-bar-container {
   display: flex;
   align-items: center;
-  width: 1199px;
+  width: 100%;
+  max-width: 1199px;
   height: 55px;
   border: 1px solid #dddcdf;
   border-radius: 49px;
   padding: 0 20px;
-  box-sizing: border-box;
   margin-top: 20px;
   background-color: #fff;
   margin-bottom: 20px;
