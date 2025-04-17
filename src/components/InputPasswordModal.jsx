@@ -1,9 +1,9 @@
 const InputPasswordModal = () => {
   return (
-    <section>
-      <p>비밀번호를 입력해주세요!</p>
-      <input placeholder="비밀번호를 입력해주세요." />
-      <button>확인</button>
+    <section className="password-modal">
+      <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
+      <input className="input-password" placeholder="비밀번호를 입력해주세요." />
+      <button className="check-button">확인</button>
     </section>
   )
 }
