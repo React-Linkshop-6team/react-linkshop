@@ -6,11 +6,17 @@
 
 //@import '../scss/setting.scss'; 이런식으로 import 시켜주세요!
 
+// 공통 컴포넌트 scss
 @import './Setting.scss';
 @import './Header.scss';
 @import './Button.scss';
+
 @import './ShopList/ShopList.scss';
 @import './ShopCard/ShopCard.scss';
 @import './ShopProfile/ShopProfile.scss';
 @import './ShopLike/ShopLike.scss';
 @import '../scss/ProFileDetail.scss';
+
+// 생성하기 scss
+@import '../scss/Create/RepItem.scss';
+@import '../scss/Create/Create.scss';
