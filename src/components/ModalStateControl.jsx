@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import EditDeleteModal from './EditDeleteModal'
 
-const ParentModal = () => {
+const ModalStateControl = () => {
   const [deleteConfirm, setDeleteConfirm] = useState(false)
   const [inputPassword, setInputPassword] = useState(false)
 
@@ -24,4 +24,4 @@ const ParentModal = () => {
   )
 }
 
-export default ParentModal
+export default ModalStateControl

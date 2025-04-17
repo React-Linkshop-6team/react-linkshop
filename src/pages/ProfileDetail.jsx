@@ -1,13 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef, useCallback } from 'react'
 
-import ParentModal from '../components/ParentModal'
-
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
 import emptyHeart from '../assets/images/empty-heart.png'
 import urlCopyIcon from '../assets/images/url-copy-icon.png'
 import filterIcon from '../assets/images/filter-icon.png'
+import ModalStateControl from '../components/ModalStateControl'
 
 const ProfileDetail = () => {
   const handleCopy = async string => {
@@ -55,7 +54,7 @@ const ProfileDetail = () => {
           </button>
           {openModal && (
             <section>
-              <ParentModal />
+              <ModalStateControl />
             </section>
           )}
         </div>
