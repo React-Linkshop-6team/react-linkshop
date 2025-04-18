@@ -1,12 +1,37 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
 import emptyHeart from '../assets/images/empty-heart.png'
 import urlCopyIcon from '../assets/images/url-copy-icon.png'
 import filterIcon from '../assets/images/filter-icon.png'
+import ModalStateControl from '../components/ModalStateControl'
 
 const ProfileDetail = () => {
+  const handleCopy = async string => {
+    try {
+      await navigator.clipboard.writeText(string)
+      setTimeout(() => {
+        alert('주소가 복사되었습니다!')
+      }, 0)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const location = useLocation()
+  const [openModal, setOpenModal] = useState(false)
+  const [renderModal, setRenderModal] = useState(0)
+  const modalRef = useRef()
+
+  const handleToggleModal = useCallback(() => {
+    setOpenModal(prev => {
+      const newState = !prev
+      if (newState) setRenderModal(prev => prev + 1)
+      return newState
+    })
+  }, [])
+
   return (
     <header>
       <img className="top-image" src={redBlueImg} alt="Top Image" />
@@ -17,12 +42,21 @@ const ProfileDetail = () => {
         </Link>
       </button>
       <div className="click-icons">
-        <div>
+        <div className="shop-like">
           <img className="heart-icon" src={emptyHeart} />1
         </div>
         <div className="copy-filter-icon">
-          <img src={urlCopyIcon} />
-          <img src={filterIcon} />
+          <button className="url-copy-button">
+            <img src={urlCopyIcon} onClick={() => handleCopy(`${URL}${location.pathname}`)} />
+          </button>
+          <button className="edit-delete-button" onClick={handleToggleModal}>
+            <img src={filterIcon} />
+          </button>
+          {openModal && (
+            <section>
+              <ModalStateControl />
+            </section>
+          )}
         </div>
       </div>
       <section className="famous-items">대표 상품</section>

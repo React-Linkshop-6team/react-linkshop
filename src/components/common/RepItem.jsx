@@ -13,15 +13,6 @@ const RepItem = () => {
       productPrice: '',
       isSubmitted: false,
     },
-    // {
-    //   id: generateId(),
-    //   file: null,
-    //   fileName: '상품 이미지를 첨부해주세요',
-    //   preview: null,
-    //   productName: '',
-    //   productPrice: '',
-    //   isSubmitted: false,
-    // },
   ])
 
   const bottomRef = useRef(null)
@@ -66,8 +57,6 @@ const RepItem = () => {
       alert('모든 항목을 입력해주세요!')
       return
     }
-
-    console.log('등록된 상품들:', notYetSubmittedItems)
 
     // 등록된 상태로 표시
     const updatedItems = items.map(item =>

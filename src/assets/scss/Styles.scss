@@ -11,12 +11,23 @@
 @import './Header.scss';
 @import './Button.scss';
 
+=======
+// 메인 페이지에서 사용되는 scss
 @import './ShopList/ShopList.scss';
 @import './ShopCard/ShopCard.scss';
 @import './ShopProfile/ShopProfile.scss';
 @import './ShopLike/ShopLike.scss';
+
+// 상세페이지 scss
 @import '../scss/ProFileDetail.scss';
 
 // 생성하기 scss
 @import '../scss/Create/RepItem.scss';
 @import '../scss/Create/Create.scss';
+@import '../scss/EditDeleteModal.scss';
+
+@import './NoResult/NoResult.scss';
+@import './SearchBar/SearchBar.scss';
+@import './FilterModal/FilterModal.scss';
+@import './ThumbnailList/ThumbnailList.scss';
+
