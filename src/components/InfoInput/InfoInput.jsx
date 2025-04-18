@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
 
 const InfoInput = () => {
-  const [shopName, setShopName] = useState('')
-  const [shopUrl, setShopUrl] = useState('')
-  const [userId, setUserId] = useState('')
-  const [password, setPassword] = useState('')
-  const AddData = e => {
+  const [infoData, setInfoData] = useState({
+    name: '',
+    shopUrl: '',
+    userId: '',
+    password: '',
+  })
+
+  const handleChange = e => {
     const { name, value } = e.target
+    setInfoData(prev => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
 
-    if (name == 'name') {
-    } else if (name == 'shopUrl') {
-    } else if (name == 'userId') {
-    } else if (name == 'password') {
-    }
-  } //생성및 수정하기 페이지가 생성되면 더 디벨롭할 예정입니다(info와 img 한번에 fetch로 전달)
-
-  const handleSubmit = () => {}
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log(infoData)
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -24,8 +28,8 @@ const InfoInput = () => {
         <input
           type="text"
           name="name"
-          value={shopName}
-          onChange={AddData}
+          value={infoData.name}
+          onChange={handleChange}
           placeholder="표시하고 싶은 이름을 적어 주세요"
           className="content-comment"
         />
@@ -35,8 +39,8 @@ const InfoInput = () => {
         <input
           type="url"
           name="shopUrl"
-          value={shopUrl}
-          onChange={AddData}
+          value={infoData.shopUrl}
+          onChange={handleChange}
           placeholder="Url을 입력해주세요"
           className="content-comment"
         />
@@ -46,8 +50,8 @@ const InfoInput = () => {
         <input
           type="text"
           name="userId"
-          value={userId}
-          onChange={AddData}
+          value={infoData.userId}
+          onChange={handleChange}
           placeholder="유저 ID를 입력해주세요"
           className="content-comment"
         />
@@ -57,12 +61,13 @@ const InfoInput = () => {
         <input
           type="password"
           name="password"
-          value={password}
-          onChange={AddData}
+          value={infoData.password}
+          onChange={handleChange}
           placeholder="비밀번호를 입력해주세요"
           className="content-comment"
         />
       </div>
+      <button type="submit">제출</button>
     </form>
   )
 }
