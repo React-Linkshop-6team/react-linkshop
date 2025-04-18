@@ -14,18 +14,9 @@
   height: 32px;
 }
 
-// .header-right .create-button {
-//   width: 98px;
-//   height: 36px;
-//   border-radius: 37px;
-//   background-color: #3e45ec;
-//   color: #fff;
-//   font-size: 14px;
-//   font-weight: 500;
-//   cursor: pointer;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 0;
-//   border: none;
-// }
+@media (max-width: 1199px) {
+  .header {
+    padding: 0;
+    padding-top: 40px;
+  }
+}
