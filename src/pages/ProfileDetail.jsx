@@ -7,6 +7,7 @@ import emptyHeart from '../assets/images/empty-heart.png'
 import urlCopyIcon from '../assets/images/url-copy-icon.png'
 import filterIcon from '../assets/images/filter-icon.png'
 import ModalStateControl from '../components/ModalStateControl'
+import ShopLike from '../components/common/ShopLike'
 
 const ProfileDetail = () => {
   const handleCopy = async string => {
@@ -42,8 +43,8 @@ const ProfileDetail = () => {
         </Link>
       </button>
       <div className="click-icons">
-        <div className="shop-like">
-          <img className="heart-icon" src={emptyHeart} />1
+        <div>
+          <ShopLike />
         </div>
         <div className="copy-filter-icon">
           <button className="url-copy-button">
