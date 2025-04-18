@@ -42,7 +42,7 @@ const ProfileDetail = () => {
         </Link>
       </button>
       <div className="click-icons">
-        <div>
+        <div className="shop-like">
           <img className="heart-icon" src={emptyHeart} />1
         </div>
         <div className="copy-filter-icon">

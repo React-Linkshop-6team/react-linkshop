@@ -4,8 +4,12 @@
   font-weight: 500;
   line-height: 22px;
   width: 160px;
+  height: 114px;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  margin: 10px -50px;
+  text-align: center;
 }
 
 .edit-modal {

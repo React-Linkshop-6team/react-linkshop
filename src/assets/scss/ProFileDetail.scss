@@ -28,6 +28,22 @@
   justify-content: space-between;
 }
 
+.shop-like {
+  text-align: right;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 23px;
+  margin-top: 5px;
+}
+
+.heart-icon {
+  width: 23px;
+  height: 23px;
+  cursor: pointer;
+}
+
 .url-copy-button {
   background-color: white;
   border: none;
@@ -42,4 +58,47 @@
   cursor: pointer;
   margin: 0px 15px;
   padding: 0px 10px;
+}
+
+.password-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  text-align: center;
+  border: 1px solid white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  position: fixed;
+  margin: 0px -300px;
+  padding: 30px 30px;
+  gap: 15px;
+  box-shadow: 0 0 10px rgb(169, 169, 169);
+}
+
+.password-messege {
+  color: black;
+}
+
+.input-password {
+  height: 45px;
+  width: 120%;
+  border-radius: 8px;
+  border: 1px solid rgba(221, 220, 223, 1);
+  padding: 10px;
+}
+
+.check-button {
+  width: 98px;
+  height: 36px;
+  border-radius: 37px;
+  background-color: $brand-blue;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
 }
