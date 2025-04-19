@@ -2,10 +2,10 @@
   width: 98px;
   height: 36px;
   border-radius: 37px;
-  background-color: #3e45ec;
-  color: #fff;
+  background-color: $brand-blue;
+  color: $text-white-300;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: $font-weight-medium;
   cursor: pointer;
   display: flex;
   justify-content: center;

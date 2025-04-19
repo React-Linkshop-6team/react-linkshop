@@ -3,9 +3,54 @@
   flex-wrap: wrap;
   gap: 24px;
   justify-content: space-between;
+  margin-top: 32px;
 
   // 각 카드가 전체의 반에서 gap 절반(12px)을 뺀 만큼의 고정 너비를 가지게하는 스타일
   > * {
     flex: 0 0 calc(50% - 12px);
+  }
+}
+
+.shop-filter-toggle {
+  border: none;
+  background: none;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.shop-filter-toggle-icon {
+  width: 9px;
+  height: 8px;
+}
+
+// 태블릿 사이즈 + 모바일 사이즈 ( ~ 1199px)
+@media (max-width: 1199px) {
+  .shop-list {
+    margin-top: 28px;
+  }
+
+  .shop-list > * {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .shop-list {
+    margin-top: 20px;
+  }
+
+  .shop-list > * {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
   }
 }

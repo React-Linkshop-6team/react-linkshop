@@ -1,5 +1,11 @@
+import RepItem from '../components/common/RepItem'
+
 const Create = () => {
-  return <div>Create Page</div>
+  return (
+    <div className="create-wrap">
+      <RepItem />
+    </div>
+  )
 }
 
 export default Create

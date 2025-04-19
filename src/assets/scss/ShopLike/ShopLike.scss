@@ -1,4 +1,22 @@
 .shop-like {
   text-align: right;
   padding: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 23px;
+  margin-top: 5px;
+
+  img {
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+  }
+
+  span,
+  p {
+    font-weight: $font-weight-medium;
+    font-size: 16px;
+  }
 }
