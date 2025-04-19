@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 // 상점 이름, 상점 정보, 대표 상품 개수를 받아서 화면에 보여준다.
 const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
   const { imageUrl, urlName, id } = shopInfo
+
   const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
 
   const nav = useNavigate()
@@ -22,10 +23,10 @@ const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
         </div>
         <div className="profile-texts-container">
           <h2 className="profile-name">{name}</h2>
-          <p className="profile-url">@{urlName}</p>
+          <p className="profile-url">@{shopUrl}</p>
         </div>
       </div>
-      <p className="profile-count">대표 상품 {productsCount}</p>
+      <p className="profile-count">대표 상품 {productsCount} 개</p>
     </div>
   )
 }
