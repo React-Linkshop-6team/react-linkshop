@@ -2,6 +2,18 @@ import axios from 'axios'
 
 const LINKSHOP_API_URL = 'https://linkshop-api.vercel.app/15-6/linkshops'
 
+export const getShops = async () => {
+  try {
+    const response = await axios.get(LINKSHOP_API_URL)
+    return response.data.list
+  } catch (error) {
+    console.error('에러가 발생했습니다.', error)
+    return []
+  }
+}
+
+export default getShops
+
 //  id값에 대한 상점 호출
 export const getShopById = async id => {
   try {
@@ -14,5 +26,3 @@ export const getShopById = async id => {
     return null
   }
 }
-
-export default getShops

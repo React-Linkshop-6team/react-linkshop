@@ -40,7 +40,6 @@ const ProfileDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getShops()
-      console.log('shop data:', data[0])
       setShop(data[0])
     }
 
