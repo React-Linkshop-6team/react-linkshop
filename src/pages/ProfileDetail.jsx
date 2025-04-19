@@ -8,7 +8,8 @@ import filterIcon from '../assets/images/filter-icon.png'
 import ModalStateControl from '../components/ModalStateControl'
 import ShopLike from '../components/common/ShopLike'
 import ShopProfile from '../components/ShopProfile/ShopProfile'
-import fetchShopList from '../api/api.js'
+import ShopCard from '../components/ShopCard/ShopCard.jsx'
+import getShops from '../api/api.js'
 
 const ProfileDetail = () => {
   const location = useLocation()
@@ -38,7 +39,7 @@ const ProfileDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchShopList()
+      const data = await getShops()
       console.log('shop data:', data[0])
       setShop(data[0])
     }
@@ -71,12 +72,9 @@ const ProfileDetail = () => {
           )}
         </div>
       </div>
-      <section className="famous-items">대표 상품</section>
-      {shop ? (
-        <ShopProfile name={shop.name} shopInfo={shop.shop} productsCount={shop.productsCount} />
-      ) : (
-        <p>상점 정보 로딩 중...</p>
-      )}
+      <section className="famous-items">
+        {shop ? <ShopCard shop={shop} /> : <p>상점 정보 로딩 중...</p>}
+      </section>
     </header>
   )
 }

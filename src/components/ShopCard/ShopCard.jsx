@@ -11,7 +11,12 @@ const ShopCard = ({ shop }) => {
   return (
     <div className="shop-card">
       <div className="shop-card-header">
-        <ShopProfile name={name} shopInfo={shopInfo} productsCount={productsCount} />
+        <ShopProfile
+          name={name}
+          shopInfo={shopInfo}
+          productsCount={productsCount}
+          products={products}
+        />
         <ShopLike likes={likes} />
       </div>
       <div>
