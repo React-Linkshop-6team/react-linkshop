@@ -15,9 +15,9 @@ const ShopCard = ({ shop }) => {
           name={name}
           shopInfo={shopInfo}
           productsCount={productsCount}
-          products={products}
+          listId={shop.id}
         />
-        <ShopLike likes={likes} />
+        <ShopLike likes={likes} shopKey={shop.id} />
       </div>
       <div>
         <ThumbnailList products={products} />

@@ -1,5 +1,4 @@
-// 정렬 옵션 리스트
-const FILTER_OPTIONS = ['최신순', '좋아요순', '등록된 상품순']
+import { FILTER_OPTIONS } from '../../constants/filterOptions'
 
 // FilterModal 컴포넌트
 // 역할: 필터 모달을 띄우고, 필터 값을 선택하고, 모달을 닫을 수 있다.

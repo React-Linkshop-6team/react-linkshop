@@ -9,6 +9,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
+
+    cursor: pointer;
   }
 
   .profile-image-container {
@@ -36,21 +38,21 @@
   .profile-name {
     font-size: 18px;
     font-family: 'Pretendard', 'sans-serif';
-    font-weight: 600;
-    color: #14151a;
+    font-weight: $font-weight-semibold;
+    color: $text-black;
   }
 
   .profile-url {
     font-size: 16px;
     font-family: 'Pretendard', 'sans-serif';
-    font-weight: 400;
-    color: #888790;
+    font-weight: $font-weight-regular;
+    color: $text-gray-900;
   }
 
   .profile-count {
     font-size: 15px;
     font-family: 'Pretendard', 'sans-serif';
-    font-weight: 500;
-    color: #14151a;
+    font-weight: $font-weight-medium;
+    color: $text-black;
   }
 }
