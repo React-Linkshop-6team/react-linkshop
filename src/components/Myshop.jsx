@@ -1,8 +1,8 @@
-import ImgUpload from './ImgUpload/ImgUpload'
-import InfoInput from './InfoInput/InfoInput'
+import ShopImg from './common/ShopImg/ShopImg'
+import ShopInfo from './common/ShopInfo/ShopInfo'
 import React, { useState } from 'react'
 
-const MyItem = () => {
+const Myshop = () => {
   const [values, setValues] = useState({
     imgFile: null,
   })
@@ -18,11 +18,11 @@ const MyItem = () => {
     <div className="my-item-shop">
       <span className="my-item">내 쇼핑몰</span>
       <div className="item-content">
-        <ImgUpload values={values} onChange={handleChange} />
-        <InfoInput />
+        <ShopImg values={values} onChange={handleChange} />
+        <ShopInfo />
       </div>
     </div>
   )
 }
 
-export default MyItem
+export default Myshop

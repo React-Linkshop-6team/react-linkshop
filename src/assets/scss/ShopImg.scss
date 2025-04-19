@@ -1,0 +1,18 @@
+.content-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-file {
+  border: 1px solid $brand-blue;
+  color: $brand-blue;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 31px;
+  width: 76px;
+  margin: 30px 28px 26px 0px;
+  cursor: pointer;
+}

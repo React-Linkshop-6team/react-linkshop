@@ -5,7 +5,7 @@ import ProfileDetail from './pages/ProfileDetail'
 import Create from './pages/Create'
 import Edit from './pages/Edit'
 import Header from './components/Header'
-import MyItem from './components/myItem'
+import Myshop from './components/Myshop'
 
 import './assets/scss/Styles.scss'
 
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/profile" element={<ProfileDetail />} />
           <Route path="/create" element={<Create />} />
           <Route path="/edit" element={<Edit />} />
-          <Route path="/myItem" element={<MyItem />} />
+          <Route path="/myshop" element={<Myshop />} />
         </Routes>
       </BrowserRouter>
     </div>
