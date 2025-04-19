@@ -26,7 +26,9 @@ export const getShopById = async id => {
   } catch (error) {
     console.error('에러 출력', error)
     return null
-
+  }
+}
+    
 // 좋아요 버튼 눌렀을 때 등록
 export const addLike = async shopId => {
   try {
