@@ -1,5 +1,5 @@
 .shop-card {
-  background-color: #fafafb;
+  background-color: $text-white-600;
   border-radius: 25px;
   width: 587px;
   height: 237px;
@@ -13,5 +13,4 @@
 .shop-card-header {
   display: flex;
   justify-content: space-between;
-  //   align-items: flex-start;
 }

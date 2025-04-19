@@ -1,6 +1,10 @@
 .no-result {
+  position: absolute;
+  top: 324px;
+
   margin: 0 auto;
-  padding-top: 324px;
+  left: 50%;
+  transform: translateX(-50%);
 
   display: flex;
   flex-direction: column;
@@ -11,13 +15,24 @@
   img {
     width: 375px;
     height: 182px;
-    margin: 0 auto 20px;
   }
 
   p {
     color: #14151a;
-    font-family: 'Pretendard', sans-serif;
+    font-family: $font-family-base;
     font-size: 17px;
     margin: 4px 0;
+  }
+}
+
+@media (max-width: 1199px) {
+  .no-result {
+    top: 316px;
+  }
+}
+
+@media (max-width: 767px) {
+  .no-result {
+    top: 268px;
   }
 }
