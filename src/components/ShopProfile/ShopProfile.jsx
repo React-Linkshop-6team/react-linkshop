@@ -23,7 +23,7 @@ const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
         </div>
         <div className="profile-texts-container">
           <h2 className="profile-name">{name}</h2>
-          <p className="profile-url">@{shopUrl}</p>
+          <p className="profile-url">@{urlName}</p>
         </div>
       </div>
       <p className="profile-count">대표 상품 {productsCount} 개</p>
