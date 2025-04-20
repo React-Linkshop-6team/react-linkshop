@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 
 export const getShops = async () => {
@@ -12,7 +11,6 @@ export const getShops = async () => {
     return []
   }
 }
-
 
 export default getShops
 
@@ -26,6 +24,8 @@ export const getShopById = async id => {
   } catch (error) {
     console.error('에러 출력', error)
     return null
+  }
+}
 
 // 좋아요 버튼 눌렀을 때 등록
 export const addLike = async shopId => {
@@ -46,6 +46,5 @@ export const removeLike = async shopId => {
   } catch (error) {
     console.error('좋아요 취소 실패', error)
     return false
-
   }
 }

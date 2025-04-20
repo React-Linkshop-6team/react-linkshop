@@ -5,7 +5,7 @@ import ProfileDetail from './pages/ProfileDetail'
 import Create from './pages/Create'
 import Edit from './pages/Edit'
 import Header from './components/Header'
-import Myshop from './components/Myshop'
+import Myshop from './components/common/Myshop'
 
 import './assets/scss/Styles.scss'
 

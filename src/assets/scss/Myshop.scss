@@ -3,36 +3,117 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 
-  .my-item {
-    color: $text-black;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    left: 0;
-  }
-
-  .item-content {
-    background-color: $text-white-900;
-    border-radius: 25px;
-  }
-}
-@media (min-width: 1200px) {
-  .item-content,
-  .my-item {
+  .shop {
     width: 696px;
-  }
-}
-@media (max-width: 1199px) {
-  .item-content,
-  .my-item {
-    width: 696px;
-  }
-}
 
-@media (max-width: 767px) {
-  .item-content,
-  .my-item {
-    width: 344px;
+    .my-item {
+      color: $text-black;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .item-content {
+      background-color: $text-white-600;
+      border-radius: 25px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 28px;
+
+      .content-file {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .add-file {
+          border: 1px solid $brand-blue;
+          color: $brand-blue;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 31px;
+          width: 76px;
+          cursor: pointer;
+          margin-left: 20px;
+        }
+
+        .content-box {
+          display: flex;
+          flex-direction: column;
+
+          .content-title {
+            color: $text-black;
+            font-weight: 600;
+            font-size: 14px;
+            padding-bottom: 10px;
+          }
+
+          .content-comment {
+            color: $text-gray-900;
+            font-weight: 400;
+            border: none;
+            background-color: $text-white-600;
+            font-size: 17px;
+          }
+        }
+      }
+
+      .content-box {
+        display: flex;
+        flex-direction: column;
+
+        .content-title {
+          color: $text-black;
+          font-weight: 600;
+          font-size: 14px;
+          padding-bottom: 10px;
+        }
+
+        .content-comment {
+          color: $text-gray-900;
+          font-weight: 400;
+          padding: 10px;
+          border-radius: 6px;
+          font-size: 16px;
+          border: none;
+          background-color: $text-white-600;
+          outline: none;
+        }
+      }
+
+      .user-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .password-eyes {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+
+      // form 바깥 버튼이니까 여기서 정의
+      button[type='submit'] {
+        margin-top: 20px;
+        align-self: flex-end;
+        padding: 10px 20px;
+        background-color: $brand-blue;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
   }
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
