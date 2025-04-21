@@ -22,9 +22,14 @@
 @import '../scss//DetailPageItemList.scss';
 
 // 생성하기 scss
-// 대표 상품 scss
-@import '../scss/Create/RepItem.scss';
+@import '../scss/Create/CreateRepItem.scss';
+@import '../scss/Create/CreateRepItemImageUploader.scss';
 @import '../scss/Create/Create.scss';
+@import '../scss/Create/CreateShopInfo.scss';
+@import '../scss/Create/CreateMyshop.scss';
+
+// 대표 상품 scss
+
 @import '../scss/EditDeleteModal.scss';
 
 @import './NoResult/NoResult.scss';
@@ -32,6 +37,4 @@
 @import './FilterModal/FilterModal.scss';
 @import './ThumbnailList/ThumbnailList.scss';
 // 내쇼핑몰 scss
-@import '../scss/Myshop.scss';
 @import '../scss/ShopImg.scss';
-@import '../scss/ShopInfo.scss';

@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
 import Eyes from '../../../assets/images/eyes.png'
 
-const InfoInput = () => {
+const InfoInput = ({ infoData, setInfoData }) => {
+  // 유나 shopInfo 코드 시작
   const [showId, setShowId] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [infoData, setInfoData] = useState({
-    name: '',
-    shopUrl: '',
-    userId: '',
-    password: '',
-  })
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -19,9 +14,6 @@ const InfoInput = () => {
     }))
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-  }
   const toggleId = () => {
     setShowId(prev => !prev)
   }
@@ -29,9 +21,9 @@ const InfoInput = () => {
   const togglePassword = () => {
     setShowPassword(prev => !prev)
   }
-
+  // 유나 shopInfo 코드 끝
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="info-section">
       <div className="content-box">
         <span className="content-title">이름</span>
         <input
@@ -82,9 +74,7 @@ const InfoInput = () => {
         </div>
         <img src={Eyes} alt="비밀번호 보기" className="password-eyes" onClick={togglePassword} />
       </div>
-
-      <button type="submit">제출</button>
-    </form>
+    </div>
   )
 }
 

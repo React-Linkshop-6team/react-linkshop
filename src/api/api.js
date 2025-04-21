@@ -12,6 +12,7 @@ export const getShops = async () => {
   }
 }
 
+
 //  id값에 대한 상점 호출
 export const getShopById = async id => {
   try {
@@ -42,5 +43,35 @@ export const removeLike = async shopId => {
   } catch (error) {
     console.error('좋아요 취소 실패', error)
     return false
+  }
+}
+
+// 생성하기 API 요청
+export const createShop = async payload => {
+  try {
+    const response = await axios.post(LINKSHOP_API_URL, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error('❌ 등록 실패:', error)
+    throw error.response?.data || error
+  }
+}
+
+// 이미지 업로드
+export const uploadImage = async file => {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  try {
+    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
+    return response.data.url
+  } catch (error) {
+    console.error('이미지 업로드 실패', error)
+    return null
+
   }
 }

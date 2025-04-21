@@ -1,0 +1,25 @@
+.my-item {
+  color: $text-black;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  left: 0;
+}
+.my-item-shop {
+  width: 100%;
+  max-width: 696px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px 20px;
+  width: 100%;
+  border-radius: 25px;
+  background: $text-white-600;
+  overflow-y: auto;
+
+  .item-content {
+    background-color: $text-white-600;
+    border-radius: 25px;
+  }
+}
