@@ -32,8 +32,7 @@ import Button from './common/Button'
 const Header = () => {
   const location = useLocation()
 
-  // 현재 위치가 /profile 페이지라면 헤더를 렌더링하지 않음
-  if (location.pathname === '/profile') return null
+  if (location.pathname.startsWith('/profile')) return null
 
   return (
     <header className="header">

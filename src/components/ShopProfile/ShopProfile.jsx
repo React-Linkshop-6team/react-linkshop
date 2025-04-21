@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 // 역할: 상점의 프로필 정보를 표시하는 컴포넌트
 // 상점 이름, 상점 정보, 대표 상품 개수를 받아서 화면에 보여준다.
 const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
-  const { imageUrl, urlName, id } = shopInfo
+  const { imageUrl, urlName } = shopInfo
 
   const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
 

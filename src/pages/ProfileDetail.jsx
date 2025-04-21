@@ -1,5 +1,6 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { getShops } from '../api/api.js'
 
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
@@ -9,14 +10,18 @@ import ModalStateControl from '../components/ModalStateControl'
 import ShopLike from '../components/common/ShopLike'
 import ShopProfile from '../components/ShopProfile/ShopProfile'
 import ShopCard from '../components/ShopCard/ShopCard.jsx'
-import getShops from '../api/api.js'
 
-const ProfileDetail = () => {
+import { getShopById } from '../api/api.js'
+import DetailPageItemList from '../components/DetailPageItemList'
+
+
+const ProfileDetail = ({ likes, shopKey }) => {
   const location = useLocation()
   const [openModal, setOpenModal] = useState(false)
   const [renderModal, setRenderModal] = useState(0)
   const modalRef = useRef()
   const [shop, setShop] = useState(null)
+  const { id } = useParams()
 
   const handleCopy = async string => {
     try {
@@ -39,12 +44,16 @@ const ProfileDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getShops()
-      setShop(data[0])
+      const data = await getShopById(id)
+      if (data) {
+        setShop(data)
+      } else {
+        console.log('해당하는 상점이 없습니다.')
+      }
     }
 
     fetchData()
-  }, [])
+  }, [id])
 
   return (
     <header>
@@ -56,7 +65,7 @@ const ProfileDetail = () => {
         </Link>
       </button>
       <div className="click-icons">
-        <ShopLike />
+        <ShopLike likes={likes} />
         <div className="copy-filter-icon">
           <button className="url-copy-button">
             <img src={urlCopyIcon} onClick={() => handleCopy(`${URL}${location.pathname}`)} />
@@ -73,6 +82,9 @@ const ProfileDetail = () => {
       </div>
       <section className="famous-items">
         {shop ? <ShopCard shop={shop} /> : <p>상점 정보 로딩 중...</p>}
+        <div>
+          <DetailPageItemList />
+        </div>
       </section>
     </header>
   )
