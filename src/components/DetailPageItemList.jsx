@@ -18,12 +18,12 @@ const DetailPageItemList = () => {
   }, [id])
 
   return (
-    <div>
+    <div className="render-item-list">
       {itemList.length > 0 ? (
         itemList.map(item => (
-          <div key={item.id}>
-            <img src={item.imageUrl} alt={item.name || '상품 이미지'} />
-            <p>{item.price.toLocaleString()}원</p>
+          <div className="item-name" key={item.name}>
+            <img className="item-image" src={item.imageUrl} alt={item.name || '상품 이미지'} />
+            <p className="item-price">₩{item.price.toLocaleString()}원</p>
           </div>
         ))
       ) : (
