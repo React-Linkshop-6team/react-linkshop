@@ -1,0 +1,39 @@
+.content-box {
+  padding-top: 22px;
+  padding-bottom: 30px;
+  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+
+  .content-title {
+    color: $text-black;
+    font-weight: 600;
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
+
+  .content-comment {
+    color: $text-gray-900;
+    font-weight: 400;
+    border: none;
+    background-color: $text-white-600;
+    font-size: 17px;
+  }
+
+  .password-eyes {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-eyes {
+  width: 24px;
+  height: 24px;
+  margin: 30px 28px 26px;
+}
