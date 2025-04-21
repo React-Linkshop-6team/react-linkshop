@@ -1,0 +1,41 @@
+.rep-item-img {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  h5 {
+    font-size: 14px;
+    color: $text-black;
+  }
+  .file-upload-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    .file-text {
+      color: #888;
+      font-size: 17px;
+    }
+    .file-upload-btn {
+      width: 76px;
+      height: 31px;
+      padding: 6px 9px;
+      background: white;
+      border: 2px solid #3b50e0;
+      color: #3b50e0;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .file-upload-btn:hover {
+      background: #f0f3ff;
+    }
+  }
+  // .img-preview {
+  //   width: 200px;
+  //   margin-top: 10px;
+  //   border-radius: 8px;
+  // }
+}
