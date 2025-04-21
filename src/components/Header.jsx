@@ -6,7 +6,7 @@ import Button from './common/Button'
 const Header = () => {
   const location = useLocation()
 
-  if (location.pathname === '/profile') return null
+  if (location.pathname.startsWith('/profile')) return null
 
   return (
     <header className="header">
