@@ -1,6 +1,7 @@
+/* eslint-disable */
 import { useParams } from 'react-router-dom'
-import RepItem from '../components/common/RepItem'
-import MyShop from '../components/common/Myshop'
+// import EditRepItem from '../components/common/Edit/EditRepItem'
+import EditMyShop from '../components/common/Edit/EditMyshop'
 import React, { useState, useEffect } from 'react'
 import LinkShopById from '../api/api'
 
@@ -53,8 +54,8 @@ const Edit = () => {
     <>
       {shopInfo && (
         <>
-          <RepItem initialItems={productList} onChange={setProductList} />
-          <MyShop data={shopInfo} onChange={setShopInfo} />
+          {/* <EditRepItem initialItems={productList} onChange={setProductList} /> */}
+          <EditMyShop data={shopInfo} onChange={setShopInfo} />
           <button onClick={handleUpdate}>수정 완료</button>
         </>
       )}

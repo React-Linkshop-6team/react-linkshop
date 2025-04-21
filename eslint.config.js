@@ -16,15 +16,12 @@ export default [
           jsx: true,
         },
       },
-      env: {
-        browser: true,
-      },
       globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
+        window: true,
+        document: true,
+        console: true,
+        module: true,
+        require: true,
       },
     },
     plugins: {
