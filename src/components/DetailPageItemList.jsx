@@ -4,26 +4,25 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 const DetailPageItemList = () => {
-  const { shopId } = useParams()
+  const { id } = useParams()
   const [itemList, setItemList] = useState([])
 
   useEffect(() => {
     const fetchListData = async () => {
-      const data = await getShopById(shopId)
+      const data = await getShopById(id)
       if (data && data.products) {
         setItemList(data.products)
       }
     }
     fetchListData()
-  }, [shopId])
+  }, [id])
 
   return (
     <div>
       {itemList.length > 0 ? (
         itemList.map(item => (
           <div key={item.id}>
-            <img src={item.imageUrl} alt={item.name} />
-            <h3>{item.name}</h3>
+            <img src={item.imageUrl} alt={item.name || '상품 이미지'} />
             <p>{item.price.toLocaleString()}원</p>
           </div>
         ))

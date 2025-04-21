@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
-const LINKSHOP_API_URL = 'https://linkshop-api.vercel.app/15-6/linkshops'
+const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
+
 export const getShops = async () => {
   try {
     const response = await axios.get(import.meta.env.VITE_LINKSHOP_API_URL)
