@@ -48,3 +48,20 @@ export const removeLike = async shopId => {
     return false
   }
 }
+
+// 수정하기 버튼 눌렀을때 상점 내용 호출
+export const LinkShopById = async (teamId, linkShopId) => {
+  try {
+    const response = await axios.get(`${LINKSHOP_API_URL}/${teamId}/linkshops/${linkShopId}`)
+    return response.data
+  } catch (error) {
+    console.error('링크샵 상세 정보 가져오기 실패:', error)
+    throw error
+  }
+}
+
+// 수정완료 버튼 눌렀을 때 등록
+export const updateLinkShop = async (teamId, linkShopId, putEdit) => {
+  const response = await axios.put(`${LINKSHOP_API_URL}/${teamId}/linkshops/${linkShopId}`, putEdit)
+  return response.data
+}
