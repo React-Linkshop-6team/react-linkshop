@@ -1,5 +1,6 @@
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { getShops } from '../api/api.js'
 
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
@@ -9,8 +10,10 @@ import ModalStateControl from '../components/ModalStateControl'
 import ShopLike from '../components/common/ShopLike'
 import ShopProfile from '../components/ShopProfile/ShopProfile'
 import ShopCard from '../components/ShopCard/ShopCard.jsx'
+
 import { getShopById } from '../api/api.js'
 import DetailPageItemList from '../components/DetailPageItemList'
+
 
 const ProfileDetail = ({ likes, shopKey }) => {
   const location = useLocation()

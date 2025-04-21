@@ -22,6 +22,7 @@ export const getShopById = async id => {
     return null
   }
 }
+
 // 좋아요 버튼 눌렀을 때 등록
 export const addLike = async shopId => {
   try {
