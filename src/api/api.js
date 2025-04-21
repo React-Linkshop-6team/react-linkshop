@@ -4,7 +4,7 @@ const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 
 export const getShops = async () => {
   try {
-    const response = await axios.get(LINKSHOP_API_URL)
+    const response = await axios.get(import.meta.env.VITE_LINKSHOP_API_URL)
     return response.data.list
   } catch (error) {
     console.error('에러가 발생했습니다.', error)
@@ -17,10 +17,8 @@ export default getShops
 //  id값에 대한 상점 호출
 export const getShopById = async id => {
   try {
-    const response = await axios.get(LINKSHOP_API_URL)
-    const shops = response.data.list
-    const shop = shops.find(item => String(item.id) === String(id))
-    return shop || null
+    const response = await axios.get(`${LINKSHOP_API_URL}/${id}`)
+    return response.data
   } catch (error) {
     console.error('에러 출력', error)
     return null
@@ -49,7 +47,34 @@ export const removeLike = async shopId => {
   }
 }
 
-// 수정하기 버튼 눌렀을때 상점 내용 호출
+// 생성하기 API 요청
+export const createShop = async payload => {
+  try {
+    const response = await axios.post(LINKSHOP_API_URL, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error('❌ 등록 실패:', error)
+    throw error.response?.data || error
+  }
+}
+
+// 이미지 업로드
+export const uploadImage = async file => {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  try {
+    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
+    return response.data.url
+  } catch (error) {
+    console.error('이미지 업로드 실패', error)
+    return null
+  }
+}
 export const LinkShopById = async (teamId, linkShopId) => {
   try {
     const response = await axios.get(`${LINKSHOP_API_URL}/${teamId}/linkshops/${linkShopId}`)
