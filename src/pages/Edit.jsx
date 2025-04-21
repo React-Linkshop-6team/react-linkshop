@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom'
 import RepItem from '../components/common/RepItem'
 import MyShop from '../components/common/Myshop'
+import React, { useState, useEffect } from 'react'
+import LinkShopById from '../api/api'
 
 const Edit = () => {
-  //const { teamId, linkShopId } = useParams() <- 임시로 테스트중이라서 주석처리
+  const { teamId, linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +30,7 @@ const Edit = () => {
 
   const handleUpdate = async () => {
     const putEdit = {
-      currentPassword: shopInfo.password, // 예시
+      currentPassword: shopInfo.password,
       shop: {
         imageUrl: shopInfo.imageUrl,
         urlName: shopInfo.name,
@@ -37,7 +38,7 @@ const Edit = () => {
       },
       userId: shopInfo.userId,
       name: shopInfo.name,
-      products: productList, // RepItem에서 수정된 product 정보 포함
+      products: productList,
     }
 
     try {
