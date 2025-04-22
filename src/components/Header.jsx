@@ -43,7 +43,7 @@ const Header = () => {
       </div>
       <div className="header-right">
         {location.pathname === '/create' ? (
-          <Button to="/list">돌아가기</Button>
+          <Button to="/">돌아가기</Button>
         ) : (
           <Button to="/create">생성하기</Button>
         )}
