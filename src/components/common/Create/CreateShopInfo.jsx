@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
 import Eyes from '../../../assets/images/eyes.png'
 
 const InfoInput = ({ infoData, setInfoData }) => {
   // 유나 shopInfo 코드 시작
-  const [showId, setShowId] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = e => {
@@ -12,10 +12,6 @@ const InfoInput = ({ infoData, setInfoData }) => {
       ...prev,
       [name]: value,
     }))
-  }
-
-  const toggleId = () => {
-    setShowId(prev => !prev)
   }
 
   const togglePassword = () => {
@@ -50,7 +46,7 @@ const InfoInput = ({ infoData, setInfoData }) => {
         <div className="content-box">
           <span className="content-title">유저 ID</span>
           <input
-            type={showId ? 'text' : 'password'}
+            type="text"
             name="userId"
             value={infoData.userId}
             onChange={handleChange}
@@ -58,7 +54,6 @@ const InfoInput = ({ infoData, setInfoData }) => {
             className="content-comment"
           />
         </div>
-        <img src={Eyes} alt="아이디 보기" className="password-eyes" onClick={toggleId} />
       </div>
       <div className="user-info">
         <div className="content-box">
