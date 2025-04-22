@@ -1,7 +1,8 @@
+/* eslint-disable */
 import { useState, useRef, useEffect } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
-import { uploadImage } from '../../../api/api'
+//import { uploadImage } from '../../../api/api'
 
 const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
   const [inputUserId, setInputUserId] = useState('')
