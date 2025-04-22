@@ -1,10 +1,11 @@
+import { useState } from 'react'
+
 import SearchBar from '../SearchBar/SearchBar'
 import ShopCard from '../ShopCard/ShopCard'
 import NoResult from '../NoResult/NoResult'
-
-import { useState } from 'react'
 import FilterModal from '../FilterModal/FilterModal'
 import polygonFilter from '../../assets/images/polygon-filter.png'
+import useScrollHandler from '../../hooks/useScrollHandler'
 
 // ShopList 컴포넌트
 // 역할: 상점 목록을 렌더링하는 컴포넌트
@@ -12,6 +13,7 @@ const ShopList = ({ list = [] }) => {
   const [searchItem, setSearchItem] = useState('') // 사용자가 입력한 검색어
   const [isFilterOpen, setIsFilterOpen] = useState(false) // 필터 모달 창이 열려있는지 여부를 저장하는 상태 변수
   const [selectedFilter, setSelectedFilter] = useState('상세필터') // 선택된 필터값 (Ex. 최신순, 좋아요순)
+  const [visibleCount, setVisibleCount] = useState(6)
 
   // 1. 상점 이름에 검색어가 포함된 것 만 골라냄.
   // 2. 사용자가 선택한 필터 값에 맞춰 정렬
@@ -23,18 +25,24 @@ const ShopList = ({ list = [] }) => {
       if (selectedFilter === '등록된 상품순') return b.productsCount - a.productsCount
     })
 
+  const visibleList = filteredList.slice(0, visibleCount)
+
   // 필터 선택 시 호출되는 함수. 선택한 필터를 state 변수에 저장한다.
   const handleFilterSelect = filter => {
     setSelectedFilter(filter)
     setIsFilterOpen(false)
   }
 
+  useScrollHandler(visibleCount < filteredList.length, () => {
+    setVisibleCount(prev => prev + 6)
+  })
+
   return (
     <div className="shop-list-container">
       <SearchBar onSearch={setSearchItem} />
 
       <button onClick={() => setIsFilterOpen(true)} className="shop-filter-toggle">
-        {selectedFilter}{' '}
+        {selectedFilter}
         <img src={polygonFilter} alt="필터 화살표 아이콘" className="shop-filter-toggle-icon" />
       </button>
 
@@ -47,10 +55,10 @@ const ShopList = ({ list = [] }) => {
       )}
 
       <div className="shop-list">
-        {filteredList.length === 0 ? (
+        {visibleList.length === 0 ? (
           <NoResult />
         ) : (
-          filteredList.map(shop => <ShopCard shop={shop} key={shop.id} />)
+          visibleList.map(shop => <ShopCard shop={shop} key={shop.id} />)
         )}
       </div>
     </div>
