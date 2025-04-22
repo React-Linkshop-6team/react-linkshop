@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+// 스크롤이 페이지 맨 아래에 닿았는지 감지해서 상품 카드를 더 불러오는 커스텀 훅
 const useScrollHandler = (canLoadMore, onLoadMore) => {
   useEffect(() => {
     const handleScroll = () => {
