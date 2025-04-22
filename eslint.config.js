@@ -8,6 +8,10 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.{js,jsx}'],
+    env: {
+      browser: true,
+      es2021: true,
+    },
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
@@ -17,9 +21,6 @@ export default [
         },
       },
       globals: {
-        window: true,
-        document: true,
-        console: true,
         module: true,
         require: true,
       },
