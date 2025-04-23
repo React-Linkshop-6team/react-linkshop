@@ -43,7 +43,7 @@ const Edit = () => {
         shopUrl: shopInfo.shopUrl,
       },
       products: productList.map(item => ({
-        price: item.price,
+        price: Number(item.productPrice),
         imageUrl: item.imageUrl,
         name: item.name || '',
       })),
