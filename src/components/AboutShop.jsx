@@ -11,7 +11,7 @@ import filterIcon from '../assets/images/filter-icon.png'
 const AboutShop = () => {
   const { id } = useParams()
   const location = useLocation()
-  const [shop, getShop] = useState(null)
+  const [shop, setShop] = useState(null)
   const [openModal, setOpenModal] = useState(false)
 
   const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
@@ -35,7 +35,7 @@ const AboutShop = () => {
     const fetchData = async () => {
       const data = await getShopById(id)
       if (data) {
-        getShop(data)
+        setShop(data)
       }
     }
 
