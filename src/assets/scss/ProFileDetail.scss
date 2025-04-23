@@ -45,7 +45,7 @@
 }
 
 .url-copy-button {
-  background-color: white;
+  background-color: rgba(250, 250, 251, 1);
   border: none;
   cursor: pointer;
   margin: 0px 15px;
@@ -53,10 +53,9 @@
 }
 
 .edit-delete-button {
-  background-color: white;
+  background-color: rgba(250, 250, 251, 1);
   border: none;
   cursor: pointer;
-  margin: 0px 15px;
   padding: 0px 10px;
 }
 
@@ -72,10 +71,11 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   position: fixed;
-  margin: 0px -300px;
+  margin: 0px -350px;
   padding: 30px 30px;
   gap: 15px;
   box-shadow: 0 0 10px rgb(169, 169, 169);
+  z-index: 10;
 }
 
 .password-messege {
@@ -88,6 +88,7 @@
   border-radius: 8px;
   border: 1px solid rgba(221, 220, 223, 1);
   padding: 10px;
+  z-index: 11;
 }
 
 .check-button {
@@ -101,4 +102,26 @@
   cursor: pointer;
   border: none;
   text-decoration: none;
+}
+
+.cancel-button {
+  width: 98px;
+  height: 36px;
+  border-radius: 37px;
+  background-color: $brand-red;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.famous-item-title {
+  font-size: 16px;
+  font-weight: 600;
+  width: 60px;
+  height: 19px;
+  line-height: 100%;
+  margin-top: 25px;
 }
