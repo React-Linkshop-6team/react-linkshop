@@ -6,6 +6,7 @@ import NoResult from '../NoResult/NoResult'
 import FilterModal from '../FilterModal/FilterModal'
 import polygonFilter from '../../assets/images/polygon-filter.png'
 import useScrollHandler from '../../hooks/useScrollHandler'
+import Spinner from '../common/Spinner'
 
 // ShopList 컴포넌트
 // 역할: 상점 목록을 렌더링하는 컴포넌트
@@ -54,8 +55,14 @@ const ShopList = ({ list = [] }) => {
         />
       )}
 
+      {list.length === 0 && (
+        <div className="shop-spinner">
+          <Spinner />
+        </div>
+      )}
+
       <div className="shop-list">
-        {visibleList.length === 0 ? (
+        {list.length > 0 && visibleList.length === 0 ? (
           <NoResult />
         ) : (
           visibleList.map(shop => <ShopCard shop={shop} key={shop.id} />)
