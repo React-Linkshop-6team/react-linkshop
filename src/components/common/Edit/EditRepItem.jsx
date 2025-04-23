@@ -119,8 +119,8 @@ const EditRepItem = ({ data, onChange }) => {
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
               <div className="content-file">
-                <div className="content-box">
-                  <span className="content-title">상품 대표 이미지</span>
+                <div className="rep-item-name">
+                  <h5>상품 대표 이미지</h5>
                   <span className="content-comment">
                     {item.fileName || '상품 이미지를 첨부해주세요'}
                   </span>

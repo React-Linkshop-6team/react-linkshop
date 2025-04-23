@@ -66,16 +66,19 @@ const Edit = () => {
     }
   }
 
+  // Edit.tsx
   return (
-    <>
+    <div className="edit-page">
       {shopInfo && (
         <>
           <EditRepItem data={productList} onChange={setProductList} />
           <EditMyShop data={shopInfo} onChange={setShopInfo} />
-          <button onClick={handleUpdate}>수정 완료</button>
+          <button className="edit-button" onClick={handleUpdate}>
+            수정 완료
+          </button>
         </>
       )}
-    </>
+    </div>
   )
 }
 export default Edit

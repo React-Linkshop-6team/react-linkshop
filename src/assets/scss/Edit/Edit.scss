@@ -1,8 +1,26 @@
-.addProduct {
+.edit-page {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
 
-  .mainProduct {
-    color: #14151a;
+  .edit-button {
+    height: 50px;
+    width: 100%;
+    max-width: 696px;
+    border-radius: 37px;
+    background-color: #3e45ec;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    text-decoration: none;
+    margin-top: 72px;
   }
 }
