@@ -46,3 +46,18 @@
   width: 95px;
   height: 95px;
 }
+
+.item-title {
+  font-size: 17px;
+  font-weight: 400;
+  width: 78px;
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+.item-title-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}

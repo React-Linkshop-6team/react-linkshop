@@ -1,0 +1,75 @@
+import { useEffect, useState } from 'react'
+import { useParams, useLocation } from 'react-router-dom'
+
+import { getShopById } from '../api/api'
+import { COLORS } from '../constants/color'
+import ShopLike from './common/ShopLike'
+import ModalStateControl from './ModalStateControl'
+import urlCopyIcon from '../assets/images/url-copy-icon.png'
+import filterIcon from '../assets/images/filter-icon.png'
+
+const AboutShop = () => {
+  const { id } = useParams()
+  const location = useLocation()
+  const [shop, getShop] = useState(null)
+  const [openModal, setOpenModal] = useState(false)
+
+  const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
+
+  // URL 복사 기능
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(`${window.location.origin}${location.pathname}`)
+      alert('주소가 복사되었습니다!')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // 모달 열기/닫기
+  const handleToggleModal = () => {
+    setOpenModal(prev => !prev)
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getShopById(id)
+      if (data) {
+        getShop(data)
+      }
+    }
+
+    fetchData()
+  }, [id])
+
+  if (!shop) return <p>상점을 불러오는 중입니다..</p>
+
+  const { shop: shopInfo, likes, userId } = shop
+  const { urlName, shopUrl, imageUrl } = shopInfo
+
+  return (
+    <div className="shop-information">
+      <div className="like-copyicon-morebutton">
+        <ShopLike likes={likes} shopKey={id} />
+        <div className="buttons">
+          <button className="url-copy-button" onClick={handleCopy}>
+            <img className="copy-icon" src={urlCopyIcon} alt="URL 복사" />
+          </button>
+          <button className="edit-delete-button" onClick={handleToggleModal}>
+            <img className="filter-icon" src={filterIcon} alt="수정·삭제" />
+          </button>
+          {openModal && <ModalStateControl />}
+        </div>
+      </div>
+      <div className="shop-image-container" style={{ backgroundColor: randomColor }}>
+        <img className="shop-image" src={imageUrl} alt={urlName} />
+      </div>
+      <div className="shop-name">{urlName}</div>
+      <a className="shop-url" href={shopUrl} target="_blank" rel="noopener noreferrer">
+        @ {userId}
+      </a>
+    </div>
+  )
+}
+
+export default AboutShop

@@ -14,7 +14,7 @@ const InputPasswordModal = () => {
   }
 
   return (
-    <section className="password-modal">
+    <form className="password-modal">
       <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
       <input
         className="input-password"
@@ -26,7 +26,7 @@ const InputPasswordModal = () => {
       <button className="check-button" onClick={handleClickPassword}>
         확인
       </button>
-    </section>
+    </form>
   )
 }
 

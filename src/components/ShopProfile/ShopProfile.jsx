@@ -1,5 +1,6 @@
-import { COLORS } from '../../constants/color'
 import { useNavigate } from 'react-router-dom'
+
+import { COLORS } from '../../constants/color'
 
 // ShopProfile 컴포넌트
 // 역할: 상점의 프로필 정보를 표시하는 컴포넌트
