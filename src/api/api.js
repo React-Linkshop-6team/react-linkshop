@@ -48,7 +48,6 @@ export const removeLike = async shopId => {
     return false
   }
 }
-
 // 생성하기 API 요청
 export const createShop = async payload => {
   try {
