@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { mockData } from '../mock/mockData'
+
 import ShopList from '../components/ShopList/ShopList'
 import { getShops } from '../api/api'
 
