@@ -93,7 +93,8 @@ const Create = () => {
 
     try {
       await createShop(payload)
-      alert('등록이 완료되었습니다.')
+      // alert('등록이 완료되었습니다.')
+      navigate('/')
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
