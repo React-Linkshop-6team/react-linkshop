@@ -1,11 +1,17 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
+// import uploadImage from '../../../api/api.js'
 
-const InfoInput = ({ infoData, setInfoData }) => {
-  // 유나 shopInfo 코드 시작
+const CreateShopInfo = ({ infoData, setInfoData }) => {
+  // 비밀번호 보기 토글
   const [showPassword, setShowPassword] = useState(false)
+  // 이미지 파일 상태
+  const [imgFile, setImgFile] = useState(null)
 
+  const inputRef = useRef(null)
+
+  // 입력 값 변경 핸들러
   const handleChange = e => {
     const { name, value } = e.target
     setInfoData(prev => ({
@@ -14,12 +20,33 @@ const InfoInput = ({ infoData, setInfoData }) => {
     }))
   }
 
+  // 이미지 변경 핸들러
+  const handleImgChange = async e => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    try {
+      const imageUrl = await uploadImage(file)
+      setInfoData(prev => ({
+        ...prev,
+        imageUrl, // 업로드된 이미지 URL을 infoData에 저장
+      }))
+      setImgFile(file)
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error)
+    }
+  }
+
+  // 비밀번호 보이기/숨기기 토글
   const togglePassword = () => {
     setShowPassword(prev => !prev)
   }
-  // 유나 shopInfo 코드 끝
+
   return (
     <div className="info-section">
+      {/* 이미지 업로드 */}
+
+      {/* 이름 */}
       <div className="content-box">
         <span className="content-title">이름</span>
         <input
@@ -31,6 +58,8 @@ const InfoInput = ({ infoData, setInfoData }) => {
           className="content-comment"
         />
       </div>
+
+      {/* URL */}
       <div className="content-box">
         <span className="content-title">Url</span>
         <input
@@ -42,19 +71,22 @@ const InfoInput = ({ infoData, setInfoData }) => {
           className="content-comment"
         />
       </div>
-      <div className="user-info">
-        <div className="content-box">
-          <span className="content-title">유저 ID</span>
-          <input
-            type="text"
-            name="userId"
-            value={infoData.userId}
-            onChange={handleChange}
-            placeholder="유저 ID를 입력해주세요"
-            className="content-comment"
-          />
-        </div>
+
+      {/* 유저 ID */}
+      <div className="content-box">
+        <span className="content-title">유저 ID</span>
+        <input
+          type="text"
+          name="userId"
+          value={infoData.userId}
+          onChange={handleChange}
+          placeholder="유저 ID를 입력해주세요"
+          className="content-comment"
+          // userId={infoData.userId}
+        />
       </div>
+
+      {/* 비밀번호 */}
       <div className="user-info">
         <div className="content-box">
           <span className="content-title">비밀번호</span>
@@ -73,4 +105,4 @@ const InfoInput = ({ infoData, setInfoData }) => {
   )
 }
 
-export default InfoInput
+export default CreateShopInfo

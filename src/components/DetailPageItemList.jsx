@@ -34,3 +34,27 @@ const DetailPageItemList = () => {
 }
 
 export default DetailPageItemList
+
+{
+  /* <div className="create-wrap">
+      <CreateMyshop
+        infoData={infoData}
+        setInfoData={setInfoData}
+        items={items}
+        setItems={setItems}
+      />
+      <CreateRepItem
+        items={items}
+        setItems={setItems}
+        onImageUpload={handleImageUpload} // 이미지 업로드 핸들러를 props로 전달
+      />
+
+      <button
+        onClick={handleSubmit}
+        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
+        disabled={!isFormValid()}
+      >
+        생성하기
+      </button>
+    </div> */
+}
