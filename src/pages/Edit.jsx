@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
+import axios from 'axios'
 
+const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 import { updateLinkShop, LinkShopById } from '../api/api'
 
 const Edit = () => {
@@ -45,20 +47,22 @@ const Edit = () => {
       products: productList.map(item => ({
         price: Number(item.productPrice),
         imageUrl: item.imageUrl,
-        name: item.name || '',
+        name: item.productName || '',
       })),
       userId: shopInfo.userId,
       name: shopInfo.name,
     }
-
+    console.log('🔧 PUT 요청 보낼 내용:', putEdit)
     try {
-      await updateLinkShop(linkShopId, putEdit)
-      alert('수정 완료!')
-    } catch (err) {
-      console.error('업데이트 실패', err)
-      console.log('🧾 요청 데이터:', putEdit)
-      console.log('response:', err.response?.data)
-      console.log('IMAGE_UPLOAD_URL:', IMAGE_UPLOAD_URL)
+      const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      console.log('✅ 수정 성공:', response.data)
+      // 필요하다면 성공 후 처리 로직
+    } catch (error) {
+      console.error('❌ 수정 실패:', error.response?.data || error)
     }
   }
 

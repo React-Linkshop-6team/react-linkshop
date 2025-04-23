@@ -157,7 +157,12 @@ const EditRepItem = ({ data, onChange }) => {
                   name="productPrice"
                   placeholder="원화로 표기해주세요"
                   value={item.productPrice || ''}
-                  onChange={e => handleProductChange(e, index)}
+                  onChange={e => {
+                    const val = e.target.value
+                    if (!isNaN(val) && Number(val) >= 0) {
+                      handleProductChange(e, index)
+                    }
+                  }}
                 />
               </div>
             </div>
