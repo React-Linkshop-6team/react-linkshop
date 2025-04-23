@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
 
-const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
+const Myshop = ({ infoData, setInfoData, items, setItems }) => {
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
   const [imageUrl, setImageUrl] = useState(null)
 
@@ -58,4 +58,4 @@ const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
   )
 }
 
-export default CreateMyshop
+export default Myshop

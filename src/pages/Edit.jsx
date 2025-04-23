@@ -58,6 +58,7 @@ const Edit = () => {
       console.error('업데이트 실패', err)
       console.log('🧾 요청 데이터:', putEdit)
       console.log('response:', err.response?.data)
+      console.log('IMAGE_UPLOAD_URL:', IMAGE_UPLOAD_URL)
     }
   }
 

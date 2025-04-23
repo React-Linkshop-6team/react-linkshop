@@ -2,39 +2,20 @@
 import { useState, useRef, useEffect } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
-//import { uploadImage } from '../../../api/api'
+import { uploadImage } from '../../../api/api'
 
-const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
+const EditMyShop = ({ data, onChange }) => {
   const [inputUserId, setInputUserId] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [error, setError] = useState('')
   const [imgFile, setImgFile] = useState(null)
-  const [showId, setShowId] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const inputRef = useRef(null)
-
-  useEffect(() => {
-    if (validateTrigger) {
-      validateUserInfo()
-    }
-  }, [validateTrigger])
-
-  const validateUserInfo = () => {
-    const isValid = inputUserId === data.userId && inputPassword === data.password
-
-    if (!isValid) {
-      setError('ID 또는 비밀번호가 일치하지 않습니다.')
-      onValidateResult(false)
-    } else {
-      setError('')
-      onValidateResult(true)
-    }
-  }
 
   const handleImgChange = async e => {
     const file = e.target.files[0]
     if (!file) return
-
+    console.log('업로드할 파일:', file)
     try {
       const imageUrl = await uploadImage(file)
       onChange(prev => ({ ...prev, imageUrl }))
@@ -103,19 +84,14 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
               <div className="content-box">
                 <span className="content-title">유저 ID 확인</span>
                 <input
-                  type={showId ? 'text' : 'password'}
-                  value={inputUserId}
+                  type="text"
+                  value={inputUserId || ''}
+                  name="userId"
                   onChange={e => setInputUserId(e.target.value)}
                   placeholder="유저 ID를 입력해주세요"
                   className="content-comment"
                 />
               </div>
-              <img
-                src={Eyes}
-                alt="아이디 보기"
-                className="password-eyes"
-                onClick={() => setShowId(prev => !prev)}
-              />
             </div>
 
             <div className="user-info">
