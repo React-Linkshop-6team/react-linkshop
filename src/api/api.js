@@ -88,3 +88,16 @@ export const updateLinkShop = async (teamId, linkShopId, putEdit) => {
   const response = await axios.put(`${LINKSHOP_API_URL}/${teamId}/linkshops/${linkShopId}`, putEdit)
   return response.data
 }
+
+// API 삭제하기 요청
+export const deleteShop = async (id, currentPassword) => {
+  try {
+    const response = await axios.delete(`${LINKSHOP_API_URL}/${id}`, {
+      data: { currentPassword: currentPassword },
+    })
+    return response.data
+  } catch (error) {
+    console.error('삭제 중 오류 발생', error.response?.data || error)
+    return null
+  }
+}

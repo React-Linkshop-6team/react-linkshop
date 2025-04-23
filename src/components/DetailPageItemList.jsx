@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { getShopById } from '../api/api'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+
+import { getShopById } from '../api/api.js'
 
 const DetailPageItemList = () => {
   const { id } = useParams()
@@ -23,7 +23,10 @@ const DetailPageItemList = () => {
         itemList.map(item => (
           <div className="item-name" key={item.name}>
             <img className="item-image" src={item.imageUrl} alt={item.name || '상품 이미지'} />
-            <p className="item-price">₩{item.price.toLocaleString()}원</p>
+            <div className="item-title-price">
+              <div className="item-title">{item.name}</div>
+              <div className="item-price">₩ {item.price.toLocaleString()}</div>
+            </div>
           </div>
         ))
       ) : (
