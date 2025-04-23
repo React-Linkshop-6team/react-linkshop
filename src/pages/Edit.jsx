@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
@@ -14,6 +14,7 @@ const Edit = () => {
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
   const teamId = '15-6'
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,6 +61,7 @@ const Edit = () => {
         },
       })
       console.log('✅ 수정 성공:', response.data)
+      navigate(`/profile/${linkShopId}`)
       // 필요하다면 성공 후 처리 로직
     } catch (error) {
       console.error('❌ 수정 실패:', error.response?.data || error)
