@@ -14,8 +14,6 @@ export const getShops = async () => {
   }
 }
 
-export default getShops
-
 //  id값에 대한 상점 호출
 export const getShopById = async id => {
   try {
@@ -77,9 +75,23 @@ export const uploadImage = async file => {
     return null
   }
 }
-export const LinkShopById = async (teamId, linkShopId) => {
-  const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
-  return response.data
+
+//   try {
+//     const response = await axios.post(IMAGE_UPLOAD_URL, formData)
+//     return response.data.url
+//   } catch (error) {
+//     console.error('이미지 업로드 실패', error)
+//     return null
+//   }
+// }
+export const LinkShopById = async linkShopId => {
+  try {
+    const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
+    return response.data
+  } catch (error) {
+    console.error('링크샵 상세 정보 가져오기 실패:', error)
+    throw error
+  }
 }
 
 // 수정완료 버튼 눌렀을 때 등록

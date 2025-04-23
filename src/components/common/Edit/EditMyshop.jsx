@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react'
-
+/* eslint-disable */
+import { useState, useRef, useEffect } from 'react'
 import Eyes from '../../../assets/images/eyes.png'
-import uploadImage from '../../../api/api.js'
+import { uploadImage } from '../../../api/api'
 
 const EditMyShop = ({ data, onChange }) => {
   const [imgFile, setImgFile] = useState(null)

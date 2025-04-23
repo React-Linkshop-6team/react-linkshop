@@ -15,7 +15,7 @@ const Edit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const shopData = await LinkShopById(teamId, linkShopId)
+        const shopData = await LinkShopById(linkShopId)
         setShopInfo({
           imageUrl: shopData.shop?.imageUrl,
           name: shopData.name,
@@ -52,7 +52,7 @@ const Edit = () => {
     }
 
     try {
-      await updateLinkShop(359, putEdit)
+      await updateLinkShop(linkShopId, putEdit)
       alert('수정 완료!')
     } catch (err) {
       console.error('업데이트 실패', err)
