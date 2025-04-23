@@ -41,7 +41,7 @@ const Edit = () => {
       currentPassword: shopInfo.password,
       shop: {
         imageUrl: shopInfo.imageUrl,
-        urlName: 'kimpizza',
+        urlName: shopInfo.name,
         shopUrl: shopInfo.shopUrl,
       },
       products: productList.map(item => ({
