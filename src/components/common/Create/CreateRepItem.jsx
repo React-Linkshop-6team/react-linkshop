@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 
 const CreateRepItem = ({ items, setItems }) => {
+  // 유나 repItemcreate 코드 시작
   const [linkId, setLinkId] = useState('')
+  const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const navigate = useNavigate()
   const scrollableRef = useRef(null)
-
-  const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
 
   const handleImageUpload = async (index, e) => {
     const file = e.target.files[0]
     if (file) {
       const previewUrl = URL.createObjectURL(file)
+
+      // 하드코딩된 URL을 사용하여 이미지 업로드 처리
       const formData = new FormData()
       formData.append('image', file)
 
@@ -26,7 +28,7 @@ const CreateRepItem = ({ items, setItems }) => {
         if (!res.ok) throw new Error('이미지 업로드 실패')
 
         const data = await res.json()
-        const uploadedUrl = data.url
+        const uploadedUrl = data.url // 서버로부터 받은 이미지 URL
 
         const updatedItems = [...items]
         updatedItems[index] = {
@@ -80,6 +82,7 @@ const CreateRepItem = ({ items, setItems }) => {
       bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }, [items])
+  // 유나 repItemcreate 코드 끝
 
   return (
     <div className="repitem-txt-wrap">
@@ -95,7 +98,6 @@ const CreateRepItem = ({ items, setItems }) => {
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
               <CreateRepItemImageUploader
-                key={item.id}
                 fileName={item.fileName}
                 onImageUpload={e => handleImageUpload(index, e)}
                 id={item.id}
