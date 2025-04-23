@@ -1,52 +1,63 @@
 /* eslint-disable */
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-// import EditRepItem from '../components/common/Edit/EditRepItem'
+
 import EditMyShop from '../components/common/Edit/EditMyshop'
-import React, { useState, useEffect } from 'react'
-import LinkShopById from '../api/api'
+import EditRepItem from '../components/common/Edit/EditRepItem'
+
+import { updateLinkShop, LinkShopById } from '../api/api'
 
 const Edit = () => {
-  const { teamId, linkShopId } = useParams()
+  const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
+  const teamId = '15-6'
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const shopData = await LinkShopById(teamId, linkShopId)
+        const shopData = await LinkShopById(linkShopId)
         setShopInfo({
+          imageUrl: shopData.shop?.imageUrl,
           name: shopData.name,
           shopUrl: shopData.shop?.shopUrl,
           userId: shopData.userId,
-          password: shopData.password,
-          imageUrl: shopData.imageUrl,
+          password: '',
+          urlName: shopData.shop?.urlName,
         })
         setProductList(shopData.products)
       } catch (err) {
         console.error('데이터 불러오기 실패', err)
+        console.log(putEdit)
       }
     }
 
     fetchData()
-  }, [teamId, linkShopId])
+  }, [linkShopId])
 
   const handleUpdate = async () => {
     const putEdit = {
       currentPassword: shopInfo.password,
       shop: {
         imageUrl: shopInfo.imageUrl,
-        urlName: shopInfo.name,
+        urlName: 'kimpizza',
         shopUrl: shopInfo.shopUrl,
       },
+      products: productList.map(item => ({
+        price: Number(item.productPrice),
+        imageUrl: item.imageUrl,
+        name: item.name || '',
+      })),
       userId: shopInfo.userId,
       name: shopInfo.name,
-      products: productList,
     }
 
     try {
-      await updateLinkShop(teamId, linkShopId, putEdit)
+      await updateLinkShop(linkShopId, putEdit)
       alert('수정 완료!')
     } catch (err) {
       console.error('업데이트 실패', err)
+      console.log('🧾 요청 데이터:', putEdit)
+      console.log('response:', err.response?.data)
     }
   }
 
@@ -54,7 +65,7 @@ const Edit = () => {
     <>
       {shopInfo && (
         <>
-          {/* <EditRepItem initialItems={productList} onChange={setProductList} /> */}
+          <EditRepItem data={productList} onChange={setProductList} />
           <EditMyShop data={shopInfo} onChange={setShopInfo} />
           <button onClick={handleUpdate}>수정 완료</button>
         </>
