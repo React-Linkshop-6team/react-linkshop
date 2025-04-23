@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
+import { useNavigate } from 'react-router-dom'
 
 const Create = () => {
   //유나 create 코드 시작
+  const navigate = useNavigate()
   const [name, setName] = useState('')
   const [shopUrl, setShopUrl] = useState('')
   const [inputUserId, setInputUserId] = useState('')
@@ -72,7 +74,8 @@ const Create = () => {
 
     try {
       await createShop(payload)
-      alert('등록이 완료되었습니다.')
+      // alert('등록이 완료되었습니다.')
+      navigate('/')
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
