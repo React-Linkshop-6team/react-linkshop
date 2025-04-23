@@ -1,33 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+
 import Eyes from '../../../assets/images/eyes.png'
 import uploadImage from '../../../api/api.js'
 
-const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
-  const [inputUserId, setInputUserId] = useState('')
-  const [inputPassword, setInputPassword] = useState('')
-  const [error, setError] = useState('')
+const EditMyShop = ({ data, onChange }) => {
   const [imgFile, setImgFile] = useState(null)
-  const [showId, setShowId] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
   const inputRef = useRef(null)
 
-  useEffect(() => {
-    if (validateTrigger) {
-      validateUserInfo()
-    }
-  }, [validateTrigger])
-
-  const validateUserInfo = () => {
-    const isValid = inputUserId === data.userId && inputPassword === data.password
-
-    if (!isValid) {
-      setError('ID 또는 비밀번호가 일치하지 않습니다.')
-      onValidateResult(false)
-    } else {
-      setError('')
-      onValidateResult(true)
-    }
-  }
+  if (!data) return null
 
   const handleImgChange = async e => {
     const file = e.target.files[0]
@@ -41,7 +23,6 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
       console.error('이미지 업로드 실패:', error)
     }
   }
-
   const handleInfoChange = e => {
     const { name, value } = e.target
     onChange(prev => ({ ...prev, [name]: value }))
@@ -53,6 +34,7 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
         <span className="my-item">내 쇼핑몰</span>
         <div className="item-content">
           <form onSubmit={e => e.preventDefault()} className="form">
+            {/* 이미지 업로드 */}
             <div className="content-file">
               <div className="content-box">
                 <span className="content-title">상품 대표 이미지</span>
@@ -66,13 +48,14 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
               <input
                 type="file"
                 id="imgUpload"
-                name="imgFile"
+                name="imgUrl"
                 ref={inputRef}
                 onChange={handleImgChange}
                 style={{ display: 'none' }}
               />
             </div>
 
+            {/* 이름 */}
             <div className="content-box">
               <span className="content-title">이름</span>
               <input
@@ -85,6 +68,7 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
               />
             </div>
 
+            {/* URL */}
             <div className="content-box">
               <span className="content-title">Url</span>
               <input
@@ -97,32 +81,28 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
               />
             </div>
 
-            <div className="user-info">
-              <div className="content-box">
-                <span className="content-title">유저 ID 확인</span>
-                <input
-                  type={showId ? 'text' : 'password'}
-                  value={inputUserId}
-                  onChange={e => setInputUserId(e.target.value)}
-                  placeholder="유저 ID를 입력해주세요"
-                  className="content-comment"
-                />
-              </div>
-              <img
-                src={Eyes}
-                alt="아이디 보기"
-                className="password-eyes"
-                onClick={() => setShowId(prev => !prev)}
+            {/* 유저 ID */}
+            <div className="content-box">
+              <span className="content-title">유저 ID 확인</span>
+              <input
+                type="text"
+                name="userId"
+                value={data.userId || ''}
+                onChange={handleInfoChange}
+                placeholder="유저 ID를 입력해주세요"
+                className="content-comment"
               />
             </div>
 
+            {/* 비밀번호 */}
             <div className="user-info">
               <div className="content-box">
                 <span className="content-title">비밀번호 확인</span>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  value={inputPassword || ''}
-                  onChange={e => setInputPassword(e.target.value)}
+                  name="password"
+                  value={data.password || ''}
+                  onChange={handleInfoChange}
                   placeholder="비밀번호를 입력해주세요"
                   className="content-comment"
                 />
@@ -136,6 +116,7 @@ const EditMyShop = ({ data, onChange, validateTrigger, onValidateResult }) => {
             </div>
           </form>
 
+          {/* 에러 메시지 */}
           {error && <div className="error-message">{error}</div>}
         </div>
       </div>

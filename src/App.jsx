@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import Home from './pages/Home'
 import ProfileDetail from './pages/ProfileDetail'
 import Create from './pages/Create'
@@ -18,9 +19,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile/:id" element={<ProfileDetail />} />
           <Route path="/create" element={<Create />} />
-          <Route path="/edit" element={<Edit />} />
+          <Route path="/edit/:linkShopId" element={<Edit />} />
           <Route path="/myshop" element={<CreateMyshop />} />
-          <Route path="/myshop" element={<EditMyshop />} />
+          <Route path="/editmyshop" element={<EditMyshop />} />
         </Routes>
       </BrowserRouter>
     </div>
