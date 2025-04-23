@@ -64,7 +64,7 @@ export const createShop = async payload => {
 // 이미지 업로드
 export const uploadImage = async file => {
   const formData = new FormData()
-  formData.append('image', file) //file 이름을 수정
+  formData.append('image', file)
 
   try {
     const response = await axios.post(IMAGE_UPLOAD_URL, formData)
