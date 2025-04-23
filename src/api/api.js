@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { FILTER_QUERY_MAP } from '../constants/filterOptions'
+
 const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 
 export const getShops = async () => {
@@ -99,5 +101,45 @@ export const deleteShop = async (id, currentPassword) => {
   } catch (error) {
     console.error('삭제 중 오류 발생', error.response?.data || error)
     return null
+  }
+}
+
+// 커서 기반 상점 목록 조회 함수
+export const getShopsByCursor = async (cursor = null) => {
+  try {
+    let url = `${LINKSHOP_API_URL}`
+    if (cursor) {
+      url += `?cursor=${cursor}`
+    }
+
+    const response = await axios.get(url)
+    return {
+      list: response.data.list || [],
+      nextCursor: response.data.nextCursor || null,
+    }
+  } catch (error) {
+    console.error('커서 기반 상점 조회 실패:', error)
+    return { list: [], nextCursor: null }
+  }
+}
+
+// api.js
+
+export const getShopsByFilter = async (filter, cursor = null) => {
+  const orderBy = FILTER_QUERY_MAP[filter]
+  let url = `${LINKSHOP_API_URL}?orderBy=${orderBy}`
+  if (cursor) {
+    url += `&cursor=${cursor}`
+  }
+
+  try {
+    const response = await axios.get(url)
+    return {
+      list: response.data.list || [],
+      nextCursor: response.data.nextCursor || null,
+    }
+  } catch (error) {
+    console.error('필터링된 상점 데이터를 가져오는데 실패했습니다:', error)
+    return { list: [], nextCursor: null }
   }
 }
