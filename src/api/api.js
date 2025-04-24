@@ -103,6 +103,17 @@ export const updateLinkShop = async (linkShopId, putEdit) => {
   return response.data
 }
 
+// currentPassword 를 가져오는 put API
+export const putShopById = async (id, updatedData) => {
+  try {
+    const response = await axios.put(`${LINKSHOP_API_URL}/${id}`, updatedData)
+    return response.data
+  } catch (error) {
+    console.error('페이지 로딩에 실패했습니다.', error.response?.data || error)
+    return null
+  }
+}
+
 // API 삭제하기 요청
 export const deleteShop = async (id, currentPassword) => {
   try {
