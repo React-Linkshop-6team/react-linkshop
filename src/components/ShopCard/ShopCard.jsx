@@ -1,3 +1,5 @@
+import React from 'react'
+
 import ShopLike from '../common/ShopLike'
 import ShopProfile from '../ShopProfile/ShopProfile'
 import ThumbnailList from '../ThumbnailList/ThumbnailList'
@@ -26,4 +28,4 @@ const ShopCard = ({ shop }) => {
   )
 }
 
-export default ShopCard
+export default React.memo(ShopCard)
