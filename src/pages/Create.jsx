@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
-import { uploadImage } from '../api/api' // 이미지 업로드 함수 가져오기
+import { useNavigate } from 'react-router-dom'
 
 const Create = () => {
-  const [name, setName] = useState('')
-  const [shopUrl, setShopUrl] = useState('')
-  const [inputUserId, setInputUserId] = useState('')
-  const [inputPassword, setInputPassword] = useState('')
+  const navigate = useNavigate()
+  const [passwordChecked, setPasswordChecked] = useState(false) // 비밀번호 확인 상태
 
   const [items, setItems] = useState([
     {
@@ -27,31 +25,18 @@ const Create = () => {
     name: '',
     shopUrl: '',
     userId: '',
-    password: '',
+    currentPassword: '', // 비밀번호를 currentPassword로 초기화
   })
 
-  const handleImageUpload = async (file, index) => {
-    if (!file) return
+  // ✅ 비밀번호가 유효한 형식일 때 자동으로 passwordChecked true 설정
+  useEffect(() => {
+    const isValid =
+      infoData.currentPassword.length >= 6 &&
+      /\d/.test(infoData.currentPassword) &&
+      /[a-zA-Z]/.test(infoData.currentPassword)
 
-    const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
-
-    // 이름을 바꾼 File 객체 만들기
-    const renamedFile = new File([file], safeFileName, { type: file.type })
-
-    const uploadedUrl = await uploadImage(renamedFile) // fileName 넘기지 않아도 됨
-    if (!uploadedUrl) {
-      alert('이미지 업로드 실패')
-      return
-    }
-
-    const updatedItems = [...items]
-    updatedItems[index] = {
-      ...updatedItems[index],
-      fileName: safeFileName,
-      imageUrl: uploadedUrl,
-    }
-    setItems(updatedItems)
-  }
+    setPasswordChecked(isValid)
+  }, [infoData.currentPassword])
 
   // 입력된 아이템들이 모두 유효한지 체크하는 함수
   const isItemsValid = () => {
@@ -61,12 +46,49 @@ const Create = () => {
   // 입력이 모두 유효한지 체크하는 함수
   const isFormValid = () => {
     const trimmedName = infoData.name.trim()
-    return trimmedName && isItemsValid() && infoData.shopUrl && infoData.userId && infoData.password
+    const result =
+      trimmedName &&
+      isItemsValid() &&
+      infoData.shopUrl &&
+      infoData.userId &&
+      infoData.currentPassword &&
+      passwordChecked
+
+    // ✅ 콘솔 로그로 디버깅 추가
+    console.log('===== [isFormValid] 체크 =====')
+    console.log('trimmedName:', trimmedName)
+    console.log('isItemsValid:', isItemsValid())
+    console.log('shopUrl:', infoData.shopUrl)
+    console.log('userId:', infoData.userId)
+    console.log('currentPassword:', infoData.currentPassword)
+    console.log('passwordChecked:', passwordChecked)
+    console.log('전체 유효성 결과:', !!result)
+    console.log('=============================')
+
+    return result
   }
 
   const handleSubmit = async () => {
     if (!infoData.name.trim() || !isItemsValid()) {
       alert('모든 정보를 입력해주세요.')
+      return
+    }
+
+    // 비밀번호 유효성 검사
+    const isPasswordValid =
+      infoData.currentPassword.length >= 6 &&
+      /\d/.test(infoData.currentPassword) &&
+      /[a-zA-Z]/.test(infoData.currentPassword)
+
+    if (!isPasswordValid) {
+      alert('비밀번호는 영문 + 숫자 포함 6자 이상이어야 합니다.')
+      return
+    }
+
+    // 아이디 유효성 검사 (특수문자/공백 제거)
+    const isUserIdValid = /^[a-zA-Z0-9]+$/.test(infoData.userId)
+    if (!isUserIdValid) {
+      alert('유저 ID는 영문 또는 숫자만 사용 가능합니다.')
       return
     }
 
@@ -81,19 +103,13 @@ const Create = () => {
         imageUrl: item.imageUrl,
         name: item.productName,
       })),
-      password:
-        infoData.password.length >= 6 &&
-        /\d/.test(infoData.password) &&
-        /[a-zA-Z]/.test(infoData.password)
-          ? infoData.password
-          : 'admin123',
-      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234',
+      password: infoData.currentPassword,
+      userId: infoData.userId,
       name: infoData.name.trim(),
     }
 
     try {
       await createShop(payload)
-      // alert('등록이 완료되었습니다.')
       navigate('/')
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
@@ -108,12 +124,9 @@ const Create = () => {
         items={items}
         setItems={setItems}
       />
-      <CreateRepItem
-        items={items}
-        setItems={setItems}
-        onImageUpload={handleImageUpload} // 이미지 업로드 핸들러를 props로 전달
-      />
+      <CreateRepItem items={items} setItems={setItems} />
 
+      {/* 버튼 활성화/비활성화 */}
       <button
         onClick={handleSubmit}
         className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
