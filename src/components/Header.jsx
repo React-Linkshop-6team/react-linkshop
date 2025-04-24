@@ -49,9 +49,15 @@ const Header = () => {
       <div>
         {isLoggedIn ? (
           <>
-            <Link to="/mystore">
-              <Button>내 스토어</Button>
-            </Link>
+            {location.pathname === '/mystore' ? (
+              <Link to="/myshop">
+                <Button>생성하기</Button>
+              </Link>
+            ) : (
+              <Link to="/mystore">
+                <Button>내 스토어</Button>
+              </Link>
+            )}
             <Button onClick={handleLogout}>로그아웃</Button>
           </>
         ) : (
