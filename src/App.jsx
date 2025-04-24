@@ -4,10 +4,12 @@ import Home from './pages/Home'
 import ProfileDetail from './pages/ProfileDetail'
 import Create from './pages/Create'
 import Header from './components/Header'
-import EditMyshop from './components/common/Edit/EditMyshop'
-import CreateMyshop from './components/common/Create/CreateMyshop'
+// import EditMyshop from './components/common/Edit/EditMyshop'
+// import CreateMyshop from './components/common/Create/CreateMyshop'
 import './assets/scss/Styles.scss'
 import Signup from './pages/Signup'
+import Login from './pages/Login'
+import MyStore from './pages/MyStore'
 
 const App = () => {
   return (
@@ -19,8 +21,10 @@ const App = () => {
           <Route path="/profile/:id" element={<ProfileDetail />} />
           <Route path="/create" element={<Create />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/myshop" element={<CreateMyshop />} />
-          <Route path="/myshop" element={<EditMyshop />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/mystore" element={<MyStore />} />
+          {/* <Route path="/myshop" element={<CreateMyshop />} />
+          <Route path="/myshop" element={<EditMyshop />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
