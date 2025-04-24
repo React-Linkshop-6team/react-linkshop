@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react'
-
 import Eyes from '../../../assets/images/eyes.png'
 // import uploadImage from '../../../api/api.js'
 
@@ -19,7 +18,7 @@ const CreateShopInfo = ({ infoData, setInfoData }) => {
     if (name === 'password') {
       setInfoData(prev => ({
         ...prev,
-        currentPassword: value, // currentPassword에만 저장
+        currentPassword: value, // currentPassword로 업데이트
       }))
     } else {
       setInfoData(prev => ({
@@ -100,8 +99,8 @@ const CreateShopInfo = ({ infoData, setInfoData }) => {
           <span className="content-title">비밀번호</span>
           <input
             type={showPassword ? 'text' : 'password'}
-            name="password" // 여전히 name="password"로 설정되지만
-            value={infoData.currentPassword} // infoData.currentPassword로 변경
+            name="password" // 'password' name을 사용
+            value={infoData.currentPassword || ''} // currentPassword로 설정
             onChange={handleChange}
             placeholder="비밀번호를 입력해주세요"
             className="content-comment"
