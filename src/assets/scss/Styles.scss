@@ -10,6 +10,7 @@
 @import './Setting.scss';
 @import './Header.scss';
 @import './Button.scss';
+@import './Spinner/Spinner.scss';
 
 // 메인 페이지에서 사용되는 scss
 @import './ShopList/ShopList.scss';
@@ -40,3 +41,4 @@
 // 내쇼핑몰 scss
 @import '../scss/Edit/EditMyshop.scss';
 @import '../scss/Edit/EditRepItem.scss';
+@import '../scss/Edit/Edit.scss';

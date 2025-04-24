@@ -1,55 +1,83 @@
 /* eslint-disable */
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+// import { uploadImage } from '../../../api/api.js'
 
-const EditRepItem = ({ items: initialItems = [], setItems }) => {
-  // 유나 repItemcreate 코드 시작
-  const [linkId, setLinkId] = useState('')
+const EditRepItem = ({ data, onChange }) => {
+  const [items, setItems] = useState([])
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const navigate = useNavigate()
   const scrollableRef = useRef(null)
 
-  const handleImageUpload = async (index, e) => {
+  if (!data) return null
+  const uploadImage = async file => {
+    const formData = new FormData()
+    formData.append('image', file)
+
+    try {
+      const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!res.ok) throw new Error('이미지 업로드 실패')
+
+      const data = await res.json()
+      console.log('✅ 업로드 성공:', data)
+      return data.url
+    } catch (err) {
+      throw new Error('업로드중 실패')
+    }
+  }
+  const handleImgChange = async (e, index) => {
     const file = e.target.files[0]
-    if (file) {
-      const previewUrl = URL.createObjectURL(file)
+    if (!file) return
 
-      // 하드코딩된 URL을 사용하여 이미지 업로드 처리
-      const formData = new FormData()
-      formData.append('image', file)
-
-      try {
-        const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
-          method: 'POST',
-          body: formData,
-        })
-
-        if (!res.ok) throw new Error('이미지 업로드 실패')
-
-        const data = await res.json()
-        const uploadedUrl = data.url // 서버로부터 받은 이미지 URL
-
-        const updatedItems = [...items]
-        updatedItems[index] = {
-          ...updatedItems[index],
-          file,
-          fileName: file.name,
-          preview: previewUrl,
-          imageUrl: uploadedUrl,
-        }
-        setItems(updatedItems)
-      } catch (err) {
-        console.error('❌ 업로드 중 에러:', err)
-        alert('이미지 업로드에 실패했습니다.')
-      }
+    try {
+      const imageUrl = await uploadImage(file)
+      setItems(prevItems =>
+        prevItems.map((item, i) =>
+          i === index
+            ? {
+                ...item,
+                imageUrl,
+                file,
+                fileName: file.name,
+                preview: URL.createObjectURL(file),
+              }
+            : item
+        )
+      )
+    } catch (error) {
+      throw new Error('이미지 업로드에 실패했습니다.')
     }
   }
 
-  const handleChange = (index, field, value) => {
-    const updatedItems = [...items]
-    updatedItems[index][field] = value
-    setItems(updatedItems)
+  useEffect(() => {
+    if (data && data.length > 0 && items.length === 0) {
+      const initialized = data.map(item => ({
+        id: generateId(),
+        file: null,
+        fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
+        preview: null,
+        imageUrl: item.imageUrl || '',
+        productName: item.name || '',
+        productPrice: item.price || '',
+      }))
+      setItems(initialized)
+    }
+  }, [data])
+
+  useEffect(() => {
+    onChange?.(items)
+  }, [items])
+
+  const handleProductChange = (e, index) => {
+    const { name, value } = e.target
+    setItems(prevItems =>
+      prevItems.map((item, i) => (i === index ? { ...item, [name]: value } : item))
+    )
   }
 
   const handleAddItem = () => {
@@ -66,15 +94,8 @@ const EditRepItem = ({ items: initialItems = [], setItems }) => {
       imageUrl: '',
       productName: '',
       productPrice: '',
-      isSubmitted: false,
     }
     setItems(prev => [...prev, newItem])
-  }
-
-  const handleCreateShop = () => {
-    const generatedLinkId = generateId()
-    setLinkId(generatedLinkId)
-    navigate(`/link/${generatedLinkId}`)
   }
 
   useEffect(() => {
@@ -82,7 +103,6 @@ const EditRepItem = ({ items: initialItems = [], setItems }) => {
       bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }, [items])
-  // 유나 repItemcreate 코드 끝
 
   return (
     <div className="repitem-txt-wrap">
@@ -97,24 +117,51 @@ const EditRepItem = ({ items: initialItems = [], setItems }) => {
         {items.map((item, index) => (
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
+              <div className="content-file">
+                <div className="rep-item-name">
+                  <h5>상품 대표 이미지</h5>
+                  <span className="content-comment">
+                    {item.fileName || '상품 이미지를 첨부해주세요'}
+                  </span>
+                </div>
+                <label htmlFor={`imgUpload-${item.id}`} className="add-file">
+                  파일 첨부
+                </label>
+                <input
+                  type="file"
+                  id={`imgUpload-${item.id}`}
+                  name="imgUrl"
+                  onChange={e => handleImgChange(e, index)}
+                  style={{ display: 'none' }}
+                />
+              </div>
+
               <div className="rep-item-name">
                 <h5>상품 이름</h5>
                 <input
                   className="rep-item-input"
                   type="text"
+                  name="productName"
                   placeholder="상품 이름을 입력해주세요"
-                  value={item.productName}
-                  onChange={e => handleChange(index, 'productName', e.target.value)}
+                  value={item.productName || ''}
+                  onChange={e => handleProductChange(e, index)}
                 />
               </div>
+
               <div className="rep-item-price">
                 <h5>상품 가격</h5>
                 <input
                   className="rep-item-input"
                   type="number"
+                  name="productPrice"
                   placeholder="원화로 표기해주세요"
-                  value={item.productPrice}
-                  onChange={e => handleChange(index, 'productPrice', e.target.value)}
+                  value={item.productPrice || ''}
+                  onChange={e => {
+                    const val = e.target.value
+                    if (!isNaN(val) && Number(val) >= 0) {
+                      handleProductChange(e, index)
+                    }
+                  }}
                 />
               </div>
             </div>

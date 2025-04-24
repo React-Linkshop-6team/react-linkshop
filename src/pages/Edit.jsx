@@ -1,24 +1,31 @@
 /* eslint-disable */
-import { useParams } from 'react-router-dom'
-// import EditRepItem from '../components/common/Edit/EditRepItem'
+import { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+
 import EditMyShop from '../components/common/Edit/EditMyshop'
-import React, { useState, useEffect } from 'react'
-import LinkShopById from '../api/api'
+import EditRepItem from '../components/common/Edit/EditRepItem'
+import axios from 'axios'
+
+const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
+import { updateLinkShop, LinkShopById } from '../api/api'
 
 const Edit = () => {
-  const { teamId, linkShopId } = useParams()
+  const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
+  const teamId = '15-6'
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const shopData = await LinkShopById(teamId, linkShopId)
+        const shopData = await LinkShopById(linkShopId)
         setShopInfo({
+          imageUrl: shopData.shop?.imageUrl,
           name: shopData.name,
           shopUrl: shopData.shop?.shopUrl,
           userId: shopData.userId,
-          password: shopData.password,
-          imageUrl: shopData.imageUrl,
+          password: '',
+          urlName: shopData.shop?.urlName,
         })
         setProductList(shopData.products)
       } catch (err) {
@@ -27,7 +34,7 @@ const Edit = () => {
     }
 
     fetchData()
-  }, [teamId, linkShopId])
+  }, [linkShopId])
 
   const handleUpdate = async () => {
     const putEdit = {
@@ -37,29 +44,37 @@ const Edit = () => {
         urlName: shopInfo.name,
         shopUrl: shopInfo.shopUrl,
       },
+      products: productList.map(item => ({
+        price: Number(item.productPrice),
+        imageUrl: item.imageUrl,
+        name: item.productName || '',
+      })),
       userId: shopInfo.userId,
       name: shopInfo.name,
-      products: productList,
     }
-
+    console.log('🔧 PUT 요청 보낼 내용:', putEdit)
     try {
-      await updateLinkShop(teamId, linkShopId, putEdit)
-      alert('수정 완료!')
-    } catch (err) {
-      console.error('업데이트 실패', err)
+      const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {})
+      navigate(`/profile/${linkShopId}`)
+      // 필요하다면 성공 후 처리 로직
+    } catch (error) {
+      console.error('❌ 수정 실패:', error.response?.data || error)
     }
   }
 
+  // Edit.tsx
   return (
-    <>
+    <div className="edit-page">
       {shopInfo && (
         <>
-          {/* <EditRepItem initialItems={productList} onChange={setProductList} /> */}
+          <EditRepItem data={productList} onChange={setProductList} />
           <EditMyShop data={shopInfo} onChange={setShopInfo} />
-          <button onClick={handleUpdate}>수정 완료</button>
+          <button className="edit-button" onClick={handleUpdate}>
+            수정 완료
+          </button>
         </>
       )}
-    </>
+    </div>
   )
 }
 export default Edit

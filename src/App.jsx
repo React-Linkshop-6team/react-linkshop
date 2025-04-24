@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import ProfileDetail from './pages/ProfileDetail'
 import Create from './pages/Create'
-//import Edit from './pages/Edit'
+import Edit from './pages/Edit'
 import Header from './components/Header'
 import EditMyshop from './components/common/Edit/EditMyshop'
 import CreateMyshop from './components/common/Create/CreateMyshop'
@@ -19,9 +19,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile/:id" element={<ProfileDetail />} />
           <Route path="/create" element={<Create />} />
-          {/* <Route path="/edit" element={<Edit />} /> */}
+          <Route path="/edit/:linkShopId" element={<Edit />} />
+          <Route path="/edit" element={<Edit />} />
           <Route path="/myshop" element={<CreateMyshop />} />
-          <Route path="/myshop" element={<EditMyshop />} />
+          <Route path="/editmyshop" element={<EditMyshop />} />
         </Routes>
       </BrowserRouter>
     </div>
