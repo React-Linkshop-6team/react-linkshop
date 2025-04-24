@@ -54,11 +54,7 @@ const Edit = () => {
     }
     console.log('🔧 PUT 요청 보낼 내용:', putEdit)
     try {
-      const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {})
       navigate(`/profile/${linkShopId}`)
       // 필요하다면 성공 후 처리 로직
     } catch (error) {
