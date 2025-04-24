@@ -30,7 +30,6 @@ const Edit = () => {
         setProductList(shopData.products)
       } catch (err) {
         console.error('데이터 불러오기 실패', err)
-        console.log(putEdit)
       }
     }
 
@@ -60,7 +59,6 @@ const Edit = () => {
           'Content-Type': 'application/json',
         },
       })
-      console.log('✅ 수정 성공:', response.data)
       navigate(`/profile/${linkShopId}`)
       // 필요하다면 성공 후 처리 로직
     } catch (error) {

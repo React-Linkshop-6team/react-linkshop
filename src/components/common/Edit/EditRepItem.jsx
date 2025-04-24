@@ -27,8 +27,7 @@ const EditRepItem = ({ data, onChange }) => {
       console.log('✅ 업로드 성공:', data)
       return data.url
     } catch (err) {
-      console.error('❌ 업로드 중 에러:', err)
-      return null
+      throw new Error('업로드중 실패')
     }
   }
   const handleImgChange = async (e, index) => {
@@ -51,7 +50,7 @@ const EditRepItem = ({ data, onChange }) => {
         )
       )
     } catch (error) {
-      console.error('이미지 업로드 실패:', error)
+      throw new Error('이미지 업로드에 실패했습니다.')
     }
   }
 
