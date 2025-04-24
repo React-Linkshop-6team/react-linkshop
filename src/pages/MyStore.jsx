@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { Link } from 'react-router-dom'
+import { ref, get, child } from 'firebase/database'
 
 import { getShops } from '../api/api'
+import { db } from '../firebase' // 내부 import는 나중에!
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
 import DetailPageItemList from '../components/DetailPageItemList'
@@ -12,21 +14,31 @@ const MyStore = () => {
   const [myShop, setMyShop] = useState(null)
 
   useEffect(() => {
-    const fetchMyShop = async () => {
-      const auth = getAuth()
-      const currentUser = auth.currentUser
+    const auth = getAuth()
 
-      if (!currentUser) return
+    const unsubscribe = onAuthStateChanged(auth, async user => {
+      if (!user) return
 
+      const uid = user.uid
+
+      // Realtime Database에서 userId 가져오기
+      const userRef = ref(db)
+      const snapshot = await get(child(userRef, `users/${uid}`))
+
+      if (!snapshot.exists()) {
+        return
+      }
+
+      const userId = snapshot.val().userId
+
+      // 샵 목록에서 userId 비교
       const allShops = await getShops()
-      const userId = currentUser.reloadUserInfo?.userId
-      if (!userId) return
-      const foundShop = allShops.find(shop => shop.userId === userId)
+      const foundShop = allShops.find(shop => String(shop.userId) === String(userId))
 
       setMyShop(foundShop)
-    }
+    })
 
-    fetchMyShop()
+    return () => unsubscribe()
   }, [])
 
   if (!myShop) return <p>내 스토어를 찾을 수 없습니다.</p>
@@ -41,9 +53,9 @@ const MyStore = () => {
         </Link>
       </button>
       <section className="famous-items">
-        <AboutShop shop={myShop} />
+        <AboutShop id={myShop.id} />
         <h2 className="famous-item-title">대표 상품</h2>
-        <DetailPageItemList products={myShop.products} />
+        <DetailPageItemList id={myShop.id} />
       </section>
     </header>
   )
