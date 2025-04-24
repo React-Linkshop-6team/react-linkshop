@@ -8,10 +8,6 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.{js,jsx}'],
-    env: {
-      browser: true,
-      es2021: true,
-    },
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
@@ -23,6 +19,9 @@ export default [
       globals: {
         module: true,
         require: true,
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
       },
     },
     plugins: {
@@ -44,8 +43,8 @@ export default [
       'arrow-parens': ['error', 'as-needed'],
       'no-console': 'warn',
       'react/react-in-jsx-scope': 'off',
-      'react/jsx-uses-react': 'off', // 이거랑 바로 아래를 적용안하면 "xx" is defined but never used 이렇게 에러가 자꾸나서 넣음
-      'react/jsx-uses-vars': 'warn', //
+      'react/jsx-uses-react': 'off',
+      'react/jsx-uses-vars': 'warn',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'import/order': [
