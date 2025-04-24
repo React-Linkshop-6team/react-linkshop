@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { uploadImage } from '../../../api/api.js'
+// import { uploadImage } from '../../../api/api.js'
 
 const EditRepItem = ({ data, onChange }) => {
   const [items, setItems] = useState([])
@@ -11,7 +11,25 @@ const EditRepItem = ({ data, onChange }) => {
   const scrollableRef = useRef(null)
 
   if (!data) return null
+  const uploadImage = async file => {
+    const formData = new FormData()
+    formData.append('image', file)
 
+    try {
+      const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!res.ok) throw new Error('이미지 업로드 실패')
+
+      const data = await res.json()
+      console.log('✅ 업로드 성공:', data)
+      return data.url
+    } catch (err) {
+      throw new Error('업로드중 실패')
+    }
+  }
   const handleImgChange = async (e, index) => {
     const file = e.target.files[0]
     if (!file) return
@@ -32,7 +50,7 @@ const EditRepItem = ({ data, onChange }) => {
         )
       )
     } catch (error) {
-      console.error('이미지 업로드 실패:', error)
+      throw new Error('이미지 업로드에 실패했습니다.')
     }
   }
 
@@ -100,8 +118,8 @@ const EditRepItem = ({ data, onChange }) => {
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
               <div className="content-file">
-                <div className="content-box">
-                  <span className="content-title">상품 대표 이미지</span>
+                <div className="rep-item-name">
+                  <h5>상품 대표 이미지</h5>
                   <span className="content-comment">
                     {item.fileName || '상품 이미지를 첨부해주세요'}
                   </span>
@@ -138,7 +156,12 @@ const EditRepItem = ({ data, onChange }) => {
                   name="productPrice"
                   placeholder="원화로 표기해주세요"
                   value={item.productPrice || ''}
-                  onChange={e => handleProductChange(e, index)}
+                  onChange={e => {
+                    const val = e.target.value
+                    if (!isNaN(val) && Number(val) >= 0) {
+                      handleProductChange(e, index)
+                    }
+                  }}
                 />
               </div>
             </div>

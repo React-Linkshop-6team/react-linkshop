@@ -62,29 +62,24 @@ export const createShop = async payload => {
     throw error.response?.data || error
   }
 }
-
 // 이미지 업로드
 export const uploadImage = async file => {
   const formData = new FormData()
   formData.append('image', file)
 
   try {
-    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
+    const response = await axios.post(IMAGE_UPLOAD_URL, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     return response.data.url
   } catch (error) {
-    console.error('이미지 업로드 실패', error)
+    console.error('이미지 업로드 실패:', error)
     return null
   }
 }
 
-//   try {
-//     const response = await axios.post(IMAGE_UPLOAD_URL, formData)
-//     return response.data.url
-//   } catch (error) {
-//     console.error('이미지 업로드 실패', error)
-//     return null
-//   }
-// }
 export const LinkShopById = async linkShopId => {
   try {
     const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)

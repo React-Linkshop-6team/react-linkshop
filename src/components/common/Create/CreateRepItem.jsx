@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 
-const CreateRepItem = ({ items, setItems }) => {
+const RepItem = ({ items, setItems }) => {
   // 유나 repItemcreate 코드 시작
   const [linkId, setLinkId] = useState('')
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
@@ -131,4 +131,4 @@ const CreateRepItem = ({ items, setItems }) => {
   )
 }
 
-export default CreateRepItem
+export default RepItem
