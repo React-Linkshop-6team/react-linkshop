@@ -92,8 +92,9 @@ export const updateLinkShop = async (teamId, linkShopId, putEdit) => {
 // API 삭제하기 요청
 export const deleteShop = async (id, currentPassword) => {
   try {
+    console.log('삭제요청', id, currentPassword)
     const response = await axios.delete(`${LINKSHOP_API_URL}/${id}`, {
-      data: { currentPassword: currentPassword },
+      data: { currentPassword },
     })
     return response.data
   } catch (error) {

@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
 import { deleteShop } from '../api/api'
 
 const CheckDeletePageModal = ({ onClose }) => {
@@ -10,9 +9,11 @@ const CheckDeletePageModal = ({ onClose }) => {
   const navigate = useNavigate()
   const { id } = useParams()
 
-  const handleClickDeletePassword = async () => {
+  const handleClickDeletePassword = async e => {
+    e.preventDefault()
+
     if (!password) {
-      alert('비밀번호를 확인해주세요')
+      alert('비밀번호를 입력해주세요.')
       return
     }
 
@@ -24,10 +25,14 @@ const CheckDeletePageModal = ({ onClose }) => {
         navigate('/')
         onClose?.()
       } else {
-        alert('비밀번호를 확인해주세요.')
+        alert('삭제에 실패했습니다. 비밀번호를 다시 확인해주세요.')
       }
     } catch (error) {
-      alert('오류가 발생했습니다.')
+      if (error.response?.status === 400) {
+        alert('비밀번호가 일치하지 않습니다.')
+      } else {
+        alert('오류가 발생했습니다.')
+      }
       console.error(error.response?.data || error)
     }
   }
