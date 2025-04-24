@@ -13,6 +13,34 @@
   z-index: 10;
 }
 
+//pc
+@media screen and (min-width: 1024px) {
+  .edit-delete-modal {
+    top: 170px;
+    right: 120px;
+  }
+}
+
+//모바일
+@media screen and (max-width: 767px) {
+  .edit-delete-modal {
+    top: 140px;
+    right: 40px;
+    width: 120px;
+    font-size: 14px;
+  }
+}
+
+// 테블릿
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .edit-delete-modal {
+    top: 160px;
+    right: 40px;
+    width: 140px;
+    font-size: 16px;
+  }
+}
+
 .edit-modal {
   border-bottom: 1px solid rgba(221, 221, 221, 1);
   padding: 9px 23px;
