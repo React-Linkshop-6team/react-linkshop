@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
 import { uploadImage } from '../api/api' // 이미지 업로드 함수 가져오기
 
 const Create = () => {
+  const location = useLocation()
   const [name, setName] = useState('')
   const [shopUrl, setShopUrl] = useState('')
   const [inputUserId, setInputUserId] = useState('')
@@ -29,6 +31,16 @@ const Create = () => {
     userId: '',
     password: '',
   })
+
+  useEffect(() => {
+    if (location.state?.userId && location.state?.password) {
+      setInfoData(prev => ({
+        ...prev,
+        userId: location.state.userId,
+        password: location.state.password,
+      }))
+    }
+  }, [location])
 
   const handleImageUpload = async (file, index) => {
     if (!file) return
