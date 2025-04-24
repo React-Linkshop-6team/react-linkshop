@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 
 import { getShopById } from '../api/api.js'
 
-const DetailPageItemList = () => {
-  const { id } = useParams()
+const DetailPageItemList = ({ id }) => {
   const [itemList, setItemList] = useState([])
 
   useEffect(() => {
+    if (!id) return
+
     const fetchListData = async () => {
       const data = await getShopById(id)
+
       if (data && data.products) {
         setItemList(data.products)
+      } else {
+        console.warn('⚠️ 상품 정보 없음 또는 응답 형식 문제')
       }
     }
     fetchListData()

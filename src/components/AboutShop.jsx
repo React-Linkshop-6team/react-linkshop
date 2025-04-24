@@ -8,8 +8,9 @@ import ModalStateControl from './ModalStateControl'
 import urlCopyIcon from '../assets/images/url-copy-icon.png'
 import filterIcon from '../assets/images/filter-icon.png'
 
-const AboutShop = () => {
-  const { id } = useParams()
+const AboutShop = ({ id: propId }) => {
+  const { id: routeId } = useParams()
+  const id = propId ?? routeId
   const location = useLocation()
   const [shop, setShop] = useState(null)
   const [openModal, setOpenModal] = useState(false)
