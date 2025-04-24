@@ -46,6 +46,7 @@ const CheckDeletePageModal = ({ onClose }) => {
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
+        autoComplete="new-password"
       />
       <button className="check-button" onClick={handleClickDeletePassword}>
         삭제

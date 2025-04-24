@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getShopById, putShopById } from '../api/api'
 
-const InputPasswordModal = () => {
+const InputPasswordModal = ({ onClose }) => {
   const { id } = useParams()
   const [password, setPassword] = useState('')
   const [shopData, setShopData] = useState({})
@@ -25,7 +25,7 @@ const InputPasswordModal = () => {
     e.preventDefault()
 
     if (!shopData) return
-    // ...shopData 로 하면 json 데이터가 깨져서 오류가 날 수있기 때문에 일일이 하나씩 다 넣어줘야함.
+    // ...shopData 로 하면 json 데이터가 깨져서 오류가 날 수있기 때문에 아래처럼 일일이 하나씩 다 넣어줘야함.
     try {
       const updatedData = {
         currentPassword: password,
@@ -51,7 +51,7 @@ const InputPasswordModal = () => {
         alert('비밀번호가 일치하지 않습니다.')
       }
     } catch (error) {
-      if (error.reponse?.status === 400) {
+      if (error.response?.status === 400) {
         alert('비밀번호가 맞지 않습니다.')
       } else {
         alert('오류가 발생했습니다.')
@@ -69,9 +69,13 @@ const InputPasswordModal = () => {
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
+        autoComplete="new-passward"
       />
       <button className="check-button" onClick={handleClickPassword}>
         확인
+      </button>
+      <button className="cancel-button" onClick={onClose}>
+        취소
       </button>
     </form>
   )
