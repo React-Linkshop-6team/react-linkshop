@@ -18,7 +18,12 @@ const Login = () => {
     try {
       const email = `${userId}@linkshop.com`
       await signInWithEmailAndPassword(auth, email, password)
-      nav('/')
+      nav('/create', {
+        state: {
+          userId,
+          password,
+        },
+      })
     } catch (error) {
       setError('로그인 실패: ' + error.message)
     }
