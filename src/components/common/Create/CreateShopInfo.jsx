@@ -14,10 +14,19 @@ const CreateShopInfo = ({ infoData, setInfoData }) => {
   // 입력 값 변경 핸들러
   const handleChange = e => {
     const { name, value } = e.target
-    setInfoData(prev => ({
-      ...prev,
-      [name]: value,
-    }))
+
+    // 비밀번호 입력 시 currentPassword만 업데이트
+    if (name === 'password') {
+      setInfoData(prev => ({
+        ...prev,
+        currentPassword: value, // currentPassword에만 저장
+      }))
+    } else {
+      setInfoData(prev => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
   }
 
   // 이미지 변경 핸들러
@@ -82,7 +91,6 @@ const CreateShopInfo = ({ infoData, setInfoData }) => {
           onChange={handleChange}
           placeholder="유저 ID를 입력해주세요"
           className="content-comment"
-          // userId={infoData.userId}
         />
       </div>
 
@@ -92,8 +100,8 @@ const CreateShopInfo = ({ infoData, setInfoData }) => {
           <span className="content-title">비밀번호</span>
           <input
             type={showPassword ? 'text' : 'password'}
-            name="password"
-            value={infoData.password}
+            name="password" // 여전히 name="password"로 설정되지만
+            value={infoData.currentPassword} // infoData.currentPassword로 변경
             onChange={handleChange}
             placeholder="비밀번호를 입력해주세요"
             className="content-comment"
