@@ -29,18 +29,28 @@ const Create = () => {
     name: '',
     shopUrl: '',
     userId: '',
-    password: '',
+    currentPassword: '', // currentPassword로 수정
   })
 
   // 입력된 아이템들이 모두 유효한지 체크하는 함수
   const isItemsValid = () => {
-    return items.every(item => item.imageUrl && item.productName && item.productPrice)
+    return items.every(item => {
+      const isValid =
+        item.imageUrl && item.productName && item.productPrice && item.productPrice > 0
+      console.log(`아이템 ${item.id} 유효성:`, isValid) // 디버깅 로그
+      return isValid
+    })
   }
 
-  // 입력이 모두 유효한지 체크하는 함수
   const isFormValid = () => {
     const trimmedName = infoData.name.trim()
-    return trimmedName && isItemsValid() && infoData.shopUrl && infoData.userId && infoData.password
+    const isValid =
+      trimmedName &&
+      isItemsValid() &&
+      infoData.shopUrl &&
+      infoData.userId &&
+      infoData.currentPassword // currentPassword 사용
+    return isValid
   }
 
   const handleSubmit = async () => {
@@ -50,7 +60,6 @@ const Create = () => {
       return
     }
 
-    // payload 내용에서 가격 0 체크, password와 userId 유효성 체크
     const payload = {
       shop: {
         imageUrl: items[0].imageUrl,
@@ -63,10 +72,10 @@ const Create = () => {
         name: item.productName,
       })),
       password:
-        infoData.password.length >= 6 &&
-        /\d/.test(infoData.password) &&
-        /[a-zA-Z]/.test(infoData.password)
-          ? infoData.password
+        infoData.currentPassword.length >= 6 &&
+        /\d/.test(infoData.currentPassword) &&
+        /[a-zA-Z]/.test(infoData.currentPassword)
+          ? infoData.currentPassword
           : 'admin123', // 영문+숫자 6자 이상
       userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234', // 특수문자, 공백 없는지 체크
       name: infoData.name.trim(),
@@ -74,12 +83,12 @@ const Create = () => {
 
     try {
       await createShop(payload)
-      // alert('등록이 완료되었습니다.')
       navigate('/')
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
   }
+
   //유나 create 코드 끝
 
   return (
