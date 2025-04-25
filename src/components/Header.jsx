@@ -1,11 +1,11 @@
 import { useLocation, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
-import { getDatabase, ref, get, child } from 'firebase/database'
+import { ref, get, child } from 'firebase/database'
+
 import { db } from '../firebase'
 import { getShops } from '../api/api'
 import profileImg from '../assets/images/linkshop.png'
-
 import logo from '../assets/images/logo.png'
 import Button from './common/Button'
 
@@ -21,6 +21,9 @@ const Header = () => {
     const unsubscribe = onAuthStateChanged(auth, async user => {
       if (user) {
         setIsLoggedIn(true)
+        if (sessionStorage.getItem('hasShop') === 'true') {
+          setHasShop(true)
+        }
         const uid = user.uid
         const snapshot = await get(child(ref(db), `users/${uid}`))
         if (!snapshot.exists()) return
@@ -36,6 +39,12 @@ const Header = () => {
     })
     return () => unsubscribe()
   }, [])
+
+  useEffect(() => {
+    if (isLoggedIn && sessionStorage.getItem('hasShop') === 'true') {
+      setHasShop(true)
+    }
+  }, [location.pathname])
 
   const handleLogout = () => {
     const auth = getAuth()
