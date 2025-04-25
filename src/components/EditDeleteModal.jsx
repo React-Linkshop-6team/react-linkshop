@@ -1,5 +1,7 @@
 //수정하기/삭제하기 버튼을 보여줌.
 
+import { useEffect, useRef } from 'react'
+
 import CheckDeletePageModal from './CheckDeletePageModal'
 import InputPasswordModal from './InputPasswordModal'
 
@@ -9,33 +11,40 @@ const EditDeleteModal = ({
   showDeleteModal,
   setShowDeleteModal,
   onClose,
+  shopId,
+  isVisible,
+  setIsVisible,
 }) => {
   const modalRef = useRef(null)
 
   useEffect(() => {
-    const handelClickOtherSide = e => {
+    const handleClickOtherSide = e => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        setShowDeleteModal(false)
+        setIsVisible(false)
       }
     }
 
-    document.addEventListener('mousedown', handelClickOtherSide)
+    document.addEventListener('mousedown', handleClickOtherSide)
     return () => {
-      document.removeEventListener('mousedown', handelClickOtherSide)
+      document.removeEventListener('mousedown', handleClickOtherSide)
     }
-  }, [setShowDeleteModal])
+  }, [setIsVisible])
 
   return (
-    <section className="edit-delete-modal">
-      <div className="edit-modal" onClick={handleClickEdit}>
-        수정하기
-      </div>
-      {inputPassword && <InputPasswordModal onClose={onClose} />}
-      <div className="delete-modal" onClick={() => setShowDeleteModal(true)}>
-        삭제하기
-      </div>
-      {showDeleteModal && <CheckDeletePageModal onClose={() => setShowDeleteModal(false)} />}
-    </section>
+    <>
+      {isVisible && (
+        <section className="edit-delete-modal" ref={modalRef}>
+          <div className="edit-modal" onClick={handleClickEdit}>
+            수정하기
+          </div>
+          {inputPassword && <InputPasswordModal id={shopId} onClose={onClose} />}
+          <div className="delete-modal" onClick={() => setShowDeleteModal(true)}>
+            삭제하기
+          </div>
+          {showDeleteModal && <CheckDeletePageModal onClose={() => setShowDeleteModal(false)} />}
+        </section>
+      )}
+    </>
   )
 }
 

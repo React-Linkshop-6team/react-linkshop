@@ -9,6 +9,7 @@ import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
 import DetailPageItemList from '../components/DetailPageItemList'
 import AboutShop from '../components/AboutShop.jsx'
+import ModalStateControl from '../components/ModalStateControl'
 
 const MyStore = () => {
   const [myShop, setMyShop] = useState(null)
@@ -57,6 +58,7 @@ const MyStore = () => {
         <h2 className="famous-item-title">대표 상품</h2>
         <DetailPageItemList id={myShop.id} />
       </section>
+      <ModalStateControl shopId={myShop.id} />
     </header>
   )
 }

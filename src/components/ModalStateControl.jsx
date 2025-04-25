@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
+import { deleteShop } from '../api/api'
 import EditDeleteModal from './EditDeleteModal'
 
-const ModalStateControl = () => {
-  const { id } = useParams()
+const ModalStateControl = ({ shopId, isVisible, setIsVisible }) => {
   const location = useLocation()
   const isMyStore = location.pathname === '/mystore'
 
@@ -26,7 +27,7 @@ const ModalStateControl = () => {
     }
 
     try {
-      const result = await deleteShop(id, currentPassword)
+      const result = await deleteShop(shopId, currentPassword)
       if (result) {
         alert('삭제가 완료되었습니다!')
       } else {
@@ -40,7 +41,7 @@ const ModalStateControl = () => {
 
   return (
     <>
-      {isMyStore && (
+      {isMyStore && shopId && (
         <EditDeleteModal
           deleteConfirm={deleteConfirm}
           inputPassword={inputPassword}
@@ -51,6 +52,9 @@ const ModalStateControl = () => {
           setCurrentPassword={setCurrentPassword}
           showDeleteModal={showDeleteModal}
           setShowDeleteModal={setShowDeleteModal}
+          shopId={shopId}
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
         />
       )}
     </>

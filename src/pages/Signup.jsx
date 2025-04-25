@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { useState } from 'react'
 import { ref, set } from 'firebase/database'
+import { useNavigate } from 'react-router-dom'
 
 import app, { db } from '../firebase'
 
@@ -9,6 +10,7 @@ const Signup = () => {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('')
   const [shopName, setShopName] = useState('')
+  const navigate = useNavigate()
 
   const onSubmit = async event => {
     event.preventDefault()
@@ -27,6 +29,7 @@ const Signup = () => {
       })
 
       console.log('User created and stored in DB:', user)
+      navigate('/')
     } catch (error) {
       console.error('Error creating user:', error.message)
     }

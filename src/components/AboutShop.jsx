@@ -63,7 +63,7 @@ const AboutShop = ({ id: propId }) => {
               <img className="filter-icon" src={filterIcon} alt="수정·삭제" />
             </button>
           )}
-          {openModal && <ModalStateControl />}
+          <ModalStateControl shopId={id} isVisible={openModal} setIsVisible={setOpenModal} />
         </div>
       </div>
       <div className="shop-image-container" style={{ backgroundColor: randomColor }}>

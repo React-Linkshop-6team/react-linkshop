@@ -69,9 +69,13 @@ const Header = () => {
             {isMenuOpen && (
               <div className="dropdown-menu">
                 {hasShop ? (
-                  <Link to="/mystore">내 스토어</Link>
+                  <Link to="/mystore" onClick={() => setIsMenuOpen(false)}>
+                    내 스토어
+                  </Link>
                 ) : (
-                  <Link to="/create">생성하기</Link>
+                  <Link to="/create" onClick={() => setIsMenuOpen(false)}>
+                    생성하기
+                  </Link>
                 )}
                 <button className="logout-button" onClick={handleLogout}>
                   로그아웃

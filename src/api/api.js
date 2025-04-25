@@ -62,29 +62,24 @@ export const createShop = async payload => {
     throw error.response?.data || error
   }
 }
+
 // 이미지 업로드
 export const uploadImage = async file => {
   const formData = new FormData()
   formData.append('image', file)
-}
 
-//   try {
-//     const response = await axios.post(IMAGE_UPLOAD_URL, formData)
-//     return response.data.url
-//   } catch (error) {
-//     console.error('이미지 업로드 실패', error)
-//     return null
-//   }
-// }
-// export const LinkShopById = async (teamId, linkShopId) => {
-//   try {
-//     const response = await axios.get(`${LINKSHOP_API_URL}/${teamId}/linkshops/${linkShopId}`)
-//     return response.data
-//   } catch (error) {
-//     console.error('링크샵 상세 정보 가져오기 실패:', error)
-//     throw error
-//   }
-// }
+  try {
+    const response = await axios.post(IMAGE_UPLOAD_URL, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response.data.url
+  } catch (error) {
+    console.error('이미지 업로드 실패:', error)
+    return null
+  }
+}
 
 // 수정완료 버튼 눌렀을 때 등록
 export const updateLinkShop = async (linkShopId, putEdit) => {

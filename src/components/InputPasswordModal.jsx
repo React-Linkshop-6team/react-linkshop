@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
 import { getShopById, putShopById } from '../api/api'
 
-const InputPasswordModal = ({ onClose }) => {
-  const { id } = useParams()
+const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')
   const [shopData, setShopData] = useState({})
   const navigate = useNavigate()
