@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { deleteShop } from '../api/api'
 import EditDeleteModal from './EditDeleteModal'
 
-const ModalStateControl = ({ shopId, isVisible, setIsVisible }) => {
+const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess }) => {
   const location = useLocation()
   const isMyStore = location.pathname === '/mystore'
 
@@ -30,6 +30,7 @@ const ModalStateControl = ({ shopId, isVisible, setIsVisible }) => {
       const result = await deleteShop(shopId, currentPassword)
       if (result) {
         alert('삭제가 완료되었습니다!')
+        if (onDeleteSuccess) onDeleteSuccess()
       } else {
         alert('삭제에 실패했습니다.')
       }
