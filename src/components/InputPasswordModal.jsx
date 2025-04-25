@@ -25,7 +25,7 @@ const InputPasswordModal = ({ onClose }) => {
     e.preventDefault()
 
     if (!shopData) return
-    // ...shopData 로 하면 json 데이터가 깨져서 오류가 날 수있기 때문에 아래처럼 일일이 하나씩 다 넣어줘야함.
+
     try {
       const updatedData = {
         currentPassword: password,

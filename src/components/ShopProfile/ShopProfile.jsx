@@ -5,8 +5,8 @@ import { COLORS } from '../../constants/color'
 // ShopProfile 컴포넌트
 // 역할: 상점의 프로필 정보를 표시하는 컴포넌트
 // 상점 이름, 상점 정보, 대표 상품 개수를 받아서 화면에 보여준다.
-const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
-  const { imageUrl, urlName } = shopInfo
+const ShopProfile = ({ name, userId, shopInfo, productsCount, listId }) => {
+  const { imageUrl } = shopInfo
 
   const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
 
@@ -24,7 +24,7 @@ const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
         </div>
         <div className="profile-texts-container">
           <h2 className="profile-name">{name}</h2>
-          <p className="profile-url">@{urlName}</p>
+          <p className="profile-url">@{name || '기본 사용자 ID'}</p>
         </div>
       </div>
       <p className="profile-count">대표 상품 {productsCount} 개</p>

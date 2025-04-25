@@ -114,7 +114,6 @@ export const deleteShop = async (id, currentPassword) => {
   }
 }
 
-
 // currentPassword 를 가져오는 put API
 export const putShopById = async (id, updatedData) => {
   try {
