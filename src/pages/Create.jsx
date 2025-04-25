@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
-import { uploadImage } from '../api/api' // 이미지 업로드 함수 가져오기
-
+import { useNavigate } from 'react-router-dom'
+import Spinner from '../components/common/Spinner'
 const Create = () => {
-  const location = useLocation()
+  const navigate = useNavigate()
   const [name, setName] = useState('')
   const [shopUrl, setShopUrl] = useState('')
   const [inputUserId, setInputUserId] = useState('')
@@ -77,15 +77,26 @@ const Create = () => {
     setItems(updatedItems)
   }
 
-  // 입력된 아이템들이 모두 유효한지 체크하는 함수
+  const [isLoading, setIsLoading] = useState(false) // 로딩 상태
+
   const isItemsValid = () => {
-    return items.every(item => item.imageUrl && item.productName && item.productPrice)
+    return items.every(item => {
+      const isValid =
+        item.imageUrl && item.productName && item.productPrice && item.productPrice > 0
+      console.log(`아이템 ${item.id} 유효성:`, isValid)
+      return isValid
+    })
   }
 
-  // 입력이 모두 유효한지 체크하는 함수
   const isFormValid = () => {
     const trimmedName = infoData.name.trim()
-    return trimmedName && isItemsValid() && infoData.shopUrl && infoData.userId && infoData.password
+    const isValid =
+      trimmedName &&
+      isItemsValid() &&
+      infoData.shopUrl &&
+      infoData.userId &&
+      infoData.currentPassword
+    return isValid
   }
 
   const handleSubmit = async () => {
@@ -93,6 +104,8 @@ const Create = () => {
       alert('모든 정보를 입력해주세요.')
       return
     }
+
+    setIsLoading(true) // 로딩 시작
 
     const payload = {
       shop: {
@@ -117,26 +130,26 @@ const Create = () => {
 
     try {
       await createShop(payload)
-      // alert('등록이 완료되었습니다.')
-      navigate('/')
+      setIsLoading(false) // 로딩 종료
+      navigate('/') // 메인 페이지로 리디렉션
     } catch (error) {
+      setIsLoading(false) // 로딩 종료
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
   }
 
   return (
     <div className="create-wrap">
+      {/* 로딩 중일 때 Spinner 표시 */}
+      {isLoading && <Spinner text="샵을 생성하는 중입니다..." />}
+
       <CreateMyshop
         infoData={infoData}
         setInfoData={setInfoData}
         items={items}
         setItems={setItems}
       />
-      <CreateRepItem
-        items={items}
-        setItems={setItems}
-        onImageUpload={handleImageUpload} // 이미지 업로드 핸들러를 props로 전달
-      />
+      <CreateRepItem items={items} setItems={setItems} />
 
       <button
         onClick={handleSubmit}

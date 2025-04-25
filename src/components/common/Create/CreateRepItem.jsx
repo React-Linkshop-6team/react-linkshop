@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
+import Spinner from '../Spinner'
 
 const CreateRepItem = ({ items, setItems }) => {
   // 유나 repItemcreate 코드 시작
   const [linkId, setLinkId] = useState('')
+  const [loadingItems, setLoadingItems] = useState([]) // 로딩 상태를 추적할 배열
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const navigate = useNavigate()
@@ -15,7 +17,9 @@ const CreateRepItem = ({ items, setItems }) => {
     if (file) {
       const previewUrl = URL.createObjectURL(file)
 
-      // 하드코딩된 URL을 사용하여 이미지 업로드 처리
+      // 이미지 업로드 처리 전에 로딩 상태 업데이트
+      setLoadingItems(prev => [...prev, index]) // 로딩 상태 추가
+
       const formData = new FormData()
       formData.append('image', file)
 
@@ -39,9 +43,14 @@ const CreateRepItem = ({ items, setItems }) => {
           imageUrl: uploadedUrl,
         }
         setItems(updatedItems)
+
+        // 로딩 상태 제거
+        setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
       } catch (err) {
         console.error('❌ 업로드 중 에러:', err)
         alert('이미지 업로드에 실패했습니다.')
+        // 로딩 상태 제거
+        setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
       }
     }
   }
@@ -82,7 +91,6 @@ const CreateRepItem = ({ items, setItems }) => {
       bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }, [items])
-  // 유나 repItemcreate 코드 끝
 
   return (
     <div className="repitem-txt-wrap">
@@ -97,11 +105,17 @@ const CreateRepItem = ({ items, setItems }) => {
         {items.map((item, index) => (
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
-              <CreateRepItemImageUploader
-                fileName={item.fileName}
-                onImageUpload={e => handleImageUpload(index, e)}
-                id={item.id}
-              />
+              {/* CreateRepItemImageUploader와 Spinner이 함께 보이도록 조정 */}
+              <div className="image-uploader-wrap" style={{ position: 'relative' }}>
+                {/* 로딩 중일 때만 Spinner 표시 */}
+                {loadingItems.includes(index) && <Spinner text="사진 업로드 중입니다..." />}
+                <CreateRepItemImageUploader
+                  fileName={item.fileName}
+                  onImageUpload={e => handleImageUpload(index, e)}
+                  id={item.id}
+                />
+              </div>
+
               <div className="rep-item-name">
                 <h5>상품 이름</h5>
                 <input

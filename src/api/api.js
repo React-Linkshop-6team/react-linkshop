@@ -62,25 +62,29 @@ export const createShop = async payload => {
     throw error.response?.data || error
   }
 }
-
 // 이미지 업로드
 export const uploadImage = async file => {
   const formData = new FormData()
   formData.append('image', file)
-
-  try {
-    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
-    return response.data.url
-  } catch (error) {
-    console.error('이미지 업로드 실패', error)
-    return null
-  }
 }
 
-export const LinkShopById = async (teamId, linkShopId) => {
-  const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
-  return response.data
-}
+//   try {
+//     const response = await axios.post(IMAGE_UPLOAD_URL, formData)
+//     return response.data.url
+//   } catch (error) {
+//     console.error('이미지 업로드 실패', error)
+//     return null
+//   }
+// }
+// export const LinkShopById = async (teamId, linkShopId) => {
+//   try {
+//     const response = await axios.get(`${LINKSHOP_API_URL}/${teamId}/linkshops/${linkShopId}`)
+//     return response.data
+//   } catch (error) {
+//     console.error('링크샵 상세 정보 가져오기 실패:', error)
+//     throw error
+//   }
+// }
 
 // 수정완료 버튼 눌렀을 때 등록
 export const updateLinkShop = async (linkShopId, putEdit) => {
@@ -95,12 +99,24 @@ export const updateLinkShop = async (linkShopId, putEdit) => {
 // API 삭제하기 요청
 export const deleteShop = async (id, currentPassword) => {
   try {
+    console.log('삭제요청', id, currentPassword)
     const response = await axios.delete(`${LINKSHOP_API_URL}/${id}`, {
-      data: { currentPassword: currentPassword },
+      data: { currentPassword },
     })
     return response.data
   } catch (error) {
     console.error('삭제 중 오류 발생', error.response?.data || error)
+    return null
+  }
+}
+
+// currentPassword 를 가져오는 put API
+export const putShopById = async (id, updatedData) => {
+  try {
+    const response = await axios.put(`${LINKSHOP_API_URL}/${id}`, updatedData)
+    return response.data
+  } catch (error) {
+    console.error('페이지 로딩에 실패했습니다.', error.response?.data || error)
     return null
   }
 }

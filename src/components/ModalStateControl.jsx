@@ -1,9 +1,5 @@
-//모달들의 상태를 관리하는 컴포넌트.
-
 import { useState } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
 
-import { deleteShop } from '../api/api'
 import EditDeleteModal from './EditDeleteModal'
 
 const ModalStateControl = () => {

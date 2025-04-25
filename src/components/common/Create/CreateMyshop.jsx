@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
+import Spinner from '../Spinner'
+import { v4 as uuidv4 } from 'uuid'
 
 const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
   const [imageUrl, setImageUrl] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const uploadImage = async file => {
     const formData = new FormData()
     formData.append('image', file)
 
+    console.log('업로드할 URL:', import.meta.env.VITE_IMAGE_UPLOAD_URL)
+
     try {
-      const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
+      const res = await fetch(import.meta.env.VITE_IMAGE_UPLOAD_URL, {
         method: 'POST',
         body: formData,
       })
@@ -31,13 +36,21 @@ const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
     const file = e.target.files[0]
     if (!file) return
 
-    const uploadedUrl = await uploadImage(file)
+    const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
+    const renamedFile = new File([file], safeFileName, { type: file.type })
+
+    setIsLoading(true) // ✅ 업로드 시작 전에 로딩 ON
+
+    const uploadedUrl = await uploadImage(renamedFile)
+
+    setIsLoading(false) // ✅ 업로드 끝나면 로딩 OFF
+
     if (!uploadedUrl) {
-      alert('이미지 업로드에 실패했습니다.')
+      alert('이미지 업로드 실패')
       return
     }
 
-    setFileName(file.name)
+    setFileName(safeFileName)
     setImageUrl(uploadedUrl)
   }
 
@@ -46,6 +59,7 @@ const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
       <span className="my-item">내 쇼핑몰</span>
       <div className="my-item-shop">
         <div className="item-content">
+          {isLoading ? <Spinner text="사진 업로드 중입니다..." /> : null}
           <CreateRepItemImageUploader
             fileName={fileName}
             onImageUpload={handleImageUpload}
