@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+
 import { getShopById, putShopById } from '../api/api'
 
 const InputPasswordModal = ({ onClose }) => {
@@ -71,12 +72,14 @@ const InputPasswordModal = ({ onClose }) => {
         onChange={e => setPassword(e.target.value)}
         autoComplete="new-passward"
       />
-      <button className="check-button" onClick={handleClickPassword}>
-        확인
-      </button>
-      <button className="cancel-button" onClick={onClose}>
-        취소
-      </button>
+      <div className="check-delete-button">
+        <button className="check-button" onClick={handleClickPassword}>
+          확인
+        </button>
+        <button className="cancel-button" onClick={onClose}>
+          취소
+        </button>
+      </div>
     </form>
   )
 }

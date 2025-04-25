@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+
 import { deleteShop } from '../api/api'
 
 const CheckDeletePageModal = ({ onClose }) => {
@@ -48,12 +49,14 @@ const CheckDeletePageModal = ({ onClose }) => {
         onChange={e => setPassword(e.target.value)}
         autoComplete="new-password"
       />
-      <button className="check-button" onClick={handleClickDeletePassword}>
-        삭제
-      </button>
-      <button className="cancel-button" onClick={onClose}>
-        취소
-      </button>
+      <div className="check-delete-button">
+        <button className="check-button" onClick={handleClickDeletePassword}>
+          삭제
+        </button>
+        <button className="cancel-button" onClick={onClose}>
+          취소
+        </button>
+      </div>
     </form>
   )
 }

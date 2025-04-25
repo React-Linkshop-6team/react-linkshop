@@ -7,6 +7,7 @@ import ShopLike from './common/ShopLike'
 import ModalStateControl from './ModalStateControl'
 import urlCopyIcon from '../assets/images/url-copy-icon.png'
 import filterIcon from '../assets/images/filter-icon.png'
+import Spinner from '../components/common/Spinner.jsx'
 
 const AboutShop = () => {
   const { id } = useParams()
@@ -42,7 +43,7 @@ const AboutShop = () => {
     fetchData()
   }, [id])
 
-  if (!shop) return <p>상점을 불러오는 중입니다..</p>
+  if (!shop) return <Spinner />
 
   const { shop: shopInfo, likes, userId } = shop
   const { urlName, shopUrl, imageUrl } = shopInfo
