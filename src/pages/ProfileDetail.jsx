@@ -6,7 +6,6 @@ import goToBack from '../assets/images/go-to-back.png'
 import { getShopById } from '../api/api.js'
 import DetailPageItemList from '../components/DetailPageItemList'
 import AboutShop from '../components/AboutShop.jsx'
-import Spinner from '../components/common/Spinner.jsx'
 
 const ProfileDetail = () => {
   const [shop, setShop] = useState(null)

@@ -71,12 +71,14 @@ const InputPasswordModal = ({ id, onClose }) => {
         onChange={e => setPassword(e.target.value)}
         autoComplete="new-passward"
       />
-      <button className="check-button" onClick={handleClickPassword}>
-        확인
-      </button>
-      <button className="cancel-button" onClick={onClose}>
-        취소
-      </button>
+      <div className="check-delete-button">
+        <button className="check-button" onClick={handleClickPassword}>
+          확인
+        </button>
+        <button className="cancel-button" onClick={onClose}>
+          취소
+        </button>
+      </div>
     </form>
   )
 }
