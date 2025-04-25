@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import ProfileDetail from './pages/ProfileDetail'
 import Create from './pages/Create'
 import Header from './components/Header'
-// import EditMyshop from './components/common/Edit/EditMyshop'
+import EditMyshop from './components/common/Edit/EditMyshop'
 import CreateMyshop from './components/common/Create/CreateMyshop'
 import './assets/scss/Styles.scss'
 import Signup from './pages/Signup'
@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mystore" element={<MyStore />} />
           <Route path="/myshop" element={<CreateMyshop />} />
-          {/* <Route path="/myshop" element={<EditMyshop />} /> */}
+          <Route path="/myshop" element={<EditMyshop />} />
         </Routes>
       </BrowserRouter>
     </div>
