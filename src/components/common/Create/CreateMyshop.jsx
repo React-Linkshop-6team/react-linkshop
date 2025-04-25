@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
+import Spinner from '../Spinner'
 import { v4 as uuidv4 } from 'uuid'
 
 const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
   const [imageUrl, setImageUrl] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const uploadImage = async file => {
     const formData = new FormData()
@@ -34,20 +36,22 @@ const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
     const file = e.target.files[0]
     if (!file) return
 
-    // 안전한 파일명 생성 (uuid + 원래 확장자 유지)
     const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
-
-    // 새 File 객체 생성 (서버에 안전한 이름으로 전달되도록)
     const renamedFile = new File([file], safeFileName, { type: file.type })
 
+    setIsLoading(true) // ✅ 업로드 시작 전에 로딩 ON
+
     const uploadedUrl = await uploadImage(renamedFile)
+
+    setIsLoading(false) // ✅ 업로드 끝나면 로딩 OFF
+
     if (!uploadedUrl) {
       alert('이미지 업로드 실패')
       return
     }
 
-    setFileName(safeFileName) // 안전한 파일명 상태로 저장
-    setImageUrl(uploadedUrl) // 업로드된 이미지 URL 상태 저장
+    setFileName(safeFileName)
+    setImageUrl(uploadedUrl)
   }
 
   return (
@@ -55,6 +59,7 @@ const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
       <span className="my-item">내 쇼핑몰</span>
       <div className="my-item-shop">
         <div className="item-content">
+          {isLoading ? <Spinner text="사진 업로드 중입니다..." /> : null}
           <CreateRepItemImageUploader
             fileName={fileName}
             onImageUpload={handleImageUpload}
