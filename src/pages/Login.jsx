@@ -25,17 +25,9 @@ const Login = () => {
     }
   }
 
-  // Logout handler
-  const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem('linkshopUser')
-    }
-    nav('/')
-  }
-
   return (
     <div className="login-container">
-      <h2>로그인</h2>
+      <h2 className="login-title">로그인</h2>
       <form onSubmit={handleLogin} className="login-form">
         <input
           className="form-input"
