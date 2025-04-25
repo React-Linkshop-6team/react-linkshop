@@ -46,11 +46,11 @@ const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
       <span className="my-item">내 쇼핑몰</span>
       <div className="my-item-shop">
         <div className="item-content">
-          {/* <CreateRepItemImageUploader
+          <CreateRepItemImageUploader
             fileName={fileName}
             onImageUpload={handleImageUpload}
             id="myshop"
-          /> */}
+          />
           <CreateShopInfo infoData={infoData} setInfoData={setInfoData} />
         </div>
       </div>
