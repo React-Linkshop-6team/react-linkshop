@@ -41,7 +41,9 @@ const EditDeleteModal = ({
           <div className="delete-modal" onClick={() => setShowDeleteModal(true)}>
             삭제하기
           </div>
-          {showDeleteModal && <CheckDeletePageModal onClose={() => setShowDeleteModal(false)} />}
+          {showDeleteModal && (
+            <CheckDeletePageModal id={shopId} onClose={() => setShowDeleteModal(false)} />
+          )}
         </section>
       )}
     </>

@@ -83,7 +83,7 @@ const Create = () => {
     return items.every(item => {
       const isValid =
         item.imageUrl && item.productName && item.productPrice && item.productPrice > 0
-      console.log(`아이템 ${item.id} 유효성:`, isValid)
+
       return isValid
     })
   }

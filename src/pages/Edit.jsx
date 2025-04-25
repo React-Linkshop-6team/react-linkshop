@@ -1,13 +1,11 @@
-/* eslint-disable */
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-import axios from 'axios'
-
 const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
-import { updateLinkShop, LinkShopById } from '../api/api'
+import { LinkShopById } from '../api/api'
 
 const Edit = () => {
   const { linkShopId } = useParams()
@@ -30,7 +28,6 @@ const Edit = () => {
         setProductList(shopData.products)
       } catch (err) {
         console.error('데이터 불러오기 실패', err)
-        console.log(putEdit)
       }
     }
 
@@ -42,7 +39,7 @@ const Edit = () => {
       currentPassword: shopInfo.password,
       shop: {
         imageUrl: shopInfo.imageUrl,
-        urlName: 'kimpizza',
+        urlName: shopInfo.name,
         shopUrl: shopInfo.shopUrl,
       },
       products: productList.map(item => ({

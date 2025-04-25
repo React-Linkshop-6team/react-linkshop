@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+// import { uploadImage } from '../../../api/api.js'
 
 const EditRepItem = ({ data, onChange }) => {
   const [items, setItems] = useState([])
@@ -66,17 +67,7 @@ const EditRepItem = ({ data, onChange }) => {
       setItems(initialized)
     }
   }, [data])
-  }, [data])
 
-  useEffect(() => {
-    onChange?.(items)
-  }, [items])
-
-  const handleProductChange = (e, index) => {
-    const { name, value } = e.target
-    setItems(prevItems =>
-      prevItems.map((item, i) => (i === index ? { ...item, [name]: value } : item))
-    )
   useEffect(() => {
     onChange?.(items)
   }, [items])

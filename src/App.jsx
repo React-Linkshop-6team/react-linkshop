@@ -10,6 +10,7 @@ import './assets/scss/Styles.scss'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import MyStore from './pages/MyStore'
+import Edit from './pages/Edit'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/mystore" element={<MyStore />} />
           <Route path="/myshop" element={<CreateMyshop />} />
           <Route path="/editmyshop" element={<EditMyshop />} />
+          <Route path="/edit/:linkShopId" element={<Edit />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -155,3 +155,13 @@ export const getShopsByFilter = async (filter, cursor = null) => {
     return { list: [], nextCursor: null }
   }
 }
+
+export const LinkShopById = async linkShopId => {
+  try {
+    const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
+    return response.data
+  } catch (error) {
+    console.error('링크샵 상세 정보 가져오기 실패:', error)
+    throw error
+  }
+}
