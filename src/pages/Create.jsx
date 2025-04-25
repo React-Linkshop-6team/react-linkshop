@@ -130,6 +130,7 @@ const Create = () => {
 
     try {
       await createShop(payload)
+      sessionStorage.setItem('hasShop', 'true')
       setIsLoading(false) // 로딩 종료
       navigate('/') // 메인 페이지로 리디렉션
     } catch (error) {
