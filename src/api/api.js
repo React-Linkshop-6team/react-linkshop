@@ -92,12 +92,12 @@ export const LinkShopById = async linkShopId => {
 
 // 수정완료 버튼 눌렀을 때 등록
 export const updateLinkShop = async (linkShopId, putEdit) => {
-  const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  return response.data
+  try {
+    const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit)
+    return response.data
+  } catch (error) {
+    console.log('실패 이유:', error.response?.data || error)
+  }
 }
 
 // API 삭제하기 요청

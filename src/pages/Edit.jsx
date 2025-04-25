@@ -4,9 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-import axios from 'axios'
 
-const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 import { updateLinkShop, LinkShopById } from '../api/api'
 
 const Edit = () => {
@@ -54,9 +52,8 @@ const Edit = () => {
     }
     console.log('🔧 PUT 요청 보낼 내용:', putEdit)
     try {
-      const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {})
+      const response = await updateLinkShop(linkShopId, putEdit)
       navigate(`/profile/${linkShopId}`)
-      // 필요하다면 성공 후 처리 로직
     } catch (error) {
       console.error('❌ 수정 실패:', error.response?.data || error)
     }
