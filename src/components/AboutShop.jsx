@@ -17,6 +17,8 @@ const AboutShop = ({ id: propId }) => {
 
   const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
 
+  const isMyStore = location.pathname === '/mystore'
+
   // URL 복사 기능
   const handleCopy = async () => {
     try {
@@ -56,9 +58,11 @@ const AboutShop = ({ id: propId }) => {
           <button className="url-copy-button" onClick={handleCopy}>
             <img className="copy-icon" src={urlCopyIcon} alt="URL 복사" />
           </button>
-          <button className="edit-delete-button" onClick={handleToggleModal}>
-            <img className="filter-icon" src={filterIcon} alt="수정·삭제" />
-          </button>
+          {isMyStore && (
+            <button className="edit-delete-button" onClick={handleToggleModal}>
+              <img className="filter-icon" src={filterIcon} alt="수정·삭제" />
+            </button>
+          )}
           {openModal && <ModalStateControl />}
         </div>
       </div>
