@@ -23,8 +23,7 @@ const CheckDeletePageModal = ({ onClose, id }) => {
       if (result) {
         alert('삭제가 완료되었습니다.')
         onClose?.()
-        window.location.href = '/'
-        window.location.reload()
+        navigate('/')
       } else {
         alert('삭제에 실패했습니다. 비밀번호를 다시 확인해주세요.')
       }

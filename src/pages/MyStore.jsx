@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ref, get, child } from 'firebase/database'
 
 import { getShops } from '../api/api'
@@ -12,6 +12,7 @@ import AboutShop from '../components/AboutShop.jsx'
 import ModalStateControl from '../components/ModalStateControl'
 
 const MyStore = () => {
+  const navigate = useNavigate()
   const [myShop, setMyShop] = useState(null)
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const MyStore = () => {
         <h2 className="famous-item-title">대표 상품</h2>
         <DetailPageItemList id={myShop.id} />
       </section>
-      <ModalStateControl shopId={myShop.id} />
+      <ModalStateControl shopId={myShop.id} onDeleteSuccess={() => navigate('/')} />
     </header>
   )
 }
