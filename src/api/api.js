@@ -68,11 +68,7 @@ export const uploadImage = async file => {
   formData.append('image', file)
 
   try {
-    const response = await axios.post(IMAGE_UPLOAD_URL, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
     return response.data.url
   } catch (error) {
     console.error('이미지 업로드 실패:', error)

@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
-//import { uploadImage } from '../../../api/api'
+import { uploadImage } from '../../../api/api'
 
 const EditMyShop = ({ data, onChange }) => {
   const [inputUserId, setInputUserId] = useState('')
@@ -12,33 +12,15 @@ const EditMyShop = ({ data, onChange }) => {
   const [showPassword, setShowPassword] = useState(false)
   const inputRef = useRef(null)
 
-  const uploadImage = async file => {
-    const formData = new FormData()
-    formData.append('image', file)
-
-    try {
-      const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (!res.ok) throw new Error('이미지 업로드 실패')
-
-      const data = await res.json()
-      console.log('✅ 업로드 성공:', data)
-      return data.url
-    } catch (err) {
-      throw new Error('업로드 중 에러')
-    }
-  }
-
   const handleImgChange = async e => {
     const file = e.target.files[0]
     if (!file) return
+    setImgFile(file)
     try {
       const imageUrl = await uploadImage(file)
-      onChange(prev => ({ ...prev, imageUrl }))
-      setImgFile(file)
+      if (imageUrl) {
+        onChange(prev => ({ ...prev, imageUrl }))
+      }
     } catch (error) {
       throw new Error('이미지 업로드에 실패했습니다.')
     }
