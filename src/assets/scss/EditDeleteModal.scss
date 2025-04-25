@@ -11,33 +11,72 @@
   top: 170px;
   right: 120px;
   z-index: 10;
+  max-width: 1440px;
 }
 
-//pc
-@media screen and (min-width: 1024px) {
+/* 최대 해상도 (울트라 4K 이상) */
+@media screen and (min-width: 3000px) {
+  .edit-delete-modal {
+    top: 165px;
+    right: 730px;
+  }
+}
+
+/* 4K~QHD (2560px) */
+@media screen and (min-width: 2560px) and (max-width: 2999px) {
+  .edit-delete-modal {
+    top: 165px;
+    right: 730px;
+  }
+}
+
+/* FHD ~ QHD (1920px ~ 2559px) */
+@media screen and (min-width: 1920px) and (max-width: 2559px) {
+  .edit-delete-modal {
+    top: 165px;
+    right: 600px;
+  }
+}
+
+/* 1441px ~ 1919px (기존 데스크탑) */
+@media screen and (min-width: 1440px) and (max-width: 1600px) {
   .edit-delete-modal {
     top: 170px;
-    right: 200px;
+    right: 170px;
   }
 }
 
-//모바일
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 1211px) and (max-width: 1439px) {
   .edit-delete-modal {
-    top: 140px;
-    right: 40px;
-    width: 120px;
-    font-size: 14px;
+    top: 170px;
+    right: 60px;
   }
 }
 
-// 테블릿
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 1025px) and (max-width: 1210px) {
+  .edit-delete-modal {
+    top: 160px;
+    right: 50px;
+  }
+}
+
+/* 태블릿 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .edit-delete-modal {
     top: 160px;
     right: 40px;
     width: 140px;
     font-size: 16px;
+  }
+}
+
+/* 모바일 */
+@media screen and (max-width: 767px) {
+  .edit-delete-modal {
+    top: 130px;
+    right: 50px;
+    width: 120px;
+    font-size: 14px;
   }
 }
 
