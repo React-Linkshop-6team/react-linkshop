@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
-import { useNavigate } from 'react-router-dom'
-import Spinner from '../components/common/Spinner'
+
 const Create = () => {
+  //유나 create 코드 시작
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [shopUrl, setShopUrl] = useState('')
@@ -95,17 +95,16 @@ const Create = () => {
       isItemsValid() &&
       infoData.shopUrl &&
       infoData.userId &&
-      infoData.currentPassword
+      infoData.currentPassword // currentPassword 사용
     return isValid
   }
 
   const handleSubmit = async () => {
+    // 필수 항목들에 대해 유효성 검사
     if (!infoData.name.trim() || !isItemsValid()) {
       alert('모든 정보를 입력해주세요.')
       return
     }
-
-    setIsLoading(true) // 로딩 시작
 
     const payload = {
       shop: {
@@ -114,7 +113,7 @@ const Create = () => {
         shopUrl: infoData.shopUrl,
       },
       products: items.map(item => ({
-        price: item.productPrice > 0 ? item.productPrice : 1000,
+        price: item.productPrice > 0 ? item.productPrice : 1000, // 가격이 0일 때 기본값 1000 설정
         imageUrl: item.imageUrl,
         name: item.productName,
       })),
@@ -134,16 +133,14 @@ const Create = () => {
       setIsLoading(false) // 로딩 종료
       navigate('/') // 메인 페이지로 리디렉션
     } catch (error) {
-      setIsLoading(false) // 로딩 종료
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
   }
 
+  //유나 create 코드 끝
+
   return (
     <div className="create-wrap">
-      {/* 로딩 중일 때 Spinner 표시 */}
-      {isLoading && <Spinner text="샵을 생성하는 중입니다..." />}
-
       <CreateMyshop
         infoData={infoData}
         setInfoData={setInfoData}
@@ -152,10 +149,11 @@ const Create = () => {
       />
       <CreateRepItem items={items} setItems={setItems} />
 
+      {/* 버튼 활성화/비활성화 */}
       <button
         onClick={handleSubmit}
-        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
-        disabled={!isFormValid()}
+        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`} // 활성화된 상태일 때 'enabled' 클래스 추가
+        disabled={!isFormValid()} // 입력이 유효하지 않으면 버튼 비활성화
       >
         생성하기
       </button>
