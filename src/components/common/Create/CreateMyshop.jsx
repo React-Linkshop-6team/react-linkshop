@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
+
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
 import Spinner from '../Spinner'
-import { v4 as uuidv4 } from 'uuid'
 
 const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')

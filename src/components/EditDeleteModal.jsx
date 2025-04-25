@@ -1,6 +1,7 @@
 //수정하기/삭제하기 버튼을 보여줌.
 
 import { useEffect, useRef } from 'react'
+
 import CheckDeletePageModal from './CheckDeletePageModal'
 import InputPasswordModal from './InputPasswordModal'
 
