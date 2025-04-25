@@ -18,22 +18,27 @@ const Login = () => {
     try {
       const email = `${userId}@linkshop.com`
       await signInWithEmailAndPassword(auth, email, password)
-      nav('/create', {
-        state: {
-          userId,
-          password,
-        },
-      })
+      nav('/')
+      sessionStorage.setItem('linkshopUser', JSON.stringify({ userId, password }))
     } catch (error) {
       setError('로그인 실패: ' + error.message)
     }
   }
 
+  // Logout handler
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('linkshopUser')
+    }
+    nav('/')
+  }
+
   return (
-    <div>
+    <div className="login-container">
       <h2>로그인</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="login-form">
         <input
+          className="form-input"
           type="text"
           placeholder="아이디"
           value={userId}
@@ -41,16 +46,19 @@ const Login = () => {
           required
         />
         <input
+          className="form-input"
           type="password"
           placeholder="비밀번호"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <button type="submit">로그인</button>
+        <button type="submit" className="login-button">
+          로그인
+        </button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <p>
+      {error && <p className="error-message">{error}</p>}
+      <p className="signup-link">
         계정이 없으신가요? <a href="/signup">회원가입</a>
       </p>
     </div>

@@ -33,12 +33,24 @@ const Create = () => {
   })
 
   useEffect(() => {
-    if (location.state?.userId && location.state?.password) {
+    const stateUserId = location.state?.userId
+    const statePassword = location.state?.password
+
+    if (stateUserId && statePassword) {
       setInfoData(prev => ({
         ...prev,
-        userId: location.state.userId,
-        password: location.state.password,
+        userId: stateUserId,
+        password: statePassword,
       }))
+    } else if (typeof window !== 'undefined') {
+      const storedUser = JSON.parse(sessionStorage.getItem('linkshopUser'))
+      if (storedUser?.userId && storedUser?.password) {
+        setInfoData(prev => ({
+          ...prev,
+          userId: storedUser.userId,
+          password: storedUser.password,
+        }))
+      }
     }
   }, [location])
 

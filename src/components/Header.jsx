@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { getDatabase, ref, get, child } from 'firebase/database'
 import { db } from '../firebase'
 import { getShops } from '../api/api'
+import profileImg from '../assets/images/linkshop.png'
 
 import logo from '../assets/images/logo.png'
 import Button from './common/Button'
@@ -13,6 +14,7 @@ const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [hasShop, setHasShop] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const auth = getAuth()
@@ -37,10 +39,19 @@ const Header = () => {
 
   const handleLogout = () => {
     const auth = getAuth()
-    signOut(auth).catch(error => {
-      console.error('로그아웃 실패:', error)
-    })
+    signOut(auth)
+      .then(() => {
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem('linkshopUser')
+        }
+        window.location.href = '/'
+      })
+      .catch(error => {
+        console.error('로그아웃 실패:', error)
+      })
   }
+
+  const toggleMenu = () => setIsMenuOpen(prev => !prev)
 
   if (location.pathname.startsWith('/profile')) return null
 
@@ -51,32 +62,23 @@ const Header = () => {
           <img src={logo} alt="Linkshop logo" className="header-logo" />
         </Link>
       </div>
-      {/* <div className="header-right">
-        {location.pathname === '/create' ? (
-          <Button to="/">돌아가기</Button>
-        ) : (
-          <Button to="/create">생성하기</Button>
-        )}
-      </div> */}
-      {/* <div>
-        <Link to="/signup">
-          <Button>회원가입</Button>
-        </Link>
-      </div> */}
-      <div>
+      <div className="header-right">
         {isLoggedIn ? (
-          <>
-            {hasShop ? (
-              <Link to="/mystore">
-                <Button>내 스토어</Button>
-              </Link>
-            ) : (
-              <Link to="/create">
-                <Button>생성하기</Button>
-              </Link>
+          <div className="profile-wrapper">
+            <img src={profileImg} alt="profile" className="profile-image" onClick={toggleMenu} />
+            {isMenuOpen && (
+              <div className="dropdown-menu">
+                {hasShop ? (
+                  <Link to="/mystore">내 스토어</Link>
+                ) : (
+                  <Link to="/create">생성하기</Link>
+                )}
+                <button className="logout-button" onClick={handleLogout}>
+                  로그아웃
+                </button>
+              </div>
             )}
-            <Button onClick={handleLogout}>로그아웃</Button>
-          </>
+          </div>
         ) : (
           <Link to="/login">
             <Button>로그인</Button>
