@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
 import { getShopById } from '../api/api'
-import { COLORS } from '../constants/color'
 import ShopLike from './common/ShopLike'
 import ModalStateControl from './ModalStateControl'
 import urlCopyIcon from '../assets/images/url-copy-icon.png'
@@ -15,8 +14,6 @@ const AboutShop = ({ id: propId }) => {
   const location = useLocation()
   const [shop, setShop] = useState(null)
   const [openModal, setOpenModal] = useState(false)
-
-  const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)]
 
   const isMyStore = location.pathname === '/mystore'
 
@@ -67,7 +64,7 @@ const AboutShop = ({ id: propId }) => {
           <ModalStateControl shopId={id} isVisible={openModal} setIsVisible={setOpenModal} />
         </div>
       </div>
-      <div className="shop-image-container" style={{ backgroundColor: randomColor }}>
+      <div className="shop-image-container">
         <img className="shop-image" src={imageUrl} alt={urlName} />
       </div>
       <div className="shop-name">{urlName}</div>
