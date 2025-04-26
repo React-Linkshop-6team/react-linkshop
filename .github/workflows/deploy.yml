@@ -24,7 +24,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTIONS }}
         with:
           source-directory: 'output'
-          destination-github-username: 'ikimyh22@naver.com'
+          destination-github-username: 'ikimyh22'
           destination-repository-name: 'react-linkshop'
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
