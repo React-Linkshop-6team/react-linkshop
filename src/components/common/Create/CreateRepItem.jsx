@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import Spinner from '../Spinner'
 
-const RepItem = ({ items, setItems }) => {
+const CreateRepItem = ({ items, setItems }) => {
+  // 유나 repItemcreate 코드 시작
   const [linkId, setLinkId] = useState('')
   const [loadingItems, setLoadingItems] = useState([]) // 로딩 상태를 추적할 배열
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
@@ -144,4 +145,4 @@ const RepItem = ({ items, setItems }) => {
   )
 }
 
-export default RepItem
+export default CreateRepItem

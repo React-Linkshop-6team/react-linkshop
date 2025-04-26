@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
 import Spinner from '../Spinner'
 
-const CreateMyshop = ({ infoData, setInfoData, items, setItems }) => {
+const CreateMyshop = ({ infoData, setInfoData }) => {
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
   const [imageUrl, setImageUrl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)

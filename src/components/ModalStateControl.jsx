@@ -1,13 +1,13 @@
-//모달들의 상태를 관리하는 컴포넌트.
-
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { deleteShop } from '../api/api'
 import EditDeleteModal from './EditDeleteModal'
 
-const ModalStateControl = () => {
-  const { id } = useParams()
+const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess }) => {
+  const location = useLocation()
+  const isMyStore = location.pathname === '/mystore'
+
   const [deleteConfirm, setDeleteConfirm] = useState(false)
   const [inputPassword, setInputPassword] = useState(false)
   const [currentPassword, setCurrentPassword] = useState('')
@@ -16,6 +16,7 @@ const ModalStateControl = () => {
   const handleClickEdit = () => {
     setInputPassword(true)
   }
+
   const handleDelete = async () => {
     const isConfirmed = window.confirm('정말 삭제하시겠습니까?')
     if (!isConfirmed) return
@@ -26,9 +27,10 @@ const ModalStateControl = () => {
     }
 
     try {
-      const result = await deleteShop(id, currentPassword)
+      const result = await deleteShop(shopId, currentPassword)
       if (result) {
         alert('삭제가 완료되었습니다!')
+        if (onDeleteSuccess) onDeleteSuccess()
       } else {
         alert('삭제에 실패했습니다.')
       }
@@ -39,17 +41,24 @@ const ModalStateControl = () => {
   }
 
   return (
-    <EditDeleteModal
-      deleteConfirm={deleteConfirm}
-      inputPassword={inputPassword}
-      setDeleteConfirm={setDeleteConfirm}
-      handleClickEdit={handleClickEdit}
-      handleDelete={handleDelete}
-      currentPassword={currentPassword}
-      setCurrentPassword={setCurrentPassword}
-      showDeleteModal={showDeleteModal}
-      setShowDeleteModal={setShowDeleteModal}
-    />
+    <>
+      {isMyStore && shopId && (
+        <EditDeleteModal
+          deleteConfirm={deleteConfirm}
+          inputPassword={inputPassword}
+          setDeleteConfirm={setDeleteConfirm}
+          handleClickEdit={handleClickEdit}
+          handleDelete={handleDelete}
+          currentPassword={currentPassword}
+          setCurrentPassword={setCurrentPassword}
+          showDeleteModal={showDeleteModal}
+          setShowDeleteModal={setShowDeleteModal}
+          shopId={shopId}
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+        />
+      )}
+    </>
   )
 }
 

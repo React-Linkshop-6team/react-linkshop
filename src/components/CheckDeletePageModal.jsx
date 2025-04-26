@@ -1,14 +1,13 @@
 //삭제하기 기능을 사용할 때 비밀번호를 입력받는 컴포넌트.
 
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { deleteShop } from '../api/api'
 
-const CheckDeletePageModal = ({ onClose }) => {
+const CheckDeletePageModal = ({ onClose, id }) => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
-  const { id } = useParams()
 
   const handleClickDeletePassword = async e => {
     e.preventDefault()
@@ -23,8 +22,8 @@ const CheckDeletePageModal = ({ onClose }) => {
 
       if (result) {
         alert('삭제가 완료되었습니다.')
-        navigate('/')
         onClose?.()
+        navigate('/')
       } else {
         alert('삭제에 실패했습니다. 비밀번호를 다시 확인해주세요.')
       }

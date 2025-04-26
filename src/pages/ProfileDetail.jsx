@@ -34,9 +34,9 @@ const ProfileDetail = () => {
         </Link>
       </button>
       <section className="famous-items">
-        <AboutShop shop={shop} />
+        <AboutShop id={shop?.id} />
         <h2 className="famous-item-title">대표 상품</h2>
-        <DetailPageItemList />
+        <DetailPageItemList id={shop?.id} />
       </section>
     </header>
   )

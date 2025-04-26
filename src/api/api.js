@@ -62,6 +62,7 @@ export const createShop = async payload => {
     throw error.response?.data || error
   }
 }
+
 // 이미지 업로드
 export const uploadImage = async file => {
   const formData = new FormData()
@@ -77,16 +78,6 @@ export const uploadImage = async file => {
   } catch (error) {
     console.error('이미지 업로드 실패:', error)
     return null
-  }
-}
-
-export const LinkShopById = async linkShopId => {
-  try {
-    const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
-    return response.data
-  } catch (error) {
-    console.error('링크샵 상세 정보 가져오기 실패:', error)
-    throw error
   }
 }
 
@@ -162,5 +153,15 @@ export const getShopsByFilter = async (filter, cursor = null) => {
   } catch (error) {
     console.error('필터링된 상점 데이터를 가져오는데 실패했습니다:', error)
     return { list: [], nextCursor: null }
+  }
+}
+
+export const LinkShopById = async linkShopId => {
+  try {
+    const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
+    return response.data
+  } catch (error) {
+    console.error('링크샵 상세 정보 가져오기 실패:', error)
+    throw error
   }
 }

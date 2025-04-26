@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
@@ -30,15 +29,61 @@ const Create = () => {
     name: '',
     shopUrl: '',
     userId: '',
-    currentPassword: '', // currentPassword로 수정
+    password: '',
   })
 
-  // 입력된 아이템들이 모두 유효한지 체크하는 함수
+  useEffect(() => {
+    const stateUserId = location.state?.userId
+    const statePassword = location.state?.password
+
+    if (stateUserId && statePassword) {
+      setInfoData(prev => ({
+        ...prev,
+        userId: stateUserId,
+        password: statePassword,
+      }))
+    } else if (typeof window !== 'undefined') {
+      const storedUser = JSON.parse(sessionStorage.getItem('linkshopUser'))
+      if (storedUser?.userId && storedUser?.password) {
+        setInfoData(prev => ({
+          ...prev,
+          userId: storedUser.userId,
+          password: storedUser.password,
+        }))
+      }
+    }
+  }, [location])
+
+  const handleImageUpload = async (file, index) => {
+    if (!file) return
+
+    const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
+
+    // 이름을 바꾼 File 객체 만들기
+    const renamedFile = new File([file], safeFileName, { type: file.type })
+
+    const uploadedUrl = await uploadImage(renamedFile) // fileName 넘기지 않아도 됨
+    if (!uploadedUrl) {
+      alert('이미지 업로드 실패')
+      return
+    }
+
+    const updatedItems = [...items]
+    updatedItems[index] = {
+      ...updatedItems[index],
+      fileName: safeFileName,
+      imageUrl: uploadedUrl,
+    }
+    setItems(updatedItems)
+  }
+
+  const [isLoading, setIsLoading] = useState(false) // 로딩 상태
+
   const isItemsValid = () => {
     return items.every(item => {
       const isValid =
         item.imageUrl && item.productName && item.productPrice && item.productPrice > 0
-      console.log(`아이템 ${item.id} 유효성:`, isValid) // 디버깅 로그
+
       return isValid
     })
   }
@@ -73,18 +118,20 @@ const Create = () => {
         name: item.productName,
       })),
       password:
-        infoData.currentPassword.length >= 6 &&
-        /\d/.test(infoData.currentPassword) &&
-        /[a-zA-Z]/.test(infoData.currentPassword)
-          ? infoData.currentPassword
-          : 'admin123', // 영문+숫자 6자 이상
-      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234', // 특수문자, 공백 없는지 체크
+        infoData.password.length >= 6 &&
+        /\d/.test(infoData.password) &&
+        /[a-zA-Z]/.test(infoData.password)
+          ? infoData.password
+          : 'admin123',
+      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234',
       name: infoData.name.trim(),
     }
 
     try {
       await createShop(payload)
-      navigate('/')
+      sessionStorage.setItem('hasShop', 'true')
+      setIsLoading(false) // 로딩 종료
+      navigate('/') // 메인 페이지로 리디렉션
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }

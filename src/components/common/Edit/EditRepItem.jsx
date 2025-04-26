@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { uploadImage } from '../../../api/api.js'
