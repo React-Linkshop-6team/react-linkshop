@@ -31,7 +31,7 @@ const DetailPageItemList = ({ id }) => {
     <div className="render-item-list">
       {itemList.length > 0 ? (
         itemList.map(item => (
-          <div className="item-name" key={item.name}>
+          <div className="item-name" key={item.id}>
             <img className="item-image" src={item.imageUrl} alt={item.name || '상품 이미지'} />
             <div className="item-title-price">
               <div className="item-title">{item.name}</div>
