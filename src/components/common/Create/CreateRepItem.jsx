@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 
-const RepItem = ({ items, setItems }) => {
-  // 유나 repItemcreate 코드 시작
+const CreateRepItem = ({ items, setItems }) => {
   const [linkId, setLinkId] = useState('')
+  const [loadingItems, setLoadingItems] = useState([])
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const navigate = useNavigate()
@@ -16,7 +16,8 @@ const RepItem = ({ items, setItems }) => {
     if (file) {
       const previewUrl = URL.createObjectURL(file)
 
-      // 하드코딩된 URL을 사용하여 이미지 업로드 처리
+      setLoadingItems(prev => [...prev, index])
+
       const formData = new FormData()
       formData.append('image', file)
 
@@ -29,7 +30,7 @@ const RepItem = ({ items, setItems }) => {
         if (!res.ok) throw new Error('이미지 업로드 실패')
 
         const data = await res.json()
-        const uploadedUrl = data.url // 서버로부터 받은 이미지 URL
+        const uploadedUrl = data.url
 
         const updatedItems = [...items]
         updatedItems[index] = {
@@ -40,9 +41,11 @@ const RepItem = ({ items, setItems }) => {
           imageUrl: uploadedUrl,
         }
         setItems(updatedItems)
+
+        setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
       } catch (err) {
-        console.error('❌ 업로드 중 에러:', err)
         alert('이미지 업로드에 실패했습니다.')
+        setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
       }
     }
   }
@@ -132,4 +135,4 @@ const RepItem = ({ items, setItems }) => {
   )
 }
 
-export default RepItem
+export default CreateRepItem

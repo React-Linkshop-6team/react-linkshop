@@ -22,6 +22,8 @@ export default [
         window: 'readonly',
         document: 'readonly',
         console: 'readonly',
+        alert: 'readonly',
+        sessionStorage: 'readonly',
       },
     },
     plugins: {

@@ -1,17 +1,42 @@
 import { useState } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
-
-const InfoInput = ({ infoData, setInfoData }) => {
-  // 유나 shopInfo 코드 시작
+import EyeClick from '../../../assets/images/eyeClick.png'
+const CreateShopInfo = ({ infoData, setInfoData }) => {
   const [showPassword, setShowPassword] = useState(false)
+  // 이미지 파일 상태
+  const [imgFile, setImgFile] = useState(null)
+
+  const inputRef = useRef(null)
 
   const handleChange = e => {
     const { name, value } = e.target
-    setInfoData(prev => ({
-      ...prev,
-      [name]: value,
-    }))
+
+    if (name === 'password') {
+      setInfoData(prev => ({
+        ...prev,
+        currentPassword: value,
+      }))
+    } else {
+      setInfoData(prev => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
+  }
+
+  const handleImgChange = async e => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    try {
+      const imageUrl = await uploadImage(file)
+      setInfoData(prev => ({
+        ...prev,
+        imageUrl,
+      }))
+      setImgFile(file)
+    } catch (error) {}
   }
 
   const togglePassword = () => {
@@ -31,6 +56,7 @@ const InfoInput = ({ infoData, setInfoData }) => {
           className="content-comment"
         />
       </div>
+
       <div className="content-box">
         <span className="content-title">Url</span>
         <input
@@ -42,32 +68,37 @@ const InfoInput = ({ infoData, setInfoData }) => {
           className="content-comment"
         />
       </div>
-      <div className="user-info">
-        <div className="content-box">
-          <span className="content-title">유저 ID</span>
-          <input
-            type="text"
-            name="userId"
-            value={infoData.userId}
-            onChange={handleChange}
-            placeholder="유저 ID를 입력해주세요"
-            className="content-comment"
-          />
-        </div>
+
+      <div className="content-box">
+        <span className="content-title">유저 ID</span>
+        <input
+          type="text"
+          name="userId"
+          value={infoData.userId}
+          onChange={handleChange}
+          placeholder="유저 ID를 입력해주세요"
+          className="content-comment"
+        />
       </div>
+
       <div className="user-info">
         <div className="content-box">
           <span className="content-title">비밀번호</span>
           <input
             type={showPassword ? 'text' : 'password'}
             name="password"
-            value={infoData.password}
+            value={infoData.currentPassword || ''}
             onChange={handleChange}
             placeholder="비밀번호를 입력해주세요"
             className="content-comment"
           />
         </div>
-        <img src={Eyes} alt="비밀번호 보기" className="password-eyes" onClick={togglePassword} />
+        <img
+          src={showPassword ? EyeClick : Eyes}
+          alt="비밀번호 보기"
+          className="password-eyes"
+          onClick={togglePassword}
+        />
       </div>
     </div>
   )

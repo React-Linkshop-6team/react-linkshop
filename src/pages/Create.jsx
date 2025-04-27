@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import CreateRepItem from '../components/common/Create/CreateRepItem'
@@ -6,7 +6,6 @@ import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
 
 const Create = () => {
-  //유나 create 코드 시작
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [shopUrl, setShopUrl] = useState('')
@@ -33,19 +32,74 @@ const Create = () => {
     password: '',
   })
 
-  // 입력된 아이템들이 모두 유효한지 체크하는 함수
+  useEffect(() => {
+    const stateUserId = location.state?.userId
+    const statePassword = location.state?.password
+
+    if (stateUserId && statePassword) {
+      setInfoData(prev => ({
+        ...prev,
+        userId: stateUserId,
+        password: statePassword,
+      }))
+    } else if (typeof window !== 'undefined') {
+      const storedUser = JSON.parse(sessionStorage.getItem('linkshopUser'))
+      if (storedUser?.userId && storedUser?.password) {
+        setInfoData(prev => ({
+          ...prev,
+          userId: storedUser.userId,
+          password: storedUser.password,
+        }))
+      }
+    }
+  }, [location])
+
+  const handleImageUpload = async (file, index) => {
+    if (!file) return
+
+    const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
+
+    const renamedFile = new File([file], safeFileName, { type: file.type })
+
+    const uploadedUrl = await uploadImage(renamedFile)
+    if (!uploadedUrl) {
+      alert('이미지 업로드 실패')
+      return
+    }
+
+    const updatedItems = [...items]
+    updatedItems[index] = {
+      ...updatedItems[index],
+      fileName: safeFileName,
+      imageUrl: uploadedUrl,
+    }
+    setItems(updatedItems)
+  }
+
+  const [isLoading, setIsLoading] = useState(false)
+
   const isItemsValid = () => {
-    return items.every(item => item.imageUrl && item.productName && item.productPrice)
+    return items.every(item => {
+      const isValid =
+        item.imageUrl && item.productName && item.productPrice && item.productPrice > 0
+
+      return isValid
+    })
   }
 
   // 입력이 모두 유효한지 체크하는 함수
   const isFormValid = () => {
     const trimmedName = infoData.name.trim()
-    return trimmedName && isItemsValid() && infoData.shopUrl && infoData.userId && infoData.password
+    const isValid =
+      trimmedName &&
+      isItemsValid() &&
+      infoData.shopUrl &&
+      infoData.userId &&
+      infoData.currentPassword
+    return isValid
   }
 
   const handleSubmit = async () => {
-    // 필수 항목들에 대해 유효성 검사
     if (!infoData.name.trim() || !isItemsValid()) {
       alert('모든 정보를 입력해주세요.')
       return
@@ -59,7 +113,7 @@ const Create = () => {
         shopUrl: infoData.shopUrl,
       },
       products: items.map(item => ({
-        price: item.productPrice > 0 ? item.productPrice : 1000, // 가격이 0일 때 기본값 1000 설정
+        price: item.productPrice > 0 ? item.productPrice : 1000,
         imageUrl: item.imageUrl,
         name: item.productName,
       })),
@@ -68,20 +122,20 @@ const Create = () => {
         /\d/.test(infoData.password) &&
         /[a-zA-Z]/.test(infoData.password)
           ? infoData.password
-          : 'admin123', // 영문+숫자 6자 이상
-      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234', // 특수문자, 공백 없는지 체크
+          : 'admin123',
+      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234',
       name: infoData.name.trim(),
     }
 
     try {
       await createShop(payload)
-      // alert('등록이 완료되었습니다.')
+      sessionStorage.setItem('hasShop', 'true')
+      setIsLoading(false)
       navigate('/')
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
   }
-  //유나 create 코드 끝
 
   return (
     <div className="create-wrap">
@@ -93,11 +147,10 @@ const Create = () => {
       />
       <CreateRepItem items={items} setItems={setItems} />
 
-      {/* 버튼 활성화/비활성화 */}
       <button
         onClick={handleSubmit}
-        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`} // 활성화된 상태일 때 'enabled' 클래스 추가
-        disabled={!isFormValid()} // 입력이 유효하지 않으면 버튼 비활성화
+        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
+        disabled={!isFormValid()}
       >
         생성하기
       </button>
