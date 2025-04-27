@@ -12,7 +12,7 @@ const RepItemImageUploader = ({ fileName, onImageUpload, id }) => {
         <input
           id={`imgUpload-${id}`}
           type="file"
-          accept="image/*"
+          accept="image/"
           onChange={onImageUpload}
           style={{ display: 'none' }}
         />

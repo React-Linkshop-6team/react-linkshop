@@ -58,7 +58,7 @@ export const createShop = async payload => {
     })
     return response.data
   } catch (error) {
-    console.error('❌ 등록 실패:', error)
+    console.error('❌ 등록 실패:', error.response?.data || error)
     throw error.response?.data || error
   }
 }
@@ -69,11 +69,7 @@ export const uploadImage = async file => {
   formData.append('image', file)
 
   try {
-    const response = await axios.post(IMAGE_UPLOAD_URL, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
     return response.data.url
   } catch (error) {
     console.error('이미지 업로드 실패:', error)
@@ -83,12 +79,12 @@ export const uploadImage = async file => {
 
 // 수정완료 버튼 눌렀을 때 등록
 export const updateLinkShop = async (linkShopId, putEdit) => {
-  const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  return response.data
+  try {
+    const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit)
+    return response.data
+  } catch (error) {
+    console.log('실패 이유:', error.response?.data || error)
+  }
 }
 
 // API 삭제하기 요청

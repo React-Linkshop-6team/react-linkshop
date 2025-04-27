@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
-import Spinner from '../Spinner'
 
 const CreateRepItem = ({ items, setItems }) => {
   const [linkId, setLinkId] = useState('')
@@ -86,6 +86,7 @@ const CreateRepItem = ({ items, setItems }) => {
       bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }, [items])
+  // 유나 repItemcreate 코드 끝
 
   return (
     <div className="repitem-txt-wrap">
