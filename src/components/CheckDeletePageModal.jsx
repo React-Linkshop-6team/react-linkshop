@@ -48,6 +48,13 @@ const CheckDeletePageModal = ({ onClose, id }) => {
 
   return (
     <form className="password-modal">
+      <input
+        type="text"
+        name="username"
+        autoComplete="username"
+        style={{ display: 'none' }}
+        tabIndex={-1}
+      />
       <p className="password-message">비밀번호를 입력해주세요 🙏</p>
       <div className="password-input-container">
         <input
