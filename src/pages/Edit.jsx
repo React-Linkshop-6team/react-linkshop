@@ -11,7 +11,6 @@ const Edit = () => {
   const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
-  const teamId = '15-6'
   const navigate = useNavigate()
   useEffect(() => {
     const fetchData = async () => {

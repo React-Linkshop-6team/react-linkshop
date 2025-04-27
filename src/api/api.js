@@ -58,7 +58,7 @@ export const createShop = async payload => {
     })
     return response.data
   } catch (error) {
-    console.error('❌ 등록 실패:', error)
+    console.error('❌ 등록 실패:', error.response?.data || error)
     throw error.response?.data || error
   }
 }
