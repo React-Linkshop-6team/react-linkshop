@@ -33,7 +33,15 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
     const file = e.target.files[0]
     if (!file) return
 
-    const uploadedUrl = await uploadImage(file)
+    const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
+    const renamedFile = new File([file], safeFileName, { type: file.type })
+
+    setIsLoading(true)
+
+    const uploadedUrl = await uploadImage(renamedFile)
+
+    setIsLoading(false)
+
     if (!uploadedUrl) {
       alert('이미지 업로드에 실패했습니다.')
       return

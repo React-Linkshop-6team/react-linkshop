@@ -17,7 +17,6 @@ const AboutShop = ({ id: propId }) => {
 
   const isMyStore = location.pathname === '/mystore'
 
-  // URL 복사 기능
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}${location.pathname}`)
@@ -27,7 +26,6 @@ const AboutShop = ({ id: propId }) => {
     }
   }
 
-  // 모달 열기/닫기
   const handleToggleModal = () => {
     setOpenModal(prev => !prev)
   }
