@@ -1,5 +1,5 @@
 import { useLocation, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { ref, get, child } from 'firebase/database'
 
@@ -11,6 +11,7 @@ import Button from './common/Button'
 
 const Header = () => {
   const location = useLocation()
+  const menuRef = useRef(null)
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [hasShop, setHasShop] = useState(false)
@@ -46,6 +47,24 @@ const Header = () => {
     }
   }, [location.pathname])
 
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isMenuOpen])
+
   const handleLogout = () => {
     const auth = getAuth()
     signOut(auth)
@@ -73,7 +92,7 @@ const Header = () => {
       </div>
       <div className="header-right">
         {isLoggedIn ? (
-          <div className="profile-wrapper">
+          <div className="profile-wrapper" ref={menuRef}>
             <img src={profileImg} alt="profile" className="profile-image" onClick={toggleMenu} />
             {isMenuOpen && (
               <div className="dropdown-menu">

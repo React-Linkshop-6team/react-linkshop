@@ -11,7 +11,6 @@ const Edit = () => {
   const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
-  const teamId = '15-6'
   const navigate = useNavigate()
   useEffect(() => {
     const fetchData = async () => {
@@ -52,9 +51,8 @@ const Edit = () => {
     }
     console.log('🔧 PUT 요청 보낼 내용:', putEdit)
     try {
-      const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit, {})
+      const response = await updateLinkShop(linkShopId, putEdit)
       navigate(`/profile/${linkShopId}`)
-      // 필요하다면 성공 후 처리 로직
     } catch (error) {
       console.error('❌ 수정 실패:', error.response?.data || error)
     }
