@@ -9,21 +9,16 @@ import useScrollHandler from '../../hooks/useScrollHandler'
 import Spinner from '../common/Spinner'
 import { getShopsByCursor, getShopsByFilter } from '../../api/api'
 
-// ShopList 컴포넌트
-// 역할: 상점 목록을 렌더링하는 컴포넌트
 const ShopList = () => {
-  // 데이터 관련 상태
   const [shops, setShops] = useState([])
   const [cursor, setCursor] = useState(null)
   const [hasMore, setHasMore] = useState(true)
 
-  // 로딩 상태
   const [loading, setLoading] = useState(true)
 
-  // 필터 및 검색 상태
-  const [searchItem, setSearchItem] = useState('') // 사용자가 입력한 검색어
-  const [isFilterOpen, setIsFilterOpen] = useState(false) // 필터 모달 창 열림 여부
-  const [selectedFilter, setSelectedFilter] = useState('상세필터') // 선택된 필터값 (Ex. 최신순, 좋아요순)
+  const [searchItem, setSearchItem] = useState('')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [selectedFilter, setSelectedFilter] = useState('상세필터')
 
   const fetchNextShops = async () => {
     if (!hasMore) return
@@ -48,7 +43,6 @@ const ShopList = () => {
     }
   }
 
-  // 초기 데이터 로드
   useEffect(() => {
     const fetchInitialShops = async () => {
       setLoading(true)
@@ -71,7 +65,6 @@ const ShopList = () => {
     fetchInitialShops()
   }, [selectedFilter])
 
-  // 무한 스크롤 로직: 스크롤 시 다음 데이터 로드
   useScrollHandler(hasMore, fetchNextShops)
 
   const sortedShops = shops
@@ -86,7 +79,6 @@ const ShopList = () => {
 
   const renderedShops = sortedShops
 
-  // 필터 선택 시 호출되는 함수. 선택한 필터를 state 변수에 저장한다.
   const handleFilterSelect = async filter => {
     setSelectedFilter(filter)
     setIsFilterOpen(false)
@@ -107,7 +99,6 @@ const ShopList = () => {
     setLoading(false)
   }
 
-  // 렌더링
   const renderedShopCards =
     !loading && renderedShops.length === 0 ? (
       <NoResult />
