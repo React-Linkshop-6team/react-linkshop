@@ -17,13 +17,12 @@ const AboutShop = ({ id: propId }) => {
 
   const isMyStore = location.pathname === '/mystore'
 
-  // URL 복사 기능
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}${location.pathname}`)
       alert('주소가 복사되었습니다!')
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
   }
 

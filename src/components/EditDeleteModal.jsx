@@ -9,7 +9,6 @@ const EditDeleteModal = ({
   handleClickEdit,
   showDeleteModal,
   setShowDeleteModal,
-  onClose,
   shopId,
   isVisible,
   setIsVisible,
@@ -51,7 +50,6 @@ const EditDeleteModal = ({
         수정하기
       </div>
 
-      {/* 수정하기 누른 경우만 비밀번호 모달 렌더링 */}
       {inputPassword && <InputPasswordModal id={shopId} onClose={() => setInputPassword(false)} />}
 
       <div className="delete-modal" onClick={() => setShowDeleteModal(true)}>

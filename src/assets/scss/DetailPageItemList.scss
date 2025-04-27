@@ -64,8 +64,8 @@
 
 @media (max-width: 1024px) {
   .item-name {
-    width: 100%; // 588px 고정말고 화면 가로에 맞추기
-    height: auto; // 높이 고정 해제 (내용에 따라 늘어나게)
+    width: 100%;
+    height: auto;
     padding: 16px;
   }
 
@@ -83,7 +83,7 @@
 
 @media (max-width: 768px) {
   .item-name {
-    flex-direction: column; // 좁아지면 세로 배치
+    flex-direction: column;
     align-items: center;
     gap: 12px;
   }

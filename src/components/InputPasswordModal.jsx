@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom'
 
 import { getShopById, putShopById } from '../api/api'
 import Spinner from './common/Spinner'
-import eyes from '../assets/images/eyes.png' // ⭐ 비밀번호 보기 아이콘
+import eyes from '../assets/images/eyes.png'
 
 const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')
   const [shopData, setShopData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false) // ⭐ 비밀번호 보기 토글
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -63,7 +63,6 @@ const InputPasswordModal = ({ id, onClose }) => {
       } else {
         alert('오류가 발생했습니다.')
       }
-      console.error(error.response?.data || error)
     } finally {
       setIsLoading(false)
     }
