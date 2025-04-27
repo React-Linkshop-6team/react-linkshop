@@ -1,5 +1,3 @@
-//삭제하기 기능을 사용할 때 비밀번호를 입력받는 컴포넌트.
-
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -33,7 +31,6 @@ const CheckDeletePageModal = ({ onClose, id }) => {
       } else {
         alert('오류가 발생했습니다.')
       }
-      console.error(error.response?.data || error)
     }
   }
 

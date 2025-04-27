@@ -101,11 +101,15 @@ const CreateRepItem = ({ items, setItems }) => {
         {items.map((item, index) => (
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
-              <CreateRepItemImageUploader
-                fileName={item.fileName}
-                onImageUpload={e => handleImageUpload(index, e)}
-                id={item.id}
-              />
+              <div className="image-uploader-wrap" style={{ position: 'relative' }}>
+                {loadingItems.includes(index) && <Spinner text="사진 업로드 중입니다..." />}
+                <CreateRepItemImageUploader
+                  fileName={item.fileName}
+                  onImageUpload={e => handleImageUpload(index, e)}
+                  id={item.id}
+                />
+              </div>
+
               <div className="rep-item-name">
                 <h5>상품 이름</h5>
                 <input

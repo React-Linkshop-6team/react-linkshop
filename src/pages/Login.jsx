@@ -21,7 +21,7 @@ const Login = () => {
       nav('/')
       sessionStorage.setItem('linkshopUser', JSON.stringify({ userId, password }))
     } catch (error) {
-      setError('로그인 실패: ' + error.message)
+      setError('로그인 실패: 아이디나 비밀번호를 다시 확인해주세요.')
     }
   }
 

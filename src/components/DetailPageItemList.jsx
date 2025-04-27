@@ -13,8 +13,6 @@ const DetailPageItemList = ({ id }) => {
 
       if (data && data.products) {
         setItemList(data.products)
-      } else {
-        console.warn('⚠️ 상품 정보 없음 또는 응답 형식 문제')
       }
     }
     fetchListData()
@@ -40,27 +38,3 @@ const DetailPageItemList = ({ id }) => {
 }
 
 export default DetailPageItemList
-
-{
-  /* <div className="create-wrap">
-      <CreateMyshop
-        infoData={infoData}
-        setInfoData={setInfoData}
-        items={items}
-        setItems={setItems}
-      />
-      <CreateRepItem
-        items={items}
-        setItems={setItems}
-        onImageUpload={handleImageUpload} // 이미지 업로드 핸들러를 props로 전달
-      />
-
-      <button
-        onClick={handleSubmit}
-        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
-        disabled={!isFormValid()}
-      >
-        생성하기
-      </button>
-    </div> */
-}

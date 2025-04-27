@@ -1,8 +1,5 @@
 import { FILTER_OPTIONS } from '../../constants/filterOptions'
 
-// FilterModal 컴포넌트
-// 역할: 필터 모달을 띄우고, 필터 값을 선택하고, 모달을 닫을 수 있다.
-// selected: 현재 선택된 정렬 옵션 / onSelect: 정렬 옵션 클릭 시 호출되는 함수 / onClose: 모달창 닫기(x) 버튼 또는 배경 클릭 시 호출되는 함수
 const FilterModal = ({ selected, onSelect, onClose }) => {
   return (
     <>
