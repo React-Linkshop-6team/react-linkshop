@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import Spinner from '../Spinner'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 
 const CreateRepItem = ({ items, setItems }) => {

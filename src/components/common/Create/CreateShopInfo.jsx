@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
+import EyeClick from '../../../assets/images/eyeClick.png'
 // import uploadImage from '../../../api/api.js'
 
 const CreateShopInfo = ({ infoData, setInfoData }) => {
@@ -107,7 +108,12 @@ const CreateShopInfo = ({ infoData, setInfoData }) => {
             className="content-comment"
           />
         </div>
-        <img src={Eyes} alt="비밀번호 보기" className="password-eyes" onClick={togglePassword} />
+        <img
+          src={showPassword ? EyeClick : Eyes}
+          alt="비밀번호 보기"
+          className="password-eyes"
+          onClick={togglePassword}
+        />
       </div>
     </div>
   )
