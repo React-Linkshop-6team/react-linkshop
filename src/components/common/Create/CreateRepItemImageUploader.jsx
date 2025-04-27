@@ -17,8 +17,6 @@ const RepItemImageUploader = ({ fileName, onImageUpload, id }) => {
           style={{ display: 'none' }}
         />
       </div>
-      {/* 프리뷰 필요시 아래 코드 사용 */}
-      {/* preview && <img className="img-preview" src={preview} alt="preview" /> */}
     </div>
   )
 }
