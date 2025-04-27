@@ -44,9 +44,7 @@ const CreateRepItem = ({ items, setItems }) => {
 
         setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
       } catch (err) {
-        console.error('❌ 업로드 중 에러:', err)
         alert('이미지 업로드에 실패했습니다.')
-
         setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
       }
     }
