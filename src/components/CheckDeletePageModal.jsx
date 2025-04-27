@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { deleteShop } from '../api/api'
+import eyes from '../assets/images/eyes.png'
 
 const CheckDeletePageModal = ({ onClose, id }) => {
   const [password, setPassword] = useState('')
@@ -40,14 +41,20 @@ const CheckDeletePageModal = ({ onClose, id }) => {
   return (
     <form className="password-modal">
       <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
-      <input
-        className="input-password"
-        placeholder="비밀번호를 입력해주세요."
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        autoComplete="new-password"
-      />
+      <div className="password-input-container">
+        <input
+          className="input-password"
+          placeholder="비밀번호를 입력해주세요."
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          autoComplete="new-password"
+        />
+        <button type="button" className="show-password-toggle">
+          <img src={eyes} alt="비밀번호 보기" />
+        </button>
+      </div>
+
       <div className="check-delete-button">
         <button className="check-button" onClick={handleClickDeletePassword}>
           삭제

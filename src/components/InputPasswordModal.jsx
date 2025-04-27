@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom'
 
 import { getShopById, putShopById } from '../api/api'
 import Spinner from './common/Spinner'
+import eyes from '../assets/images/eyes.png' // ⭐ 비밀번호 보기 아이콘
 
 const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')
   const [shopData, setShopData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [isCancelling, setIsCancelling] = useState(false)
+  const [showPassword, setShowPassword] = useState(false) // ⭐ 비밀번호 보기 토글
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -73,29 +74,36 @@ const InputPasswordModal = ({ id, onClose }) => {
     onClose()
   }
 
-  if (isLoading || isCancelling) {
-    return <Spinner text={isCancelling ? '취소 중입니다...' : '비밀번호 확인 중입니다...'} />
+  if (isLoading) {
+    return <Spinner text="비밀번호 확인 중입니다..." />
   }
 
   return (
     <form className="password-modal">
       <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
-      <input
-        className="input-password"
-        placeholder="비밀번호를 입력해주세요."
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        autoComplete="new-password"
-      />
+      <div className="password-input-container">
+        <input
+          className="input-password"
+          placeholder="비밀번호를 입력해주세요."
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          autoComplete="new-password"
+        />
+        <button
+          type="button"
+          className="show-password-toggle"
+          onClick={() => setShowPassword(prev => !prev)}
+        >
+          <img src={eyes} alt="비밀번호 보기" />
+        </button>
+      </div>
+
       <div className="check-delete-button">
-        <button className="check-button" onClick={handleClickPassword}>
+        <button type="submit" className="check-button" onClick={handleClickPassword}>
           확인
         </button>
-        <button
-          className="cancel-button"
-          onClick={handleCancel} // 수정된 취소 로직
-        >
+        <button type="button" className="cancel-button" onClick={handleCancel}>
           취소
         </button>
       </div>

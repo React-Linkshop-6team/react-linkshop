@@ -100,11 +100,30 @@
 
 .input-password {
   height: 45px;
-  width: 120%;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid rgba(221, 220, 223, 1);
-  padding: 10px;
+  padding: 10px 40px 10px 10px;
+  box-sizing: border-box;
   z-index: 11;
+}
+
+.input-password-container {
+  position: relative;
+  width: 100%;
+  align-items: center;
+}
+
+.show-password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 42%;
+  border: none;
+  padding: 0px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  cursor: pointer;
 }
 
 .check-delete-button {

@@ -27,7 +27,6 @@ const AboutShop = ({ id: propId }) => {
     }
   }
 
-  // 모달 열기/닫기
   const handleToggleModal = () => {
     setOpenModal(prev => !prev)
   }
