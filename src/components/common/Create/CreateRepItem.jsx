@@ -100,9 +100,7 @@ const CreateRepItem = ({ items, setItems }) => {
         {items.map((item, index) => (
           <div key={item.id} className="repitem-wrap">
             <div className="item-input-wrap">
-              {/* CreateRepItemImageUploader와 Spinner이 함께 보이도록 조정 */}
               <div className="image-uploader-wrap" style={{ position: 'relative' }}>
-                {/* 로딩 중일 때만 Spinner 표시 */}
                 {loadingItems.includes(index) && <Spinner text="사진 업로드 중입니다..." />}
                 <CreateRepItemImageUploader
                   fileName={item.fileName}
