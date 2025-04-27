@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ref, get, child } from 'firebase/database'
 
 import { getShops } from '../api/api'
-import { db } from '../firebase' // 내부 import는 나중에!
+import { db } from '../firebase'
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
 import DetailPageItemList from '../components/DetailPageItemList'
@@ -22,8 +22,6 @@ const MyStore = () => {
       if (!user) return
 
       const uid = user.uid
-
-      // Realtime Database에서 userId 가져오기
       const userRef = ref(db)
       const snapshot = await get(child(userRef, `users/${uid}`))
 
@@ -33,7 +31,6 @@ const MyStore = () => {
 
       const userId = snapshot.val().userId
 
-      // 샵 목록에서 userId 비교
       const allShops = await getShops()
       const foundShop = allShops.find(shop => String(shop.userId) === String(userId))
 
