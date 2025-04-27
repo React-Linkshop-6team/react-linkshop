@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 
 import { getShopById } from '../api/api.js'
+import Spinner from './common/Spinner.jsx'
 
 const DetailPageItemList = ({ id }) => {
   const [itemList, setItemList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!id) return
@@ -16,9 +18,14 @@ const DetailPageItemList = ({ id }) => {
       } else {
         console.warn('⚠️ 상품 정보 없음 또는 응답 형식 문제')
       }
+      setIsLoading(false)
     }
     fetchListData()
   }, [id])
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <div className="render-item-list">

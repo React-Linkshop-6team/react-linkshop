@@ -58,6 +58,12 @@ const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess })
     }
   }, [isVisible, setIsVisible])
 
+  useEffect(() => {
+    if (isVisible) {
+      setInputPassword(false)
+    }
+  }, [isVisible, setInputPassword])
+
   return (
     <>
       {isMyStore && shopId && (
@@ -65,6 +71,7 @@ const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess })
           ref={modalRef}
           deleteConfirm={deleteConfirm}
           inputPassword={inputPassword}
+          setInputPassword={setInputPassword}
           setDeleteConfirm={setDeleteConfirm}
           handleClickEdit={handleClickEdit}
           handleDelete={handleDelete}

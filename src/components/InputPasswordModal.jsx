@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { getShopById, putShopById } from '../api/api'
+import Spinner from './common/Spinner'
 
 const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')
   const [shopData, setShopData] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+  const [isCancelling, setIsCancelling] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -26,6 +29,8 @@ const InputPasswordModal = ({ id, onClose }) => {
 
     if (!shopData) return
 
+    setIsLoading(true)
+
     try {
       const updatedData = {
         currentPassword: password,
@@ -42,6 +47,7 @@ const InputPasswordModal = ({ id, onClose }) => {
           imageUrl: product.imageUrl,
         })),
       }
+
       const result = await putShopById(id, updatedData)
 
       if (result) {
@@ -57,7 +63,18 @@ const InputPasswordModal = ({ id, onClose }) => {
         alert('오류가 발생했습니다.')
       }
       console.error(error.response?.data || error)
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  const handleCancel = e => {
+    e.preventDefault()
+    onClose()
+  }
+
+  if (isLoading || isCancelling) {
+    return <Spinner text={isCancelling ? '취소 중입니다...' : '비밀번호 확인 중입니다...'} />
   }
 
   return (
@@ -69,13 +86,16 @@ const InputPasswordModal = ({ id, onClose }) => {
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
-        autoComplete="new-passward"
+        autoComplete="new-password"
       />
       <div className="check-delete-button">
         <button className="check-button" onClick={handleClickPassword}>
           확인
         </button>
-        <button className="cancel-button" onClick={onClose}>
+        <button
+          className="cancel-button"
+          onClick={handleCancel} // 수정된 취소 로직
+        >
           취소
         </button>
       </div>
