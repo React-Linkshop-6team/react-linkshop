@@ -5,7 +5,6 @@ import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
 
 const Create = () => {
-  //유나 create 코드 시작
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [shopUrl, setShopUrl] = useState('')
@@ -59,10 +58,9 @@ const Create = () => {
 
     const safeFileName = `${uuidv4()}.${file.name.split('.').pop()}`
 
-    // 이름을 바꾼 File 객체 만들기
     const renamedFile = new File([file], safeFileName, { type: file.type })
 
-    const uploadedUrl = await uploadImage(renamedFile) // fileName 넘기지 않아도 됨
+    const uploadedUrl = await uploadImage(renamedFile)
     if (!uploadedUrl) {
       alert('이미지 업로드 실패')
       return
@@ -77,7 +75,7 @@ const Create = () => {
     setItems(updatedItems)
   }
 
-  const [isLoading, setIsLoading] = useState(false) // 로딩 상태
+  const [isLoading, setIsLoading] = useState(false)
 
   const isItemsValid = () => {
     return items.every(item => {
@@ -95,12 +93,11 @@ const Create = () => {
       isItemsValid() &&
       infoData.shopUrl &&
       infoData.userId &&
-      infoData.currentPassword // currentPassword 사용
+      infoData.currentPassword
     return isValid
   }
 
   const handleSubmit = async () => {
-    // 필수 항목들에 대해 유효성 검사
     if (!infoData.name.trim() || !isItemsValid()) {
       alert('모든 정보를 입력해주세요.')
       return
@@ -113,7 +110,7 @@ const Create = () => {
         shopUrl: infoData.shopUrl,
       },
       products: items.map(item => ({
-        price: item.productPrice > 0 ? item.productPrice : 1000, // 가격이 0일 때 기본값 1000 설정
+        price: item.productPrice > 0 ? item.productPrice : 1000,
         imageUrl: item.imageUrl,
         name: item.productName,
       })),
@@ -130,14 +127,12 @@ const Create = () => {
     try {
       await createShop(payload)
       sessionStorage.setItem('hasShop', 'true')
-      setIsLoading(false) // 로딩 종료
-      navigate('/') // 메인 페이지로 리디렉션
+      setIsLoading(false)
+      navigate('/')
     } catch (error) {
       alert('등록에 실패했습니다. 다시 시도해주세요.')
     }
   }
-
-  //유나 create 코드 끝
 
   return (
     <div className="create-wrap">
@@ -149,11 +144,10 @@ const Create = () => {
       />
       <CreateRepItem items={items} setItems={setItems} />
 
-      {/* 버튼 활성화/비활성화 */}
       <button
         onClick={handleSubmit}
-        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`} // 활성화된 상태일 때 'enabled' 클래스 추가
-        disabled={!isFormValid()} // 입력이 유효하지 않으면 버튼 비활성화
+        className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
+        disabled={!isFormValid()}
       >
         생성하기
       </button>
