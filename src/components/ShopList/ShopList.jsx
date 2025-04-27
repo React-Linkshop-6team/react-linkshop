@@ -139,6 +139,8 @@ const ShopList = () => {
       )}
 
       <div className="shop-list">{renderedShopCards}</div>
+
+      {!hasMore && <div className="shop-list-end" />}
     </div>
   )
 }
