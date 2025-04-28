@@ -22,7 +22,9 @@ const Header = () => {
     const auth = getAuth()
 
     const sessionUser = sessionStorage.getItem('linkshopUser')
-    if (sessionUser) {
+    const parsedUser = sessionUser ? JSON.parse(sessionUser) : null
+
+    if (parsedUser) {
       setIsLoggedIn(true)
       if (sessionStorage.getItem('hasShop') === 'true') {
         setHasShop(true)
@@ -30,8 +32,10 @@ const Header = () => {
     }
 
     const unsubscribe = onAuthStateChanged(auth, async user => {
-      const sessionUserCheck = sessionStorage.getItem('linkshopUser')
-      if (user && sessionUserCheck) {
+      const latestSessionUser = sessionStorage.getItem('linkshopUser')
+      const latestParsedUser = latestSessionUser ? JSON.parse(latestSessionUser) : null
+
+      if (user && latestParsedUser) {
         setIsLoggedIn(true)
         if (sessionStorage.getItem('hasShop') === 'true') {
           setHasShop(true)
