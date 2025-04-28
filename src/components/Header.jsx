@@ -16,6 +16,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [hasShop, setHasShop] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const auth = getAuth()
@@ -37,6 +38,7 @@ const Header = () => {
         setIsLoggedIn(false)
         setHasShop(false)
       }
+      setIsLoading(false)
     })
     return () => unsubscribe()
   }, [])
@@ -80,6 +82,8 @@ const Header = () => {
   }
 
   const toggleMenu = () => setIsMenuOpen(prev => !prev)
+
+  if (isLoading) return null
 
   if (location.pathname.startsWith('/profile')) return null
 
