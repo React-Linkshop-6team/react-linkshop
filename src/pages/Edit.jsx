@@ -58,7 +58,6 @@ const Edit = () => {
     }
   }
 
-  // Edit.tsx
   return (
     <div className="edit-page">
       {shopInfo && (
