@@ -38,7 +38,7 @@ const EditMyShop = ({ data, onChange }) => {
             <form onSubmit={e => e.preventDefault()} className="form">
               <div className="content-file">
                 <div className="content-box">
-                  <span className="content-title">상품 대표 이미지</span>
+                  <span className="content-title">쇼핑몰 프로필</span>
                   <span className="content-comment">
                     {imgFile?.name ||
                       data.imageUrl?.split('/').pop() ||

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
+const ShopProfile = ({ name, userId, shopInfo, productsCount, listId }) => {
   const { imageUrl } = shopInfo
 
   const nav = useNavigate()
@@ -17,7 +17,7 @@ const ShopProfile = ({ name, shopInfo, productsCount, listId }) => {
         </div>
         <div className="profile-texts-container">
           <h2 className="profile-name">{name}</h2>
-          <p className="profile-url">@{name || '기본 사용자 ID'}</p>
+          <p className="profile-url">@{userId || '기본 사용자 ID'}</p>
         </div>
       </div>
       <p className="profile-count">대표 상품 {productsCount} 개</p>
