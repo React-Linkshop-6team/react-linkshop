@@ -2,6 +2,7 @@
 import { useState, useRef } from 'react'
 
 import Eyes from '../../../assets/images/eyes.png'
+import EyeClick from '../../../assets/images/eyeClick.png'
 import { uploadImage } from '../../../api/api'
 
 const EditMyShop = ({ data, onChange }) => {
@@ -32,7 +33,9 @@ const EditMyShop = ({ data, onChange }) => {
   return (
     <div className="edit-my-shop">
       <div className="my-shop">
-        <h5>내 쇼핑몰</h5>
+        <div className="my-shop-header">
+          <h5>내 쇼핑몰</h5>
+        </div>
         <div className="shop">
           <div className="item-content">
             <form onSubmit={e => e.preventDefault()} className="form">
@@ -109,7 +112,7 @@ const EditMyShop = ({ data, onChange }) => {
                   />
                 </div>
                 <img
-                  src={Eyes}
+                  src={showPassword ? Eyes : EyeClick}
                   alt="비밀번호 보기"
                   className="password-eyes"
                   onClick={() => setShowPassword(prev => !prev)}
