@@ -1,60 +1,62 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
+import { LinkShopById, updateLinkShop } from '../api/api'
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
 const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
-import { LinkShopById, updateLinkShop } from '../api/api'
+
 
 const Edit = () => {
   const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
+  const [error, setError] = useState('') // 🔥 추가
   const navigate = useNavigate()
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const shopData = await LinkShopById(linkShopId)
-        setShopInfo({
-          imageUrl: shopData.shop?.imageUrl,
-          name: shopData.name,
-          shopUrl: shopData.shop?.shopUrl,
-          userId: shopData.userId,
-          password: '',
-          urlName: shopData.shop?.urlName,
-        })
-        setProductList(shopData.products)
-      } catch (err) {
-        console.error('데이터 불러오기 실패', err)
-      }
+      const shopData = await LinkShopById(linkShopId)
+      setShopInfo({
+        imageUrl: shopData.shop?.imageUrl,
+        name: shopData.name,
+        shopUrl: shopData.shop?.shopUrl,
+        userId: shopData.userId,
+        password: '',
+        urlName: shopData.shop?.urlName,
+      })
+      setProductList(shopData.products)
     }
 
     fetchData()
   }, [linkShopId])
 
   const handleUpdate = async () => {
-    const putEdit = {
-      currentPassword: shopInfo.password,
-      shop: {
-        imageUrl: shopInfo.imageUrl,
-        urlName: shopInfo.name,
-        shopUrl: shopInfo.shopUrl,
-      },
-      products: productList.map(item => ({
-        price: Number(item.productPrice),
-        imageUrl: item.imageUrl,
-        name: item.productName || '',
-      })),
-      userId: shopInfo.userId,
-      name: shopInfo.name,
+    if (!shopInfo.password || shopInfo.password.trim() === '') {
+      setError('비밀번호를 입력해주세요.')
+      return
     }
-    console.log('🔧 PUT 요청 보낼 내용:', putEdit)
+
     try {
-      const response = await updateLinkShop(linkShopId, putEdit)
+      const putEdit = {
+        currentPassword: shopInfo.password,
+        shop: {
+          imageUrl: shopInfo.imageUrl,
+          urlName: shopInfo.name,
+          shopUrl: shopInfo.shopUrl,
+        },
+        products: productList.map(item => ({
+          price: Number(item.productPrice),
+          imageUrl: item.imageUrl,
+          name: item.productName || '',
+        })),
+        userId: shopInfo.userId,
+        name: shopInfo.name,
+      }
+      await updateLinkShop(linkShopId, putEdit)
       navigate(`/profile/${linkShopId}`)
-    } catch (error) {
-      console.error('❌ 수정 실패:', error.response?.data || error)
+    } catch (e) {
+      setError('비밀번호가 올바르지 않습니다.')
     }
   }
 
@@ -62,8 +64,9 @@ const Edit = () => {
     <div className="edit-page">
       {shopInfo && (
         <>
-          <EditRepItem data={productList} onChange={setProductList} />
           <EditMyShop data={shopInfo} onChange={setShopInfo} />
+          {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
+          <EditRepItem data={productList} onChange={setProductList} />
           <button className="edit-button" onClick={handleUpdate}>
             수정 완료
           </button>
@@ -72,4 +75,5 @@ const Edit = () => {
     </div>
   )
 }
+
 export default Edit
