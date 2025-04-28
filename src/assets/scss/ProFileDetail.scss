@@ -86,7 +86,7 @@
   z-index: 11;
 }
 
-.input-password-container {
+.password-input-container {
   position: relative;
   width: 100%;
 }
@@ -101,6 +101,7 @@
   height: 20px;
   background-color: white;
   cursor: pointer;
+  margin: -5px 5px;
 }
 
 .check-delete-button {
