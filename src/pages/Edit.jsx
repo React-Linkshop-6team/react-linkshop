@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
+
 import { LinkShopById, updateLinkShop } from '../api/api'
 
 const Edit = () => {
