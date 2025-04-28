@@ -62,6 +62,7 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
         <div className="item-content">
           {isLoading ? <Spinner text="사진 업로드 중입니다..." /> : null}
           <CreateRepItemImageUploader
+            title="쇼핑몰 프로필"
             fileName={fileName}
             onImageUpload={handleImageUpload}
             id="myshop"

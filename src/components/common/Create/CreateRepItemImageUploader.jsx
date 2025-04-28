@@ -1,9 +1,9 @@
 import React from 'react'
 
-const RepItemImageUploader = ({ fileName, onImageUpload, id }) => {
+const RepItemImageUploader = ({ fileName, onImageUpload, id, title = '상품 대표 이미지' }) => {
   return (
     <div className="rep-item-img">
-      <h5>상품 대표 이미지</h5>
+      <h5>{title}</h5>
       <div className="file-upload-box">
         <span className="file-text">{fileName}</span>
         <label htmlFor={`imgUpload-${id}`} className="file-upload-btn">
