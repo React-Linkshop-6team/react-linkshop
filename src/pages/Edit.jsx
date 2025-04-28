@@ -4,14 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { LinkShopById, updateLinkShop } from '../api/api'
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
-
 
 const Edit = () => {
   const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
-  const [error, setError] = useState('') // 🔥 추가
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
