@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { deleteShop } from '../api/api'
@@ -12,6 +12,8 @@ const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess })
   const [inputPassword, setInputPassword] = useState(false)
   const [currentPassword, setCurrentPassword] = useState('')
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+
+  const modalRef = useRef(null)
 
   const handleClickEdit = () => {
     setInputPassword(true)
@@ -40,12 +42,36 @@ const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess })
     setDeleteConfirm(true)
   }
 
+  useEffect(() => {
+    const handleClickOutside = e => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setIsVisible(false)
+      }
+    }
+
+    if (isVisible) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isVisible, setIsVisible])
+
+  useEffect(() => {
+    if (isVisible) {
+      setInputPassword(false)
+    }
+  }, [isVisible, setInputPassword])
+
   return (
     <>
       {isMyStore && shopId && (
         <EditDeleteModal
+          ref={modalRef}
           deleteConfirm={deleteConfirm}
           inputPassword={inputPassword}
+          setInputPassword={setInputPassword}
           setDeleteConfirm={setDeleteConfirm}
           handleClickEdit={handleClickEdit}
           handleDelete={handleDelete}

@@ -17,17 +17,15 @@ const AboutShop = ({ id: propId }) => {
 
   const isMyStore = location.pathname === '/mystore'
 
-  // URL 복사 기능
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}${location.pathname}`)
       alert('주소가 복사되었습니다!')
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
   }
 
-  // 모달 열기/닫기
   const handleToggleModal = () => {
     setOpenModal(prev => !prev)
   }
@@ -45,7 +43,7 @@ const AboutShop = ({ id: propId }) => {
 
   if (!shop) return <Spinner />
 
-  const { shop: shopInfo, likes, userId } = shop
+  const { shop: shopInfo, likes, userId, name } = shop
   const { urlName, shopUrl, imageUrl } = shopInfo
 
   return (
@@ -67,7 +65,7 @@ const AboutShop = ({ id: propId }) => {
       <div className="shop-image-container">
         <img className="shop-image" src={imageUrl} alt={urlName} />
       </div>
-      <div className="shop-name">{urlName}</div>
+      <div className="shop-name">{name}</div>
       <a className="shop-url" href={shopUrl} target="_blank" rel="noopener noreferrer">
         @ {userId}
       </a>

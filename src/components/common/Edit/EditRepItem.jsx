@@ -1,34 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-// import { uploadImage } from '../../../api/api.js'
+
+import { uploadImage } from '../../../api/api.js'
 
 const EditRepItem = ({ data, onChange }) => {
   const [items, setItems] = useState([])
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
-  const navigate = useNavigate()
   const scrollableRef = useRef(null)
 
   if (!data) return null
-  const uploadImage = async file => {
-    const formData = new FormData()
-    formData.append('image', file)
 
-    try {
-      const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (!res.ok) throw new Error('이미지 업로드 실패')
-
-      const data = await res.json()
-      console.log('✅ 업로드 성공:', data)
-      return data.url
-    } catch (err) {
-      throw new Error('업로드중 실패')
-    }
-  }
   const handleImgChange = async (e, index) => {
     const file = e.target.files[0]
     if (!file) return

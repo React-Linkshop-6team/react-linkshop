@@ -45,7 +45,10 @@
   align-items: center;
 }
 
-// 태블릿 사이즈 + 모바일 사이즈 ( ~ 1199px)
+.shop-list-end {
+  margin-bottom: 65px;
+}
+
 @media (max-width: 1199px) {
   .shop-list {
     margin-top: 28px;
