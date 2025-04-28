@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-import { LinkShopById, updateLinkShop, updateLinkShop } from '../api/api'
+import { LinkShopById, updateLinkShop } from '../api/api'
 
 const Edit = () => {
   const { linkShopId } = useParams()
@@ -30,7 +30,6 @@ const Edit = () => {
   }, [linkShopId])
 
   const handleUpdate = async () => {
-    // 🔥 비밀번호 체크
     if (!shopInfo.password || shopInfo.password.trim() === '') {
       setError('비밀번호를 입력해주세요.')
       return
@@ -55,7 +54,7 @@ const Edit = () => {
       await updateLinkShop(linkShopId, putEdit)
       navigate(`/profile/${linkShopId}`)
     } catch (e) {
-      setError('비밀번호가 올바르지 않습니다.') // 🔥 실패 시 에러 표시
+      setError('비밀번호가 올바르지 않습니다.')
     }
   }
 
@@ -63,10 +62,9 @@ const Edit = () => {
     <div className="edit-page">
       {shopInfo && (
         <>
-          <EditRepItem data={productList} onChange={setProductList} />
           <EditMyShop data={shopInfo} onChange={setShopInfo} />
-          {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}{' '}
-          {/* 🔥 에러 표시 */}
+          {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
+          <EditRepItem data={productList} onChange={setProductList} />
           <button className="edit-button" onClick={handleUpdate}>
             수정 완료
           </button>
