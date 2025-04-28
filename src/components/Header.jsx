@@ -20,9 +20,18 @@ const Header = () => {
 
   useEffect(() => {
     const auth = getAuth()
+
+    const sessionUser = sessionStorage.getItem('linkshopUser')
+    if (sessionUser) {
+      setIsLoggedIn(true)
+      if (sessionStorage.getItem('hasShop') === 'true') {
+        setHasShop(true)
+      }
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async user => {
-      const sessionUser = sessionStorage.getItem('linkshopUser')
-      if (user && sessionUser) {
+      const sessionUserCheck = sessionStorage.getItem('linkshopUser')
+      if (user && sessionUserCheck) {
         setIsLoggedIn(true)
         if (sessionStorage.getItem('hasShop') === 'true') {
           setHasShop(true)
@@ -41,6 +50,7 @@ const Header = () => {
       }
       setIsLoading(false)
     })
+
     return () => unsubscribe()
   }, [])
 
