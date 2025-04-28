@@ -54,3 +54,21 @@
   font-size: 0.9rem;
   text-align: center;
 }
+
+.password-container {
+  position: relative;
+
+  .form-input {
+    width: 100%;
+    padding-right: 40px;
+  }
+
+  .eyes {
+    position: absolute;
+    top: 35%;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+}
