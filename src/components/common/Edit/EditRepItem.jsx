@@ -29,7 +29,7 @@ const EditRepItem = ({ data, onChange }) => {
             : item
         )
       )
-    } catch (error) {
+    } catch () {
       throw new Error('이미지 업로드에 실패했습니다.')
     }
   }

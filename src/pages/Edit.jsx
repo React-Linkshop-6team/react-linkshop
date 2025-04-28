@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 import { LinkShopById } from '../api/api'
 
 const Edit = () => {
@@ -25,8 +23,8 @@ const Edit = () => {
           urlName: shopData.shop?.urlName,
         })
         setProductList(shopData.products)
-      } catch (err) {
-        console.error('데이터 불러오기 실패', err)
+      } catch () {
+        throw new Error('데이터 불러오기 실패')
       }
     }
 
@@ -49,16 +47,14 @@ const Edit = () => {
       userId: shopInfo.userId,
       name: shopInfo.name,
     }
-    console.log('🔧 PUT 요청 보낼 내용:', putEdit)
     try {
       const response = await updateLinkShop(linkShopId, putEdit)
       navigate(`/profile/${linkShopId}`)
     } catch (error) {
-      console.error('❌ 수정 실패:', error.response?.data || error)
+      throw new Error('수정 실패')
     }
   }
 
-  // Edit.tsx
   return (
     <div className="edit-page">
       {shopInfo && (
