@@ -10,6 +10,7 @@
     },
     "upload": {
       "target": "temporary-public-storage"
-    }
+    },
+    "failFast": false
   }
 }
