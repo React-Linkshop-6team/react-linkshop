@@ -21,7 +21,8 @@ const Header = () => {
   useEffect(() => {
     const auth = getAuth()
     const unsubscribe = onAuthStateChanged(auth, async user => {
-      if (user) {
+      const sessionUser = sessionStorage.getItem('linkshopUser')
+      if (user && sessionUser) {
         setIsLoggedIn(true)
         if (sessionStorage.getItem('hasShop') === 'true') {
           setHasShop(true)
