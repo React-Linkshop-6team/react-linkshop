@@ -18,8 +18,9 @@ const Login = () => {
     try {
       const email = `${userId}@linkshop.com`
       await signInWithEmailAndPassword(auth, email, password)
-      nav('/')
       sessionStorage.setItem('linkshopUser', JSON.stringify({ userId, password }))
+      nav('/')
+      window.location.reload()
     } catch (error) {
       setError('로그인 실패: 아이디나 비밀번호를 다시 확인해주세요.')
     }

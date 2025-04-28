@@ -87,7 +87,6 @@ const Create = () => {
     })
   }
 
-  // 입력이 모두 유효한지 체크하는 함수
   const isFormValid = () => {
     const trimmedName = infoData.name.trim()
     const isValid =
@@ -105,7 +104,6 @@ const Create = () => {
       return
     }
 
-    // payload 내용에서 가격 0 체크, password와 userId 유효성 체크
     const payload = {
       shop: {
         imageUrl: items[0].imageUrl,

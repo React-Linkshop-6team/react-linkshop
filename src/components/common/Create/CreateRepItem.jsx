@@ -87,7 +87,6 @@ const CreateRepItem = ({ items, setItems }) => {
       bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }, [items])
-  // 유나 repItemcreate 코드 끝
 
   return (
     <div className="repitem-txt-wrap">

@@ -1,11 +1,5 @@
 .top-image {
   width: 100%;
-  /*max-width: 1920px;
-  height: 70px;
-  background-image: url(../images/detail-img.png);
-  background-size: cover;
-  background-position: center;
-  margin: 0 auto; */
 }
 
 .back-button {
@@ -78,32 +72,35 @@
   z-index: 10;
 }
 
-// 모바일
-@media screen and (max-width: 767px) {
-  .password-modal {
-    padding: 20px;
-    margin: -20px -250px;
-  }
-}
-
-// 테블릿
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  .password-modal {
-    margin: -10px -300px;
-  }
-}
-
 .password-messege {
   color: black;
 }
 
 .input-password {
   height: 45px;
-  width: 120%;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid rgba(221, 220, 223, 1);
-  padding: 10px;
+  padding: 10px 40px 10px 10px;
+  box-sizing: border-box;
   z-index: 11;
+}
+
+.input-password-container {
+  position: relative;
+  width: 100%;
+}
+
+.show-password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 42%;
+  border: none;
+  padding: 0px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  cursor: pointer;
 }
 
 .check-delete-button {
@@ -144,4 +141,43 @@
   height: 19px;
   line-height: 100%;
   margin-top: 25px;
+}
+
+@media screen and (min-width: 350px) and (max-width: 767px) {
+  .password-modal {
+    padding: 20px;
+    margin: -20px -240px;
+    width: 55%;
+  }
+
+  .input-password {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .check-button,
+  .cancel-button {
+    width: 80px;
+    height: 32px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .password-modal {
+    margin: -10px -300px;
+    width: 35%;
+  }
+
+  .input-password {
+    height: 42px;
+    font-size: 15px;
+  }
+
+  .check-button,
+  .cancel-button {
+    width: 90px;
+    height: 34px;
+    font-size: 14px;
+  }
 }

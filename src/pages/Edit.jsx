@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
-import { LinkShopById, updateLinkShop } from '../api/api'
+import { LinkShopById, updateLinkShop, updateLinkShop } from '../api/api'
 
 const Edit = () => {
   const { linkShopId } = useParams()
