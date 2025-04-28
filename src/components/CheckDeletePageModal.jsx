@@ -2,9 +2,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { deleteShop } from '../api/api'
+import Spinner from './common/Spinner'
+import eyes from '../assets/images/eyes.png'
 
 const CheckDeletePageModal = ({ onClose, id }) => {
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const handleClickDeletePassword = async e => {
@@ -14,6 +18,8 @@ const CheckDeletePageModal = ({ onClose, id }) => {
       alert('비밀번호를 입력해주세요.')
       return
     }
+
+    setIsLoading(true)
 
     try {
       const result = await deleteShop(id, password)
@@ -31,25 +37,48 @@ const CheckDeletePageModal = ({ onClose, id }) => {
       } else {
         alert('오류가 발생했습니다.')
       }
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (
     <form className="password-modal">
-      <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
       <input
-        className="input-password"
-        placeholder="비밀번호를 입력해주세요."
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        autoComplete="new-password"
+        type="text"
+        name="username"
+        autoComplete="username"
+        style={{ display: 'none' }}
+        tabIndex={-1}
       />
+      <p className="password-message">비밀번호를 입력해주세요 🙏</p>
+      <div className="password-input-container">
+        <input
+          className="input-password"
+          placeholder="비밀번호를 입력해주세요."
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          autoComplete="new-password"
+        />
+        <button
+          type="button"
+          className="show-password-toggle"
+          onClick={() => setShowPassword(prev => !prev)}
+        >
+          <img src={eyes} alt="비밀번호 보기" width="20" height="20" />
+        </button>
+      </div>
+
       <div className="check-delete-button">
         <button className="check-button" onClick={handleClickDeletePassword}>
           삭제
         </button>
-        <button className="cancel-button" onClick={onClose}>
+        <button className="cancel-button" type="button" onClick={onClose}>
           취소
         </button>
       </div>

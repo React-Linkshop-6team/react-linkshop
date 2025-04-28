@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { getShopById, putShopById } from '../api/api'
+import Spinner from './common/Spinner'
+import eyes from '../assets/images/eyes.png'
 
 const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')
   const [shopData, setShopData] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -26,6 +30,8 @@ const InputPasswordModal = ({ id, onClose }) => {
 
     if (!shopData) return
 
+    setIsLoading(true)
+
     try {
       const updatedData = {
         currentPassword: password,
@@ -42,6 +48,7 @@ const InputPasswordModal = ({ id, onClose }) => {
           imageUrl: product.imageUrl,
         })),
       }
+
       const result = await putShopById(id, updatedData)
 
       if (result) {
@@ -56,26 +63,53 @@ const InputPasswordModal = ({ id, onClose }) => {
       } else {
         alert('오류가 발생했습니다.')
       }
-      console.error(error.response?.data || error)
+    } finally {
+      setIsLoading(false)
     }
+  }
+
+  const handleCancel = e => {
+    e.preventDefault()
+    onClose()
+  }
+
+  if (isLoading) {
+    return <Spinner text="비밀번호 확인 중입니다..." />
   }
 
   return (
     <form className="password-modal">
-      <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
       <input
-        className="input-password"
-        placeholder="비밀번호를 입력해주세요."
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        autoComplete="new-passward"
+        type="text"
+        name="username"
+        autoComplete="username"
+        style={{ display: 'none' }}
+        tabIndex={-1}
       />
+      <p className="password-messege">비밀번호를 입력해주세요 🙏</p>
+      <div className="password-input-container">
+        <input
+          className="input-password"
+          placeholder="비밀번호를 입력해주세요."
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          autoComplete="new-password"
+        />
+        <button
+          type="button"
+          className="show-password-toggle"
+          onClick={() => setShowPassword(prev => !prev)}
+        >
+          <img src={eyes} alt="비밀번호 보기" />
+        </button>
+      </div>
+
       <div className="check-delete-button">
-        <button className="check-button" onClick={handleClickPassword}>
+        <button type="submit" className="check-button" onClick={handleClickPassword}>
           확인
         </button>
-        <button className="cancel-button" onClick={onClose}>
+        <button type="button" className="cancel-button" onClick={handleCancel}>
           취소
         </button>
       </div>
