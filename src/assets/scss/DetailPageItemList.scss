@@ -1,14 +1,21 @@
 @use './Setting.scss' as *;
 
+.page-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0 auto;
+}
+
 .shop-card {
   background-color: $text-white-600;
   border-radius: 25px;
-  width: 587px;
-  height: 237px;
-
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
 }
 
@@ -16,45 +23,53 @@
   display: flex;
   justify-content: space-between;
 }
+
 .render-item-list {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-top: 30px;
-  gap: 30px;
-}
-.item-price {
-  font-size: 20px;
-  font-weight: 700;
+
+  flex-direction: row;
+  justify-content: flex-start;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .item-name {
   background-color: $text-white-600;
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-  font-size: 17px;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
   font-weight: 400;
-  width: 588px;
-  height: 127px;
-  padding: 20px 20px;
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  width: calc(50% - 10px);
+  min-width: 280px;
+  padding: 16px;
+  border-radius: 24px;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    min-width: auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .item-image {
   background-color: $text-white-600;
   border-radius: 8px;
-  width: 95px;
-  height: 95px;
-}
+  width: 80px;
+  height: 80px;
 
-.item-title {
-  font-size: 17px;
-  font-weight: 400;
-  width: 78px;
-  height: 20px;
-  margin-bottom: 20px;
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
 }
 
 .item-title-price {
@@ -62,4 +77,19 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
+}
+
+.item-title {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 }
