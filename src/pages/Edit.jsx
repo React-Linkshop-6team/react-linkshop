@@ -10,7 +10,7 @@ const Edit = () => {
   const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
-  const [error, setError] = useState('') // 🔥 추가
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
