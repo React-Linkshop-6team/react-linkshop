@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 import { uploadImage } from '../../../api/api.js'
 
@@ -14,24 +14,20 @@ const EditRepItem = ({ data, onChange }) => {
     const file = e.target.files[0]
     if (!file) return
 
-    try {
-      const imageUrl = await uploadImage(file)
-      setItems(prevItems =>
-        prevItems.map((item, i) =>
-          i === index
-            ? {
-                ...item,
-                imageUrl,
-                file,
-                fileName: file.name,
-                preview: URL.createObjectURL(file),
-              }
-            : item
-        )
+    const imageUrl = await uploadImage(file)
+    setItems(prevItems =>
+      prevItems.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              imageUrl,
+              file,
+              fileName: file.name,
+              preview: URL.createObjectURL(file),
+            }
+          : item
       )
-    } catch (error) {
-      throw new Error('이미지 업로드에 실패했습니다.')
-    }
+    )
   }
 
   useEffect(() => {

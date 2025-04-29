@@ -130,9 +130,7 @@ const Create = () => {
       sessionStorage.setItem('hasShop', 'true')
       setIsLoading(false)
       navigate('/')
-    } catch (error) {
-      alert('등록에 실패했습니다. 다시 시도해주세요.')
-    }
+    } catch (error) {}
   }
 
   return (

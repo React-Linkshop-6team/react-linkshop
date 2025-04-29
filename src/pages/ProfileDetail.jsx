@@ -17,7 +17,6 @@ const ProfileDetail = () => {
       if (data) {
         setShop(data)
       } else {
-        console.log('해당하는 상점이 없습니다.')
       }
     }
 

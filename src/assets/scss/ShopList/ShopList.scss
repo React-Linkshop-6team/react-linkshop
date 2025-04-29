@@ -1,3 +1,6 @@
+// ShopList.scss에서
+@use '../Setting.scss' as *;
+
 .shop-list {
   display: flex;
   flex-wrap: wrap;

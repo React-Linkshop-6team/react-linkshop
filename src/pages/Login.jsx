@@ -3,12 +3,15 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
 import app from '../firebase'
+import eyes from '../assets/images/eyes.png'
+import eyeClick from '../assets/images/eyeClick.png'
 
 const Login = () => {
   const auth = getAuth(app)
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const nav = useNavigate()
 
@@ -21,9 +24,7 @@ const Login = () => {
       sessionStorage.setItem('linkshopUser', JSON.stringify({ userId, password }))
       nav('/')
       window.location.reload()
-    } catch (error) {
-      setError('로그인 실패: 아이디나 비밀번호를 다시 확인해주세요.')
-    }
+    } catch (error) {}
   }
 
   return (
@@ -38,14 +39,22 @@ const Login = () => {
           onChange={e => setUserId(e.target.value)}
           required
         />
-        <input
-          className="form-input"
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
+        <div className="password-container">
+          <input
+            className="form-input"
+            type={showPassword ? 'text' : 'password'}
+            placeholder="비밀번호"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+          />
+          <img
+            src={showPassword ? eyeClick : eyes}
+            alt="비밀번호 보기 토글"
+            className="eyes"
+            onClick={() => setShowPassword(prev => !prev)}
+          />
+        </div>
         <button type="submit" className="login-button">
           로그인
         </button>

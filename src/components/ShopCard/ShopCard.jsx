@@ -5,13 +5,14 @@ import ShopProfile from '../ShopProfile/ShopProfile'
 import ThumbnailList from '../ThumbnailList/ThumbnailList'
 
 const ShopCard = ({ shop }) => {
-  const { name, likes, productsCount, shop: shopInfo, products } = shop
+  const { name, userId, likes, productsCount, shop: shopInfo, products } = shop
 
   return (
     <div className="shop-card">
       <div className="shop-card-header">
         <ShopProfile
           name={name}
+          userId={userId}
           shopInfo={shopInfo}
           productsCount={productsCount}
           listId={shop.id}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+
 import Eyes from '../../assets/images/eyes.png'
 import LinkShopById from '../../api/api.js'
 import uploadImage from '../../api/api.js'
@@ -37,7 +38,7 @@ const MyShop = ({ teamId, linkShopId }) => {
           imageUrl: data.imageUrl || '',
         })
       } catch (error) {
-        console.error('링크샵 정보 불러오기 실패:', error)
+        alert('링크샵 정보 불러오기 실패:', error)
       } finally {
         setLoading(false)
       }
@@ -55,7 +56,7 @@ const MyShop = ({ teamId, linkShopId }) => {
       setInfoData(prev => ({ ...prev, imageUrl }))
       setImgFile({ imgFile: file })
     } catch (error) {
-      console.error('이미지 업로드 실패:', error)
+      alert('이미지 업로드 실패:', error)
     }
   }
 
@@ -86,7 +87,7 @@ const MyShop = ({ teamId, linkShopId }) => {
         await updateLinkShop(teamId, linkShopId, putEdit)
         alert('링크샵 정보가 수정되었습니다!')
       } catch (updateError) {
-        console.error('링크샵 정보 수정 실패:', updateError)
+        alert('링크샵 정보 수정 실패:', updateError)
         setError('링크샵 정보 수정에 실패했습니다.')
       }
     } else {
@@ -96,7 +97,7 @@ const MyShop = ({ teamId, linkShopId }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(infoData)
+    alert(infoData)
   }
 
   const toggleId = () => setShowId(prev => !prev)

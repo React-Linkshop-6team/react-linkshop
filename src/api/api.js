@@ -16,7 +16,6 @@ export const getShops = async () => {
   }
 }
 
-//  id값에 대한 상점 호출
 export const getShopById = async id => {
   try {
     const response = await axios.get(`${LINKSHOP_API_URL}/${id}`)
@@ -27,7 +26,6 @@ export const getShopById = async id => {
   }
 }
 
-// 좋아요 버튼 눌렀을 때 등록
 export const addLike = async shopId => {
   try {
     const response = await axios.post(`${LINKSHOP_API_URL}/${shopId}/like`)
@@ -37,8 +35,6 @@ export const addLike = async shopId => {
     return false
   }
 }
-
-// 좋아요 취소 버튼 눌렀을 때 등록
 export const removeLike = async shopId => {
   try {
     const response = await axios.delete(`${LINKSHOP_API_URL}/${shopId}/like`)
@@ -48,7 +44,6 @@ export const removeLike = async shopId => {
     return false
   }
 }
-// 생성하기 API 요청
 export const createShop = async payload => {
   try {
     const response = await axios.post(LINKSHOP_API_URL, payload, {
@@ -63,31 +58,19 @@ export const createShop = async payload => {
   }
 }
 
-// 이미지 업로드
 export const uploadImage = async file => {
   const formData = new FormData()
   formData.append('image', file)
 
-  try {
-    const response = await axios.post(IMAGE_UPLOAD_URL, formData)
-    return response.data.url
-  } catch (error) {
-    console.error('이미지 업로드 실패:', error)
-    return null
-  }
+  const response = await axios.post(IMAGE_UPLOAD_URL, formData)
+  return response.data.url
 }
 
-// 수정완료 버튼 눌렀을 때 등록
 export const updateLinkShop = async (linkShopId, putEdit) => {
-  try {
-    const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit)
-    return response.data
-  } catch (error) {
-    console.log('실패 이유:', error.response?.data || error)
-  }
+  const response = await axios.put(`${LINKSHOP_API_URL}/${linkShopId}`, putEdit)
+  return response.data
 }
 
-// API 삭제하기 요청
 export const deleteShop = async (id, currentPassword) => {
   try {
     console.log('삭제요청', id, currentPassword)
@@ -101,18 +84,11 @@ export const deleteShop = async (id, currentPassword) => {
   }
 }
 
-// currentPassword 를 가져오는 put API
 export const putShopById = async (id, updatedData) => {
-  try {
-    const response = await axios.put(`${LINKSHOP_API_URL}/${id}`, updatedData)
-    return response.data
-  } catch (error) {
-    console.error('페이지 로딩에 실패했습니다.', error.response?.data || error)
-    return null
-  }
+  const response = await axios.put(`${LINKSHOP_API_URL}/${id}`, updatedData)
+  return response.data
 }
 
-// 커서 기반 상점 목록 조회 함수
 export const getShopsByCursor = async (cursor = null) => {
   try {
     let url = `${LINKSHOP_API_URL}`
@@ -130,8 +106,6 @@ export const getShopsByCursor = async (cursor = null) => {
     return { list: [], nextCursor: null }
   }
 }
-
-// api.js
 
 export const getShopsByFilter = async (filter, cursor = null) => {
   const orderBy = FILTER_QUERY_MAP[filter]
@@ -153,11 +127,6 @@ export const getShopsByFilter = async (filter, cursor = null) => {
 }
 
 export const LinkShopById = async linkShopId => {
-  try {
-    const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
-    return response.data
-  } catch (error) {
-    console.error('링크샵 상세 정보 가져오기 실패:', error)
-    throw error
-  }
+  const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
+  return response.data
 }

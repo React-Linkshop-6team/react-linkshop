@@ -4,12 +4,15 @@ import { ref, set } from 'firebase/database'
 import { useNavigate } from 'react-router-dom'
 
 import app, { db } from '../firebase'
+import eyes from '../assets/images/eyes.png'
+import eyeClick from '../assets/images/eyeClick.png'
 
 const Signup = () => {
   const auth = getAuth(app)
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('')
   const [shopName, setShopName] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
   const onSubmit = async event => {
@@ -28,11 +31,8 @@ const Signup = () => {
         shopName,
       })
 
-      console.log('User created and stored in DB:', user)
       navigate('/')
-    } catch (error) {
-      console.error('Error creating user:', error.message)
-    }
+    } catch (error) {}
   }
 
   return (
@@ -51,13 +51,21 @@ const Signup = () => {
         </div>
         <div>
           <label>비밀번호</label>
-          <input
-            className="form-input"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-container">
+            <input
+              className="form-input"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
+            <img
+              src={showPassword ? eyeClick : eyes}
+              alt="비밀번호 보기 토글"
+              className="eyes"
+              onClick={() => setShowPassword(prev => !prev)}
+            />
+          </div>
         </div>
         <div>
           <label>상점 이름</label>
