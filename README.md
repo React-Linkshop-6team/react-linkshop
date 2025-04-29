@@ -75,16 +75,19 @@
 
 ---
 
-## 🧑‍💻 팀원 소개
+## 👥 팀원 소개
 
-| **이름**    | **역할**        | 
-|:-----------:|:---------------:|
-| 김영현(팀장)       | Firebase 인증과 realtime DB 연동, 사용자 로그인 기반의 샵 생성 및 관리기능 구현 / 메인화면에 샵 카드를 리스트 형태로 출력, 필터링을 통한 검색 기능 개발 / 프로젝트의 전체적인 서비스 흐름 설계 및 구현          | 
-| 김다인       | 상세페이지에서 수정 버튼 클릭 시 기존 데이터를 불러와 수정하고, 변경사항을 반영한 후 다시 상세페이지로 이동하도록 구현          | 
+| **이름** | **역할** |
+|:--------:|:--------|
+| 김영현<br>(팀장) | Firebase 인증 및 Realtime Database 연동을 통해 사용자 로그인 기반의 샵 생성 및 관리 기능 구현<br/>메인 화면에 샵 카드를 리스트 형태로 출력, 필터링을 통한 검색 기능 개발<br/>프로젝트 전체 서비스 흐름 설계 및 구현 |
+| 김다인 | 상세 페이지에서 수정 버튼 클릭 시 기존 데이터를 불러와 수정할 수 있도록 구현하고, 변경된 정보를 반영한 뒤 상세 페이지로 다시 이동되도록 처리 |
+| 신성오 | 상점 생성 사용자가 상점 정보를 수정 및 삭제할 수 있는 기능 구현<br/>상점을 이용하는 사용자가 상점의 상세 정보를 확인할 수 있는 상세 페이지 개발 |
+| 이유나 | 생성하기 페이지에서 상품 등록 후 메인 페이지로 이동되도록 구현<br/>사용자가 입력한 상품 정보를 서버와 연동하여 메인 페이지에 실시간 반영 |
 
 ---
 
 ## ⚙️ 기술 스택
+
 
 <table>
   <thead>
@@ -95,10 +98,53 @@
   </thead>
   <tbody>
     <tr>
-      <td>프론트엔드</td>
+      <td><strong>Frontend</strong></td>
       <td>
         <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
-        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white"/>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Styling</strong></td>
+      <td>
+        <img src="https://img.shields.io/badge/Sass-CC6699?style=flat&logo=sass&logoColor=white"/>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Libraries</strong></td>
+      <td>
+        <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Husky-29ABE2?style=flat&logo=github&logoColor=white"/>
+        <img src="https://img.shields.io/badge/lint--staged-3E4E88?style=flat&logo=github&logoColor=white"/>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Code Quality</strong></td>
+      <td>
+        <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=prettier&logoColor=white"/>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>CI / CD</strong></td>
+      <td>
+        <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=flat&logo=githubactions&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white"/>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Performance</strong></td>
+      <td>
+        <img src="https://img.shields.io/badge/Lighthouse CI-F44B21?style=flat&logo=lighthouse&logoColor=white"/>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Collaboration</strong></td>
+      <td>
+        <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white"/>
       </td>
     </tr>
   </tbody>
