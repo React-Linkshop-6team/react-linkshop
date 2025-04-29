@@ -121,7 +121,6 @@
       <td>
         <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
         <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white"/>
-        <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=reactrouter&logoColor=white"/>
       </td>
     </tr>
     <tr>
@@ -134,6 +133,7 @@
       <td><strong>Libraries</strong></td>
       <td>
         <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white"/>
+        <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=reactrouter&logoColor=white"/>
         <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black"/>
         <img src="https://img.shields.io/badge/UUID-006400?style=flat&logo=github&logoColor=white"/>
         <img src="https://img.shields.io/badge/Husky-29ABE2?style=flat&logo=github&logoColor=white"/>
@@ -145,8 +145,6 @@
       <td>
         <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white"/>
         <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=prettier&logoColor=white"/>
-        <img src="https://img.shields.io/badge/React Plugin-61DAFB?style=flat&logo=react&logoColor=white"/>
-        <img src="https://img.shields.io/badge/JSX A11y-0A66C2?style=flat&logo=w3c&logoColor=white"/>
       </td>
     </tr>
     <tr>
@@ -178,4 +176,6 @@
 
 ## 📂 문서 자료
 
-- ***
+- [🧠 트러블 슈팅](./docs/트러블슈팅.md)
+- [🧪 테스트 시나리오](./docs/테스트시나리오.md)
+- [📋 1차 회고 - KPT 방식](./docs/1차회고.md)
