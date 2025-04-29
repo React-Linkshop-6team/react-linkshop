@@ -16,7 +16,7 @@ const DetailPageItemList = ({ id }) => {
       if (data && data.products) {
         setItemList(data.products)
       } else {
-        alert('⚠️ 상품 정보 없음 또는 응답 형식 문제')
+        alert('상품 정보 없음')
       }
       setIsLoading(false)
     }

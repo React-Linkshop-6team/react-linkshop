@@ -100,7 +100,7 @@ const Header = () => {
 
   if (isLoading) return null
 
-  if (location.pathname.startsWith('/profile')) return null
+  if (location.pathname === '/profile') return null
 
   return (
     <header className="header">
