@@ -176,6 +176,6 @@
 
 ## 📂 문서 자료
 
-- [🧠 트러블 슈팅](./docs/트러블슈팅.md)
-- [🧪 테스트 시나리오](./docs/테스트시나리오.md)
-- [📋 1차 회고 - KPT 방식](./docs/1차회고.md)
+- [🧠 트러블 슈팅](./docs/trouble-shooting.md)
+- [🧪 테스트 시나리오](./docs/test-scenarios.md)
+- [📋 1차 회고 - KPT 방식](./docs/retrospective-kpt.md)
