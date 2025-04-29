@@ -14,8 +14,6 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
     const formData = new FormData()
     formData.append('image', file)
 
-    console.log('업로드할 URL:', import.meta.env.VITE_IMAGE_UPLOAD_URL)
-
     try {
       const res = await fetch(import.meta.env.VITE_IMAGE_UPLOAD_URL, {
         method: 'POST',
@@ -25,10 +23,8 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       if (!res.ok) throw new Error('이미지 업로드 실패')
 
       const data = await res.json()
-      console.log('✅ 업로드 성공:', data)
       return data.url
     } catch (err) {
-      console.error('❌ 업로드 중 에러:', err)
       return null
     }
   }

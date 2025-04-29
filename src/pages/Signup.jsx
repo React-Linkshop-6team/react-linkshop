@@ -31,11 +31,8 @@ const Signup = () => {
         shopName,
       })
 
-      console.log('User created and stored in DB:', user)
       navigate('/')
-    } catch (error) {
-      console.error('Error creating user:', error.message)
-    }
+    } catch (error) {}
   }
 
   return (
