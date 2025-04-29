@@ -16,16 +16,6 @@ export const getShops = async () => {
   }
 }
 
-export const getShopById = async id => {
-  try {
-    const response = await axios.get(`${LINKSHOP_API_URL}/${id}`)
-    return response.data
-  } catch (error) {
-    console.error('에러 출력', error)
-    return null
-  }
-}
-
 export const addLike = async shopId => {
   try {
     const response = await axios.post(`${LINKSHOP_API_URL}/${shopId}/like`)
@@ -126,7 +116,15 @@ export const getShopsByFilter = async (filter, cursor = null) => {
   }
 }
 
-export const LinkShopById = async linkShopId => {
-  const response = await axios.get(`${LINKSHOP_API_URL}/${linkShopId}`)
-  return response.data
+const fetchShopById = async id => {
+  try {
+    const response = await axios.get(`${LINKSHOP_API_URL}/${id}`)
+    return response.data
+  } catch (error) {
+    console.error('에러 출력', error)
+    return null
+  }
 }
+
+export const getShopById = fetchShopById
+export const LinkShopById = fetchShopById
