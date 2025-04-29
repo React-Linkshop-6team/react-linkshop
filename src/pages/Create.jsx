@@ -126,8 +126,6 @@ const Create = () => {
       name: infoData.name.trim(),
     }
 
-    console.log('🚀 생성 요청 payload:', JSON.stringify(payload, null, 2))
-
     try {
       await createShop(payload)
       sessionStorage.setItem('hasShop', 'true')
