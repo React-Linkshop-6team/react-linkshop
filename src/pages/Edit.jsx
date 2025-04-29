@@ -5,8 +5,6 @@ import { LinkShopById, updateLinkShop } from '../api/api'
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
 
-import { LinkShopById, updateLinkShop } from '../api/api'
-
 const Edit = () => {
   const { linkShopId } = useParams()
   const [shopInfo, setShopInfo] = useState(null)
