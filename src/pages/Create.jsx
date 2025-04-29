@@ -11,6 +11,7 @@ const Create = () => {
   const [shopUrl, setShopUrl] = useState('')
   const [inputUserId, setInputUserId] = useState('')
   const [inputPassword, setInputPassword] = useState('')
+  const [shopImageUrl, setShopImageUrl] = useState('')
 
   const [items, setItems] = useState([
     {
@@ -106,7 +107,7 @@ const Create = () => {
 
     const payload = {
       shop: {
-        imageUrl: items[0].imageUrl,
+        imageUrl: shopImageUrl,
         urlName: infoData.shopUrl,
         shopUrl: infoData.shopUrl,
       },
@@ -125,6 +126,8 @@ const Create = () => {
       name: infoData.name.trim(),
     }
 
+    console.log('🚀 생성 요청 payload:', JSON.stringify(payload, null, 2))
+
     try {
       await createShop(payload)
       sessionStorage.setItem('hasShop', 'true')
@@ -140,6 +143,8 @@ const Create = () => {
         setInfoData={setInfoData}
         items={items}
         setItems={setItems}
+        shopImageUrl={shopImageUrl}
+        setShopImageUrl={setShopImageUrl}
       />
       <CreateRepItem items={items} setItems={setItems} />
 
