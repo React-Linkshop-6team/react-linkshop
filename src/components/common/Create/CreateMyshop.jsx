@@ -5,7 +5,7 @@ import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
 import Spinner from '../Spinner'
 
-const CreateMyshop = ({ infoData, setInfoData }) => {
+const CreateMyshop = ({ infoData, setInfoData, shopImageUrl, setShopImageUrl }) => {
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
   const [imageUrl, setImageUrl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -47,6 +47,7 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       return
     }
 
+    setShopImageUrl(uploadedUrl)
     setFileName(safeFileName)
     setImageUrl(uploadedUrl)
   }
