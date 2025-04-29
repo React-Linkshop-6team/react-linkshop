@@ -4,15 +4,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 
   .my-shop {
-    width: 696px;
-    max-width: 696px;
+    width: 100%;
 
-    h5 {
-      font-size: 16px;
-      margin: 20px 0 20px;
+    .my-shop-header {
       width: 100%;
+      max-width: 696px;
+      margin: 20px auto;
+
+      h5 {
+        font-size: 16px;
+        width: 100%;
+      }
     }
 
     .shop {
