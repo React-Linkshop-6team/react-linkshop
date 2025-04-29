@@ -94,7 +94,7 @@
 - 상세 페이지에서 수정 버튼 클릭 시 기존 데이터를 불러와 수정할 수 있도록 구현
 - 변경된 정보를 반영한 뒤 상세 페이지로 다시 이동되도록 처리
 
-### 👨‍💻 신성오
+### 👨‍💻 [신성오](https://github.com/seong5)
 
 - 상점 생성 사용자가 상점 정보를 수정 및 삭제할 수 있는 기능 구현
 - 상점을 이용하는 사용자가 상세 정보를 확인할 수 있는 상세 페이지 개발
@@ -121,6 +121,7 @@
       <td>
         <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
         <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white"/>
+        <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=reactrouter&logoColor=white"/>
       </td>
     </tr>
     <tr>
@@ -133,6 +134,8 @@
       <td><strong>Libraries</strong></td>
       <td>
         <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black"/>
+        <img src="https://img.shields.io/badge/UUID-006400?style=flat&logo=github&logoColor=white"/>
         <img src="https://img.shields.io/badge/Husky-29ABE2?style=flat&logo=github&logoColor=white"/>
         <img src="https://img.shields.io/badge/lint--staged-3E4E88?style=flat&logo=github&logoColor=white"/>
       </td>
@@ -142,6 +145,8 @@
       <td>
         <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white"/>
         <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=prettier&logoColor=white"/>
+        <img src="https://img.shields.io/badge/React Plugin-61DAFB?style=flat&logo=react&logoColor=white"/>
+        <img src="https://img.shields.io/badge/JSX A11y-0A66C2?style=flat&logo=w3c&logoColor=white"/>
       </td>
     </tr>
     <tr>
@@ -173,6 +178,4 @@
 
 ## 📂 문서 자료
 
--
-
----
+- ***
