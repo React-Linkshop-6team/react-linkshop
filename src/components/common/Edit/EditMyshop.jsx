@@ -4,19 +4,23 @@ import { useState, useRef } from 'react'
 import Eyes from '../../../assets/images/eyes.png'
 import EyeClick from '../../../assets/images/eyeClick.png'
 import { uploadImage } from '../../../api/api'
+import { useWebpConverter } from '../../../hooks/useWebpConverter'
 
 const EditMyShop = ({ data, onChange }) => {
   const [error, setError] = useState('')
   const [imgFile, setImgFile] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
   const inputRef = useRef(null)
+  const convertToWebP = useWebpConverter()
 
   const handleImgChange = async e => {
     const file = e.target.files[0]
     if (!file) return
     setImgFile(file)
     try {
-      const imageUrl = await uploadImage(file)
+      const webpFile = await convertToWebP(file)
+      const imageUrl = await uploadImage(webpFile)
+
       if (imageUrl) {
         onChange(prev => ({ ...prev, imageUrl }))
       }
