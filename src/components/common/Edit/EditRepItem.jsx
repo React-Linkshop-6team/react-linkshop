@@ -1,20 +1,22 @@
 import { useState, useRef, useEffect } from 'react'
 
 import { uploadImage } from '../../../api/api.js'
+import { useWebpConverter } from '../../../hooks/useWebpConverter'
 
 const EditRepItem = ({ data, onChange }) => {
   const [items, setItems] = useState([])
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const scrollableRef = useRef(null)
+  const convertToWebP = useWebpConverter()
 
   if (!data) return null
 
   const handleImgChange = async (e, index) => {
     const file = e.target.files[0]
     if (!file) return
-
-    const imageUrl = await uploadImage(file)
+    const webpFile = await convertToWebP(file)
+    const imageUrl = await uploadImage(webpFile)
     setItems(prevItems =>
       prevItems.map((item, i) =>
         i === index
@@ -23,7 +25,6 @@ const EditRepItem = ({ data, onChange }) => {
               imageUrl,
               file,
               fileName: file.name,
-              preview: URL.createObjectURL(file),
             }
           : item
       )
