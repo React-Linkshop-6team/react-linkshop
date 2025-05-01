@@ -5,9 +5,13 @@ import { FILTER_QUERY_MAP } from '../constants/filterOptions'
 const LINKSHOP_API_URL = import.meta.env.VITE_LINKSHOP_API_URL
 const IMAGE_UPLOAD_URL = import.meta.env.VITE_IMAGE_UPLOAD_URL
 
-export const getShops = async () => {
+// export const getShops = async () => {
+export const getShops = async (keyword = '') => {
   try {
-    const response = await axios.get(`${LINKSHOP_API_URL}`)
+    const url = keyword
+      ? `${LINKSHOP_API_URL}?keyword=${encodeURIComponent(keyword)}`
+      : `${LINKSHOP_API_URL}`
+    const response = await axios.get(url)
 
     return response.data.list
   } catch (error) {
@@ -79,11 +83,20 @@ export const putShopById = async (id, updatedData) => {
   return response.data
 }
 
-export const getShopsByCursor = async (cursor = null) => {
+export const getShopsByCursor = async (cursor = null, keyword = '') => {
   try {
     let url = `${LINKSHOP_API_URL}`
+    const params = []
+
     if (cursor) {
-      url += `?cursor=${cursor}`
+      params.push(`cursor=${cursor}`)
+    }
+    if (keyword) {
+      params.push(`keyword=${encodeURIComponent(keyword)}`)
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`
     }
 
     const response = await axios.get(url)
