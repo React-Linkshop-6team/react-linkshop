@@ -8,7 +8,24 @@ const EditRepItem = ({ data, onChange }) => {
   const bottomRef = useRef(null)
   const scrollableRef = useRef(null)
 
-  if (!data) return null
+  useEffect(() => {
+    if (data && data.length > 0 && items.length === 0) {
+      const initialized = data.map(item => ({
+        id: item.id || generateId(),
+        file: null,
+        fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
+        preview: null,
+        imageUrl: item.imageUrl || '',
+        productName: item.productName || '',
+        productPrice: item.price ? String(item.price) : '',
+      }))
+      setItems(initialized)
+    }
+  }, [data])
+
+  useEffect(() => {
+    onChange?.(items)
+  }, [items])
 
   const handleImgChange = async (e, index) => {
     const file = e.target.files[0]
@@ -29,25 +46,6 @@ const EditRepItem = ({ data, onChange }) => {
       )
     )
   }
-
-  useEffect(() => {
-    if (data && data.length > 0 && items.length === 0) {
-      const initialized = data.map(item => ({
-        id: generateId(),
-        file: null,
-        fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
-        preview: null,
-        imageUrl: item.imageUrl || '',
-        productName: item.name || '',
-        productPrice: item.price || '',
-      }))
-      setItems(initialized)
-    }
-  }, [data])
-
-  useEffect(() => {
-    onChange?.(items)
-  }, [items])
 
   const handleProductChange = (e, index) => {
     const { name, value } = e.target
