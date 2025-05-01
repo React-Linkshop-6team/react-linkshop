@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+import { useWebpConverter } from '../../../hooks/useWebpConverter'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
 import Spinner from '../Spinner'
@@ -9,10 +10,15 @@ const CreateMyshop = ({ infoData, setInfoData, shopImageUrl, setShopImageUrl }) 
   const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
   const [imageUrl, setImageUrl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const convertToWebP = useWebpConverter()
 
   const uploadImage = async file => {
+    const webpFile = await convertToWebP(file)
     const formData = new FormData()
-    formData.append('image', file)
+    formData.append('image', webpFile)
+
+    console.log('업로드할 URL:', import.meta.env.VITE_IMAGE_UPLOAD_URL)
+    console.log('이미지확인', webpFile)
 
     try {
       const res = await fetch(import.meta.env.VITE_IMAGE_UPLOAD_URL, {
