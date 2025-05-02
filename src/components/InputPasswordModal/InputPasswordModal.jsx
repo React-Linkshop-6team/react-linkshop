@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { getShopById, putShopById } from '../api/api'
-import Spinner from './common/Spinner'
-import eyes from '../assets/images/eyes.png'
+import { getShopById, putShopById } from '../../api/api'
+import Spinner from '../common/Spinner'
+import eyes from '../../assets/images/eyes.png'
 
 const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')

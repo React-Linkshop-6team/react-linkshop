@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
-import { getShopById } from '../api/api'
-import ShopLike from './common/ShopLike'
-import ModalStateControl from './ModalStateControl'
-import urlCopyIcon from '../assets/images/url-copy-icon.png'
-import filterIcon from '../assets/images/filter-icon.png'
-import Spinner from '../components/common/Spinner.jsx'
+import { getShopById } from '../../api/api.js'
+import ShopLike from '../common/ShopLike.jsx'
+import ModalStateControl from '../ModalStateControl/ModalStateControl.jsx'
+import urlCopyIcon from '../../assets/images/url-copy-icon.png'
+import filterIcon from '../../assets/images/filter-icon.png'
+import Spinner from '../common/Spinner.jsx'
 
 const AboutShop = ({ id: propId }) => {
   const { id: routeId } = useParams()
@@ -14,8 +14,6 @@ const AboutShop = ({ id: propId }) => {
   const location = useLocation()
   const [shop, setShop] = useState(null)
   const [openModal, setOpenModal] = useState(false)
-
-  const isMyStore = location.pathname === '/mystore'
 
   const handleCopy = async () => {
     try {
@@ -46,6 +44,9 @@ const AboutShop = ({ id: propId }) => {
   const { shop: shopInfo, likes, userId, name } = shop
   const { urlName, shopUrl, imageUrl } = shopInfo
 
+  const loginUser = JSON.parse(sessionStorage.getItem('linkshopUser'))
+  const isMyStore = loginUser?.userId === userId
+
   return (
     <div className="shop-information">
       <div className="like-copyicon-morebutton">
@@ -54,17 +55,26 @@ const AboutShop = ({ id: propId }) => {
           <button className="url-copy-button" onClick={handleCopy}>
             <img className="copy-icon" src={urlCopyIcon} alt="URL 복사" />
           </button>
+
           {isMyStore && (
             <button className="edit-delete-button" onClick={handleToggleModal}>
               <img className="filter-icon" src={filterIcon} alt="수정·삭제" />
             </button>
           )}
-          <ModalStateControl shopId={id} isVisible={openModal} setIsVisible={setOpenModal} />
+
+          <ModalStateControl
+            shopId={id}
+            isVisible={openModal}
+            setIsVisible={setOpenModal}
+            isMyStore={isMyStore}
+          />
         </div>
       </div>
+
       <div className="shop-image-container">
         <img className="shop-image" src={imageUrl} alt={urlName} />
       </div>
+
       <div className="shop-name">{name}</div>
       <a className="shop-url" href={shopUrl} target="_blank" rel="noopener noreferrer">
         @ {userId}

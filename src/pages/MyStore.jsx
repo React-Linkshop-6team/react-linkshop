@@ -7,9 +7,9 @@ import { getShops } from '../api/api'
 import { db } from '../firebase'
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
-import DetailPageItemList from '../components/DetailPageItemList'
-import AboutShop from '../components/AboutShop.jsx'
-import ModalStateControl from '../components/ModalStateControl'
+import DetailPageItemList from '../components/DetailPageItemList/DetailPageItemList.jsx'
+import AboutShop from '../components/AboutShop/AboutShop.jsx'
+import ModalStateControl from '../components/ModalStateControl/ModalStateControl.jsx'
 
 const MyStore = () => {
   const navigate = useNavigate()
