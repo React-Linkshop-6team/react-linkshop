@@ -46,7 +46,6 @@ const CreateRepItem = ({ items, setItems }) => {
         imageUrl: uploadedUrl,
       }
       setItems(updatedItems)
-      console.log('이미지확인', webpFile)
     } catch (err) {
       alert('이미지 업로드에 실패했습니다.')
     } finally {
