@@ -4,8 +4,8 @@ import { useParams, useLocation } from 'react-router-dom'
 import { getShopById } from '../api/api'
 import ShopLike from './common/ShopLike'
 import ModalStateControl from './ModalStateControl'
-import urlCopyIcon from '../assets/images/url-copy-icon.png'
-import filterIcon from '../assets/images/filter-icon.png'
+import urlCopyIcon from '../assets/images/url-copy-icon.webP'
+import filterIcon from '../assets/images/filter-icon.webP'
 import Spinner from '../components/common/Spinner.jsx'
 
 const AboutShop = ({ id: propId }) => {

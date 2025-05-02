@@ -1,4 +1,4 @@
-import emptyImg from '../../assets/images/no-search.png'
+import emptyImg from '../../assets/images/no-search.webP'
 
 const NoResult = () => {
   return (

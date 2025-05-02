@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 
-import Eyes from '../../../assets/images/eyes.png'
-import EyeClick from '../../../assets/images/eyeClick.png'
+import Eyes from '../../../assets/images/eyes.webP'
+import EyeClick from '../../../assets/images/eyeClick.webP'
 
 const CreateShopInfo = ({ infoData, setInfoData }) => {
   const [showPassword, setShowPassword] = useState(false)

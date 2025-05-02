@@ -1,4 +1,4 @@
-import loadingImage from '../../assets/images/linkshop.png'
+import loadingImage from '../../assets/images/linkshop.webP'
 
 const Spinner = ({ text = '샵 정보를 가져오는 중 입니다...' }) => {
   return (

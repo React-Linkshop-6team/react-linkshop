@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { useState, useRef } from 'react'
 import Spinner from '../Spinner'
-import Eyes from '../../../assets/images/eyes.png'
-import EyeClick from '../../../assets/images/eyeClick.png'
+import Eyes from '../../../assets/images/eyes.webP'
+import EyeClick from '../../../assets/images/eyeClick.webP'
 import { uploadImage } from '../../../api/api'
 
 const EditMyShop = ({ data, onChange }) => {
