@@ -4,6 +4,7 @@ import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from 'fireba
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
+import Spinner from '../components/common/Spinner'
 
 const Create = () => {
   const navigate = useNavigate()
@@ -124,6 +125,8 @@ const Create = () => {
     const credential = EmailAuthProvider.credential(email, password)
 
     try {
+      setIsLoading(true)
+
       await reauthenticateWithCredential(user, credential)
 
       const payload = {
@@ -144,15 +147,18 @@ const Create = () => {
 
       await createShop(payload)
       sessionStorage.setItem('hasShop', 'true')
+
       setIsLoading(false)
       navigate('/')
     } catch (error) {
       alert('비밀번호가 올바르지 않습니다.')
+      setIsLoading(false)
     }
   }
 
   return (
     <div className="create-wrap">
+      {isLoading && <Spinner text="상점 생성 중..." />}
       <CreateMyshop
         infoData={infoData}
         setInfoData={setInfoData}
@@ -163,7 +169,6 @@ const Create = () => {
       />
 
       <CreateRepItem items={items} setItems={setItems} />
-
       <button
         onClick={handleSubmit}
         className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
