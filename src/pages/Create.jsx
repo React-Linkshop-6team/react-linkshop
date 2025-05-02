@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
+import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth'
 
 const Create = () => {
   const navigate = useNavigate()
@@ -11,6 +11,7 @@ const Create = () => {
   const [shopUrl, setShopUrl] = useState('')
   const [inputUserId, setInputUserId] = useState('')
   const [inputPassword, setInputPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
 
   const [items, setItems] = useState([
     {
@@ -104,34 +105,51 @@ const Create = () => {
       return
     }
 
-    const payload = {
-      shop: {
-        imageUrl: items[0].imageUrl,
-        urlName: infoData.shopUrl,
-        shopUrl: infoData.shopUrl,
-      },
-      products: items.map(item => ({
-        price: item.productPrice > 0 ? item.productPrice : 1000,
-        imageUrl: item.imageUrl,
-        name: item.productName,
-      })),
-      password:
-        infoData.password.length >= 6 &&
-        /\d/.test(infoData.password) &&
-        /[a-zA-Z]/.test(infoData.password)
-          ? infoData.password
-          : 'admin123',
-      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234',
-      name: infoData.name.trim(),
+    const auth = getAuth()
+    const user = auth.currentUser
+
+    if (!user) {
+      alert('로그인이 필요합니다.')
+      return
     }
 
+    const email = `${infoData.userId}@linkshop.com`
+    const password = infoData.currentPassword
+
+    if (user.email !== email) {
+      alert('입력한 ID가 현재 로그인된 계정과 일치하지 않습니다.')
+      return
+    }
+
+    const credential = EmailAuthProvider.credential(email, password)
+
     try {
+      // ✅ Firebase에 비밀번호 재검증
+      await reauthenticateWithCredential(user, credential)
+
+      // 통과되면 payload 구성 및 생성 API 호출
+      const payload = {
+        shop: {
+          imageUrl: items[0].imageUrl,
+          urlName: infoData.shopUrl,
+          shopUrl: infoData.shopUrl,
+        },
+        products: items.map(item => ({
+          price: item.productPrice > 0 ? item.productPrice : 1000,
+          imageUrl: item.imageUrl,
+          name: item.productName,
+        })),
+        password,
+        userId: infoData.userId,
+        name: infoData.name.trim(),
+      }
+
       await createShop(payload)
       sessionStorage.setItem('hasShop', 'true')
       setIsLoading(false)
       navigate('/')
     } catch (error) {
-      alert('등록에 실패했습니다. 다시 시도해주세요.')
+      alert('비밀번호가 올바르지 않습니다.')
     }
   }
 
@@ -142,6 +160,7 @@ const Create = () => {
         setInfoData={setInfoData}
         items={items}
         setItems={setItems}
+        passwordError={passwordError}
       />
       <CreateRepItem items={items} setItems={setItems} />
 
