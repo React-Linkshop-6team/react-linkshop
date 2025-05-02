@@ -124,10 +124,8 @@ const Create = () => {
     const credential = EmailAuthProvider.credential(email, password)
 
     try {
-      // ✅ Firebase에 비밀번호 재검증
       await reauthenticateWithCredential(user, credential)
 
-      // 통과되면 payload 구성 및 생성 API 호출
       const payload = {
         shop: {
           imageUrl: items[0].imageUrl,

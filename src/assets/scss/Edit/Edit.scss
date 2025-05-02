@@ -1,3 +1,4 @@
+@use '../Setting.scss' as *;
 .edit-page {
   width: 100%;
   display: flex;
@@ -10,7 +11,25 @@
     width: 100%;
     max-width: 696px;
     border-radius: 37px;
-    background-color: #3e45ec;
+    background-color: $brand-blue;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    text-decoration: none;
+    margin-top: 72px;
+  }
+  .edit-button.disabled {
+    height: 50px;
+    width: 100%;
+    max-width: 696px;
+    border-radius: 37px;
+    background-color: $text-gray-600;
     color: #ffffff;
     font-size: 14px;
     font-weight: 500;

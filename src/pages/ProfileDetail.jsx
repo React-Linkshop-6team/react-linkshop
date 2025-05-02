@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 import redBlueImg from '../assets/images/detail-img.png'
 import goToBack from '../assets/images/go-to-back.png'
 import { getShopById } from '../api/api.js'
-import DetailPageItemList from '../components/DetailPageItemList'
-import AboutShop from '../components/AboutShop.jsx'
+import DetailPageItemList from '../components/DetailPageItemList/DetailPageItemList.jsx'
+import AboutShop from '../components/AboutShop/AboutShop.jsx'
 
 const ProfileDetail = () => {
   const [shop, setShop] = useState(null)
@@ -17,7 +17,6 @@ const ProfileDetail = () => {
       if (data) {
         setShop(data)
       } else {
-        console.log('해당하는 상점이 없습니다.')
       }
     }
 

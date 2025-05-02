@@ -3,16 +3,19 @@
 .shop-card {
   background-color: $text-white-600;
   border-radius: 25px;
-  width: 587px;
+  width: 100%;
+  max-width: 587px;
   height: 237px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+
+  margin: 0;
+  align-self: flex-start;
 }
 
-//
 .shop-card-header {
   display: flex;
   justify-content: space-between;
