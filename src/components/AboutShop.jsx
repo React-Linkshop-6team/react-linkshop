@@ -15,8 +15,6 @@ const AboutShop = ({ id: propId }) => {
   const [shop, setShop] = useState(null)
   const [openModal, setOpenModal] = useState(false)
 
-  const isMyStore = location.pathname === '/mystore'
-
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}${location.pathname}`)
@@ -46,6 +44,9 @@ const AboutShop = ({ id: propId }) => {
   const { shop: shopInfo, likes, userId, name } = shop
   const { urlName, shopUrl, imageUrl } = shopInfo
 
+  const loginUser = JSON.parse(sessionStorage.getItem('linkshopUser'))
+  const isMyStore = loginUser?.userId === userId
+
   return (
     <div className="shop-information">
       <div className="like-copyicon-morebutton">
@@ -54,17 +55,26 @@ const AboutShop = ({ id: propId }) => {
           <button className="url-copy-button" onClick={handleCopy}>
             <img className="copy-icon" src={urlCopyIcon} alt="URL 복사" />
           </button>
+
           {isMyStore && (
             <button className="edit-delete-button" onClick={handleToggleModal}>
               <img className="filter-icon" src={filterIcon} alt="수정·삭제" />
             </button>
           )}
-          <ModalStateControl shopId={id} isVisible={openModal} setIsVisible={setOpenModal} />
+
+          <ModalStateControl
+            shopId={id}
+            isVisible={openModal}
+            setIsVisible={setOpenModal}
+            isMyStore={isMyStore}
+          />
         </div>
       </div>
+
       <div className="shop-image-container">
         <img className="shop-image" src={imageUrl} alt={urlName} />
       </div>
+
       <div className="shop-name">{name}</div>
       <a className="shop-url" href={shopUrl} target="_blank" rel="noopener noreferrer">
         @ {userId}
