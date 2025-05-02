@@ -12,7 +12,7 @@ const RepItemImageUploader = ({ fileName, onImageUpload, id, title = '상품 대
         <input
           id={`imgUpload-${id}`}
           type="file"
-          accept="image/"
+          accept="image/*"
           onChange={onImageUpload}
           style={{ display: 'none' }}
         />
