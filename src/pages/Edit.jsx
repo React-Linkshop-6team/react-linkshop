@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
+import Spinner from '../components/common/Spinner'
 import { LinkShopById, updateLinkShop } from '../api/api'
 import EditMyShop from '../components/common/Edit/EditMyshop'
 import EditRepItem from '../components/common/Edit/EditRepItem'
@@ -10,6 +11,8 @@ const Edit = () => {
   const [shopInfo, setShopInfo] = useState(null)
   const [productList, setProductList] = useState([])
   const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const navigate = useNavigate()
   const [isFormValid, setIsFormValid] = useState(false)
 
@@ -51,7 +54,7 @@ const Edit = () => {
       alert('모든 필수 정보를 입력해주세요.')
       return
     }
-
+    setIsSubmitting(true)
     try {
       const putEdit = {
         currentPassword: shopInfo.password,
@@ -72,11 +75,14 @@ const Edit = () => {
       navigate(`/profile/${linkShopId}`)
     } catch (e) {
       setError('비밀번호가 올바르지 않습니다.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   return (
     <div className="edit-page">
+      {isSubmitting && <Spinner text="수정 중입니다..." />}
       {shopInfo && (
         <>
           <EditMyShop data={shopInfo} onChange={setShopInfo} />
@@ -87,7 +93,7 @@ const Edit = () => {
             onClick={handleUpdate}
             disabled={!isFormValid}
           >
-            수정 완료
+            {isSubmitting ? '수정 중...' : '수정 완료'}
           </button>
         </>
       )}

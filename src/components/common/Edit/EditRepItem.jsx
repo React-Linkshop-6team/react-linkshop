@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
+import Spinner from '../Spinner'
 import { uploadImage } from '../../../api/api.js'
 
 const EditRepItem = ({ data, onChange }) => {
@@ -7,6 +8,7 @@ const EditRepItem = ({ data, onChange }) => {
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const scrollableRef = useRef(null)
+  const [loadingStates, setLoadingStates] = useState([])
 
   useEffect(() => {
     if (data && data.length > 0 && items.length === 0) {
@@ -31,20 +33,38 @@ const EditRepItem = ({ data, onChange }) => {
     const file = e.target.files[0]
     if (!file) return
 
-    const imageUrl = await uploadImage(file)
-    setItems(prevItems =>
-      prevItems.map((item, i) =>
-        i === index
-          ? {
-              ...item,
-              imageUrl,
-              file,
-              fileName: file.name,
-              preview: URL.createObjectURL(file),
-            }
-          : item
+    // 업로드 상태 설정
+    setLoadingStates(prev => {
+      const newStates = [...prev]
+      newStates[index] = true
+      return newStates
+    })
+
+    try {
+      const imageUrl = await uploadImage(file)
+      setItems(prevItems =>
+        prevItems.map((item, i) =>
+          i === index
+            ? {
+                ...item,
+                imageUrl,
+                file,
+                fileName: file.name,
+                preview: URL.createObjectURL(file),
+              }
+            : item
+        )
       )
-    )
+    } catch (error) {
+      alert('이미지 업로드 실패')
+    } finally {
+      // 업로드 상태 해제
+      setLoadingStates(prev => {
+        const newStates = [...prev]
+        newStates[index] = false
+        return newStates
+      })
+    }
   }
 
   const handleProductChange = (e, index) => {
@@ -108,6 +128,7 @@ const EditRepItem = ({ data, onChange }) => {
                   onChange={e => handleImgChange(e, index)}
                   style={{ display: 'none' }}
                 />
+                {loadingStates[index] && <Spinner text="이미지 업로드 중..." />}
               </div>
 
               <div className="rep-item-name">
