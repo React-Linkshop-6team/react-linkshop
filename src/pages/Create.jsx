@@ -4,7 +4,7 @@ import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from 'fireba
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
-import Spinner from '../components/common/Spinner' // Spinner 임포트
+import Spinner from '../components/common/Spinner'
 
 const Create = () => {
   const navigate = useNavigate()
