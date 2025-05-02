@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 
-import SearchBar from '../SearchBar/SearchBar'
 import ShopCard from '../ShopCard/ShopCard'
 import NoResult from '../NoResult/NoResult'
 import FilterModal from '../FilterModal/FilterModal'
@@ -9,65 +8,46 @@ import useScrollHandler from '../../hooks/useScrollHandler'
 import Spinner from '../common/Spinner'
 import { getShopsByCursor, getShopsByFilter } from '../../api/api'
 
-const ShopList = () => {
-  const [shops, setShops] = useState([])
+const ShopList = ({ searchItem, list, loading }) => {
   const [cursor, setCursor] = useState(null)
   const [hasMore, setHasMore] = useState(true)
 
-  const [loading, setLoading] = useState(true)
-
-  const [searchItem, setSearchItem] = useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [selectedFilter, setSelectedFilter] = useState('상세필터')
+
+  const [filteredShops, setFilteredShops] = useState([])
 
   const fetchNextShops = async () => {
     if (!hasMore) return
 
-    const fetchFunc =
-      selectedFilter === '상세필터'
-        ? getShopsByCursor
-        : cursor => getShopsByFilter(selectedFilter, cursor)
-
-    const { list: nextList, nextCursor } = await fetchFunc(cursor)
-
-    if (nextList.length > 0) {
-      setShops(prev => {
-        const merged = [...prev, ...nextList]
-        const unique = Array.from(new Map(merged.map(shop => [shop.id, shop])).values())
-        return unique
-      })
+    if (selectedFilter === '상세필터') {
+      const { list: nextList, nextCursor } = await getShopsByCursor(cursor)
       setCursor(nextCursor)
       setHasMore(!!nextCursor)
     } else {
-      setHasMore(false)
+      const { list: nextList, nextCursor } = await getShopsByFilter(selectedFilter, cursor)
+      setFilteredShops(prev => {
+        const existingIds = new Set(prev.map(shop => shop.id))
+        const newUniqueList = nextList.filter(shop => !existingIds.has(shop.id))
+        return [...prev, ...newUniqueList]
+      })
+      setCursor(nextCursor)
+      setHasMore(!!nextCursor)
     }
   }
 
-  useEffect(() => {
-    const fetchInitialShops = async () => {
-      setLoading(true)
-
-      if (selectedFilter === '상세필터') {
-        const { list: initialList, nextCursor } = await getShopsByCursor()
-        setShops(initialList)
-        setCursor(nextCursor)
-        setHasMore(!!nextCursor)
-      } else {
-        const { list: filteredList, nextCursor } = await getShopsByFilter(selectedFilter)
-        setShops(filteredList)
-        setCursor(nextCursor)
-        setHasMore(!!nextCursor)
-      }
-
-      setLoading(false)
-    }
-
-    fetchInitialShops()
-  }, [selectedFilter])
-
   useScrollHandler(hasMore, fetchNextShops)
 
-  const sortedShops = shops
+  useEffect(() => {
+    if (list.length > 0) {
+      const lastItem = list[list.length - 1]
+      setCursor(lastItem.cursor || lastItem.id)
+      setHasMore(true)
+    }
+  }, [list])
+
+  const baseShops = filteredShops.length > 0 ? filteredShops : list
+  const sortedShops = baseShops
     .filter(shop => shop.name.toLowerCase().includes(searchItem.toLowerCase()))
     .sort((a, b) => {
       if (selectedFilter !== '상세필터') return 0
@@ -82,21 +62,18 @@ const ShopList = () => {
   const handleFilterSelect = async filter => {
     setSelectedFilter(filter)
     setIsFilterOpen(false)
-    setLoading(true)
 
     if (filter === '상세필터') {
       const { list: initialList, nextCursor } = await getShopsByCursor()
-      setShops(initialList)
+      setFilteredShops([])
       setCursor(nextCursor)
       setHasMore(!!nextCursor)
     } else {
       const { list: filteredList, nextCursor } = await getShopsByFilter(filter)
-      setShops(filteredList)
+      setFilteredShops(filteredList)
       setCursor(nextCursor)
       setHasMore(!!nextCursor)
     }
-
-    setLoading(false)
   }
 
   const renderedShopCards =
@@ -108,8 +85,6 @@ const ShopList = () => {
 
   return (
     <div className="shop-list-container">
-      <SearchBar onSearch={setSearchItem} />
-
       <button onClick={() => setIsFilterOpen(true)} className="shop-filter-toggle">
         {selectedFilter}
         <img src={polygonFilter} alt="필터 화살표 아이콘" className="shop-filter-toggle-icon" />
@@ -130,8 +105,6 @@ const ShopList = () => {
       )}
 
       <div className="shop-list">{renderedShopCards}</div>
-
-      {!hasMore && <div className="shop-list-end" />}
     </div>
   )
 }
