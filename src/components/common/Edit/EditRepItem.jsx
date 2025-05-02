@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
+import Spinner from '../Spinner'
 import { uploadImage } from '../../../api/api.js'
 import { useWebpConverter } from '../../../hooks/useWebpConverter'
 
@@ -8,15 +9,32 @@ const EditRepItem = ({ data, onChange }) => {
   const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
   const bottomRef = useRef(null)
   const scrollableRef = useRef(null)
-  const convertToWebP = useWebpConverter()
+  const [loadingStates, setLoadingStates] = useState([])
 
-  if (!data) return null
+  useEffect(() => {
+    if (data && data.length > 0 && items.length === 0) {
+      const initialized = data.map(item => ({
+        id: item.id || generateId(),
+        file: null,
+        fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
+        preview: null,
+        imageUrl: item.imageUrl || '',
+        productName: item.productName || '',
+        productPrice: item.price ? String(item.price) : '',
+      }))
+      setItems(initialized)
+    }
+  }, [data])
+
+  useEffect(() => {
+    onChange?.(items)
+  }, [items])
 
   const handleImgChange = async (e, index) => {
     const file = e.target.files[0]
     if (!file) return
-    const webpFile = await convertToWebP(file)
-    const imageUrl = await uploadImage(webpFile)
+
+    const imageUrl = await uploadImage(file)
     setItems(prevItems =>
       prevItems.map((item, i) =>
         i === index
@@ -25,6 +43,7 @@ const EditRepItem = ({ data, onChange }) => {
               imageUrl,
               file,
               fileName: file.name,
+              preview: URL.createObjectURL(file),
             }
           : item
       )
@@ -111,6 +130,7 @@ const EditRepItem = ({ data, onChange }) => {
                   onChange={e => handleImgChange(e, index)}
                   style={{ display: 'none' }}
                 />
+                {loadingStates[index] && <Spinner text="이미지 업로드 중..." />}
               </div>
 
               <div className="rep-item-name">
