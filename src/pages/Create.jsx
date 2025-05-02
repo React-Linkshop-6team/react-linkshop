@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
-import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth'
 
 const Create = () => {
   const navigate = useNavigate()
@@ -11,7 +11,7 @@ const Create = () => {
   const [shopUrl, setShopUrl] = useState('')
   const [inputUserId, setInputUserId] = useState('')
   const [inputPassword, setInputPassword] = useState('')
-  const [passwordError, setPasswordError] = useState('')
+  const [shopImageUrl, setShopImageUrl] = useState('')
 
   const [items, setItems] = useState([
     {
@@ -158,10 +158,12 @@ const Create = () => {
       <CreateMyshop
         infoData={infoData}
         setInfoData={setInfoData}
+        shopImageUrl={shopImageUrl}
+        setShopImageUrl={setShopImageUrl}
         items={items}
         setItems={setItems}
-        passwordError={passwordError}
       />
+
       <CreateRepItem items={items} setItems={setItems} />
 
       <button
