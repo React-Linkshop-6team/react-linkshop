@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-import { getShopById } from '../api/api.js'
-import Spinner from './common/Spinner.jsx'
+import { getShopById } from '../../api/api.js'
+import Spinner from '../common/Spinner.jsx'
 
 const DetailPageItemList = ({ id }) => {
   const [itemList, setItemList] = useState([])
