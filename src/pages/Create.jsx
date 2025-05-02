@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { getAuth, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth'
 import CreateRepItem from '../components/common/Create/CreateRepItem'
 import CreateMyshop from '../components/common/Create/CreateMyshop'
 import { createShop } from '../api/api'
+import Spinner from '../components/common/Spinner' // Spinner 임포트
 
 const Create = () => {
   const navigate = useNavigate()
@@ -105,47 +106,68 @@ const Create = () => {
       return
     }
 
-    const payload = {
-      shop: {
-        imageUrl: shopImageUrl,
-        urlName: infoData.shopUrl,
-        shopUrl: infoData.shopUrl,
-      },
-      products: items.map(item => ({
-        price: item.productPrice > 0 ? item.productPrice : 1000,
-        imageUrl: item.imageUrl,
-        name: item.productName,
-      })),
-      password:
-        infoData.password.length >= 6 &&
-        /\d/.test(infoData.password) &&
-        /[a-zA-Z]/.test(infoData.password)
-          ? infoData.password
-          : 'admin123',
-      userId: infoData.userId.match(/^[a-zA-Z0-9]+$/) ? infoData.userId : 'admin1234',
-      name: infoData.name.trim(),
+    const auth = getAuth()
+    const user = auth.currentUser
+
+    if (!user) {
+      alert('로그인이 필요합니다.')
+      return
     }
 
+    const email = `${infoData.userId}@linkshop.com`
+    const password = infoData.currentPassword
+
+    if (user.email !== email) {
+      alert('입력한 ID가 현재 로그인된 계정과 일치하지 않습니다.')
+      return
+    }
+
+    const credential = EmailAuthProvider.credential(email, password)
+
     try {
+      setIsLoading(true)
+
+      await reauthenticateWithCredential(user, credential)
+
+      const payload = {
+        shop: {
+          imageUrl: items[0].imageUrl,
+          urlName: infoData.shopUrl,
+          shopUrl: infoData.shopUrl,
+        },
+        products: items.map(item => ({
+          price: item.productPrice > 0 ? item.productPrice : 1000,
+          imageUrl: item.imageUrl,
+          name: item.productName,
+        })),
+        password,
+        userId: infoData.userId,
+        name: infoData.name.trim(),
+      }
+
       await createShop(payload)
       sessionStorage.setItem('hasShop', 'true')
+
       setIsLoading(false)
       navigate('/')
-    } catch (error) {}
+    } catch (error) {
+      alert('비밀번호가 올바르지 않습니다.')
+      setIsLoading(false)
+    }
   }
 
   return (
     <div className="create-wrap">
+      {isLoading && <Spinner text="상점 생성 중..." />}
       <CreateMyshop
         infoData={infoData}
         setInfoData={setInfoData}
-        items={items}
-        setItems={setItems}
         shopImageUrl={shopImageUrl}
         setShopImageUrl={setShopImageUrl}
+        items={items}
+        setItems={setItems}
       />
       <CreateRepItem items={items} setItems={setItems} />
-
       <button
         onClick={handleSubmit}
         className={`submit-btn ${isFormValid() ? 'enabled' : ''}`}
