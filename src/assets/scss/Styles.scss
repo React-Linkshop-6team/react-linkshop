@@ -12,6 +12,10 @@
 @use './ShopCard/ShopCard.scss' as *;
 @use './ShopProfile/ShopProfile.scss' as *;
 @use './ShopLike/ShopLike.scss' as *;
+@use './NoResult/NoResult.scss' as *;
+@use './SearchBar/SearchBar.scss' as *;
+@use './FilterModal/FilterModal.scss' as *;
+@use './ThumbnailList/ThumbnailList.scss' as *;
 
 // 상세페이지 scss
 @use '../scss/ProFileDetail/ProFileDetail.scss' as *;
@@ -28,12 +32,6 @@
 // 대표 상품 scss
 @use '../scss/EditDeleteModal/EditDeleteModal.scss' as *;
 
-// 기타 컴포넌트
-@use './NoResult/NoResult.scss' as *;
-@use './SearchBar/SearchBar.scss' as *;
-@use './FilterModal/FilterModal.scss' as *;
-@use './ThumbnailList/ThumbnailList.scss' as *;
-
 // 내 쇼핑몰 scss
 @use './Edit/EditMyshop.scss' as *;
 @use './Edit/EditRepItem.scss' as *;
@@ -42,3 +40,6 @@
 // 로그인/회원가입
 @use './Login/Login.scss' as *;
 @use './Signup/Signup.scss' as *;
+
+// 404 에러페이지
+@use './NotFound/NotFound.scss';
