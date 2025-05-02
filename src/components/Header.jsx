@@ -18,6 +18,12 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  const handleLogoClick = () => {
+    sessionStorage.removeItem('searchItem')
+    sessionStorage.removeItem('selectedFilter')
+    window.location.href = '/'
+  }
+
   useEffect(() => {
     const auth = getAuth()
 
@@ -105,7 +111,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <Link to="/">
+        <Link to="/" onClick={handleLogoClick}>
           <img src={logo} alt="Linkshop logo" className="header-logo" />
         </Link>
       </div>
