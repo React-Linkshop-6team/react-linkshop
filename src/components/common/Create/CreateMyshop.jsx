@@ -6,15 +6,11 @@ import CreateShopInfo from '../Create/CreateShopInfo'
 import Spinner from '../Spinner'
 
 const CreateMyshop = ({ infoData, setInfoData }) => {
-  const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
-  const [imageUrl, setImageUrl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const uploadImage = async file => {
     const formData = new FormData()
     formData.append('image', file)
-
-    console.log('업로드할 URL:', import.meta.env.VITE_IMAGE_UPLOAD_URL)
 
     try {
       const res = await fetch(import.meta.env.VITE_IMAGE_UPLOAD_URL, {
@@ -51,8 +47,14 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       return
     }
 
-    setFileName(safeFileName)
-    setImageUrl(uploadedUrl)
+    // ✅ infoData 안에 저장
+    setInfoData(prev => ({
+      ...prev,
+      shopProfile: {
+        fileName: safeFileName,
+        imageUrl: uploadedUrl,
+      },
+    }))
   }
 
   return (
@@ -61,12 +63,14 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       <div className="my-item-shop">
         <div className="item-content">
           {isLoading ? <Spinner text="사진 업로드 중입니다..." /> : null}
+
           <CreateRepItemImageUploader
             title="쇼핑몰 프로필"
-            fileName={fileName}
+            fileName={infoData?.shopProfile?.fileName || '대표 이미지를 첨부해주세요'}
             onImageUpload={handleImageUpload}
             id="myshop"
           />
+
           <CreateShopInfo infoData={infoData} setInfoData={setInfoData} />
         </div>
       </div>
