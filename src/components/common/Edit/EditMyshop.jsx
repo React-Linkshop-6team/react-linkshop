@@ -13,7 +13,6 @@ const EditMyShop = ({ data, onChange }) => {
   const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef(null)
   const convertToWebP = useWebpConverter()
-
   const handleImgChange = async e => {
     const file = e.target.files[0]
     if (!file) return
@@ -104,7 +103,7 @@ const EditMyShop = ({ data, onChange }) => {
                     onChange={handleInfoChange}
                     placeholder="유저 ID를 입력해주세요"
                     className="content-comment"
-                    readOnly // 유저 ID는 수정 불가하다고 가정
+                    readOnly
                   />
                 </div>
               </div>

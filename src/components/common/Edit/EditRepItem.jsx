@@ -6,10 +6,12 @@ import { useWebpConverter } from '../../../hooks/useWebpConverter'
 
 const EditRepItem = ({ data, onChange }) => {
   const [items, setItems] = useState([])
-  const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
+  const [loadingStates, setLoadingStates] = useState([])
   const bottomRef = useRef(null)
   const scrollableRef = useRef(null)
-  const [loadingStates, setLoadingStates] = useState([])
+  const convertToWebP = useWebpConverter()
+
+  const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
 
   useEffect(() => {
     if (data && data.length > 0 && items.length === 0) {
@@ -19,10 +21,11 @@ const EditRepItem = ({ data, onChange }) => {
         fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
         preview: null,
         imageUrl: item.imageUrl || '',
-        productName: item.productName || '',
+        productName: item.productName || item.name || '',
         productPrice: item.price ? String(item.price) : '',
       }))
       setItems(initialized)
+      setLoadingStates(new Array(initialized.length).fill(false))
     }
   }, [data])
 
@@ -34,40 +37,39 @@ const EditRepItem = ({ data, onChange }) => {
     const file = e.target.files[0]
     if (!file) return
 
-    const imageUrl = await uploadImage(file)
-    setItems(prevItems =>
-      prevItems.map((item, i) =>
-        i === index
-          ? {
-              ...item,
-              imageUrl,
-              file,
-              fileName: file.name,
-              preview: URL.createObjectURL(file),
-            }
-          : item
+    setLoadingStates(prev => {
+      const updated = [...prev]
+      updated[index] = true
+      return updated
+    })
+
+    try {
+      const webpFile = await convertToWebP(file)
+      const imageUrl = await uploadImage(webpFile)
+
+      setItems(prevItems =>
+        prevItems.map((item, i) =>
+          i === index
+            ? {
+                ...item,
+                imageUrl,
+                file: webpFile,
+                fileName: file.name,
+                preview: URL.createObjectURL(file),
+              }
+            : item
+        )
       )
-    )
-  }
-
-  useEffect(() => {
-    if (data && data.length > 0 && items.length === 0) {
-      const initialized = data.map(item => ({
-        id: generateId(),
-        file: null,
-        fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
-        preview: null,
-        imageUrl: item.imageUrl || '',
-        productName: item.name || '',
-        productPrice: item.price || '',
-      }))
-      setItems(initialized)
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error)
+    } finally {
+      setLoadingStates(prev => {
+        const updated = [...prev]
+        updated[index] = false
+        return updated
+      })
     }
-  }, [data])
-
-  useEffect(() => {
-    onChange?.(items)
-  }, [items])
+  }
 
   const handleProductChange = (e, index) => {
     const { name, value } = e.target
@@ -91,7 +93,9 @@ const EditRepItem = ({ data, onChange }) => {
       productName: '',
       productPrice: '',
     }
+
     setItems(prev => [...prev, newItem])
+    setLoadingStates(prev => [...prev, false])
   }
 
   useEffect(() => {
