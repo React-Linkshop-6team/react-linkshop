@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
-import { deleteShop } from '../api/api'
-import EditDeleteModal from './EditDeleteModal'
+import { deleteShop } from '../../api/api'
+import EditDeleteModal from '../EditDeleteModal/EditDeleteModal'
 
 const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess, isMyStore }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false)

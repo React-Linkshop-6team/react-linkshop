@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
-import { getShopById } from '../api/api'
-import ShopLike from './common/ShopLike'
-import ModalStateControl from './ModalStateControl'
-import urlCopyIcon from '../assets/images/url-copy-icon.png'
-import filterIcon from '../assets/images/filter-icon.png'
-import Spinner from '../components/common/Spinner.jsx'
+import { getShopById } from '../../api/api.js'
+import ShopLike from '../common/ShopLike.jsx'
+import ModalStateControl from '../ModalStateControl/ModalStateControl.jsx'
+import urlCopyIcon from '../../assets/images/url-copy-icon.png'
+import filterIcon from '../../assets/images/filter-icon.png'
+import Spinner from '../common/Spinner.jsx'
 
 const AboutShop = ({ id: propId }) => {
   const { id: routeId } = useParams()
