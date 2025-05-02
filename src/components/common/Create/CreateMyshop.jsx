@@ -5,7 +5,9 @@ import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 import CreateShopInfo from '../Create/CreateShopInfo'
 import Spinner from '../Spinner'
 
-const CreateMyshop = ({ infoData, setInfoData }) => {
+const CreateMyshop = ({ infoData, setInfoData, shopImageUrl, setShopImageUrl }) => {
+  const [fileName, setFileName] = useState('대표 이미지를 첨부해주세요')
+  const [imageUrl, setImageUrl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const uploadImage = async file => {
@@ -21,10 +23,8 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       if (!res.ok) throw new Error('이미지 업로드 실패')
 
       const data = await res.json()
-      console.log('✅ 업로드 성공:', data)
       return data.url
     } catch (err) {
-      console.error('❌ 업로드 중 에러:', err)
       return null
     }
   }
@@ -47,14 +47,9 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       return
     }
 
-    // ✅ infoData 안에 저장
-    setInfoData(prev => ({
-      ...prev,
-      shopProfile: {
-        fileName: safeFileName,
-        imageUrl: uploadedUrl,
-      },
-    }))
+    setShopImageUrl(uploadedUrl)
+    setFileName(safeFileName)
+    setImageUrl(uploadedUrl)
   }
 
   return (
@@ -63,14 +58,12 @@ const CreateMyshop = ({ infoData, setInfoData }) => {
       <div className="my-item-shop">
         <div className="item-content">
           {isLoading ? <Spinner text="사진 업로드 중입니다..." /> : null}
-
           <CreateRepItemImageUploader
             title="쇼핑몰 프로필"
-            fileName={infoData?.shopProfile?.fileName || '대표 이미지를 첨부해주세요'}
+            fileName={fileName}
             onImageUpload={handleImageUpload}
             id="myshop"
           />
-
           <CreateShopInfo infoData={infoData} setInfoData={setInfoData} />
         </div>
       </div>
