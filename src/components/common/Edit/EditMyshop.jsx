@@ -1,27 +1,34 @@
 /* eslint-disable */
 import { useState, useRef } from 'react'
-
+import Spinner from '../Spinner'
 import Eyes from '../../../assets/images/eyes.png'
 import EyeClick from '../../../assets/images/eyeClick.png'
 import { uploadImage } from '../../../api/api'
+import { useWebpConverter } from '../../../hooks/useWebpConverter'
 
 const EditMyShop = ({ data, onChange }) => {
   const [error, setError] = useState('')
   const [imgFile, setImgFile] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef(null)
-
+  const convertToWebP = useWebpConverter()
   const handleImgChange = async e => {
     const file = e.target.files[0]
     if (!file) return
     setImgFile(file)
+    setIsLoading(true)
     try {
-      const imageUrl = await uploadImage(file)
+      const webpFile = await convertToWebP(file)
+      const imageUrl = await uploadImage(webpFile)
+
       if (imageUrl) {
         onChange(prev => ({ ...prev, imageUrl }))
       }
     } catch (error) {
       throw new Error('이미지 업로드에 실패했습니다.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -59,6 +66,7 @@ const EditMyShop = ({ data, onChange }) => {
                   onChange={handleImgChange}
                   style={{ display: 'none' }}
                 />
+                {isLoading && <Spinner text="이미지 업로드 중..." />}
               </div>
 
               <div className="content-box">
@@ -95,6 +103,7 @@ const EditMyShop = ({ data, onChange }) => {
                     onChange={handleInfoChange}
                     placeholder="유저 ID를 입력해주세요"
                     className="content-comment"
+                    readOnly
                   />
                 </div>
               </div>
