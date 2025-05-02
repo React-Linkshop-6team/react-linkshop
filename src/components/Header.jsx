@@ -5,8 +5,8 @@ import { ref, get, child } from 'firebase/database'
 
 import { db } from '../firebase'
 import { getShops } from '../api/api'
-import profileImg from '../assets/images/linkshop.png'
-import logo from '../assets/images/logo.png'
+import profileImg from '../assets/images/linkshop.webP'
+import logo from '../assets/images/logo.webP'
 import Button from './common/Button'
 
 const Header = () => {
