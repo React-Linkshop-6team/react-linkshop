@@ -11,6 +11,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import MyStore from './pages/MyStore'
 import Edit from './pages/Edit'
+import NotFound from './pages/NotFound'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/myshop" element={<CreateMyshop />} />
           <Route path="/editmyshop" element={<EditMyshop />} />
           <Route path="/edit/:linkShopId" element={<Edit />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

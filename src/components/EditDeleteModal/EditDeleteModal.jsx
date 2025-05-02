@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
-import CheckDeletePageModal from './CheckDeletePageModal'
-import InputPasswordModal from './InputPasswordModal'
+import CheckDeletePageModal from '../CheckDeletePageModal/CheckDeletePageModal'
+import InputPasswordModal from '../InputPasswordModal/InputPasswordModal'
 
 const EditDeleteModal = ({
   inputPassword,

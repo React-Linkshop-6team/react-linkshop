@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { useWebpConverter } from '../../../hooks/useWebpConverter'
 import Spinner from '../Spinner'
 import CreateRepItemImageUploader from '../Create/CreateRepItemImageUploader'
 
@@ -11,43 +12,45 @@ const CreateRepItem = ({ items, setItems }) => {
   const bottomRef = useRef(null)
   const navigate = useNavigate()
   const scrollableRef = useRef(null)
+  const convertToWebP = useWebpConverter()
 
   const handleImageUpload = async (index, e) => {
     const file = e.target.files[0]
-    if (file) {
-      const previewUrl = URL.createObjectURL(file)
+    if (!file) return
 
-      setLoadingItems(prev => [...prev, index])
+    setLoadingItems(prev => [...prev, index])
+
+    try {
+      const webpFile = await convertToWebP(file)
+      const previewUrl = URL.createObjectURL(webpFile)
 
       const formData = new FormData()
-      formData.append('image', file)
+      formData.append('image', webpFile)
 
-      try {
-        const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
-          method: 'POST',
-          body: formData,
-        })
+      const res = await fetch('https://linkshop-api.vercel.app/images/upload', {
+        method: 'POST',
+        body: formData,
+      })
 
-        if (!res.ok) throw new Error('이미지 업로드 실패')
+      if (!res.ok) throw new Error('이미지 업로드 실패')
 
-        const data = await res.json()
-        const uploadedUrl = data.url
+      const data = await res.json()
+      const uploadedUrl = data.url
 
-        const updatedItems = [...items]
-        updatedItems[index] = {
-          ...updatedItems[index],
-          file,
-          fileName: file.name,
-          preview: previewUrl,
-          imageUrl: uploadedUrl,
-        }
-        setItems(updatedItems)
-
-        setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
-      } catch (err) {
-        alert('이미지 업로드에 실패했습니다.')
-        setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
+      const updatedItems = [...items]
+      updatedItems[index] = {
+        ...updatedItems[index],
+        file: webpFile,
+        fileName: file.name, // 원래 파일명 그대로 표시
+        preview: previewUrl,
+        imageUrl: uploadedUrl,
       }
+      setItems(updatedItems)
+      console.log('이미지확인', webpFile)
+    } catch (err) {
+      alert('이미지 업로드에 실패했습니다.')
+    } finally {
+      setLoadingItems(prev => prev.filter(itemIndex => itemIndex !== index))
     }
   }
 

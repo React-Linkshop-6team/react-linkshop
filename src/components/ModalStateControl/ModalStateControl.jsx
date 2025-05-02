@@ -1,13 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 
-import { deleteShop } from '../api/api'
-import EditDeleteModal from './EditDeleteModal'
+import { deleteShop } from '../../api/api'
+import EditDeleteModal from '../EditDeleteModal/EditDeleteModal'
 
-const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess }) => {
-  const location = useLocation()
-  const isMyStore = location.pathname === '/mystore'
-
+const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess, isMyStore }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false)
   const [inputPassword, setInputPassword] = useState(false)
   const [currentPassword, setCurrentPassword] = useState('')
@@ -64,27 +60,26 @@ const ModalStateControl = ({ shopId, isVisible, setIsVisible, onDeleteSuccess })
     }
   }, [isVisible, setInputPassword])
 
+  if (!isMyStore || !shopId) return null
+
   return (
-    <>
-      {isMyStore && shopId && (
-        <EditDeleteModal
-          ref={modalRef}
-          deleteConfirm={deleteConfirm}
-          inputPassword={inputPassword}
-          setInputPassword={setInputPassword}
-          setDeleteConfirm={setDeleteConfirm}
-          handleClickEdit={handleClickEdit}
-          handleDelete={handleDelete}
-          currentPassword={currentPassword}
-          setCurrentPassword={setCurrentPassword}
-          showDeleteModal={showDeleteModal}
-          setShowDeleteModal={setShowDeleteModal}
-          shopId={shopId}
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-        />
-      )}
-    </>
+    <EditDeleteModal
+      ref={modalRef}
+      deleteConfirm={deleteConfirm}
+      inputPassword={inputPassword}
+      setInputPassword={setInputPassword}
+      setDeleteConfirm={setDeleteConfirm}
+      handleClickEdit={handleClickEdit}
+      handleDelete={handleDelete}
+      currentPassword={currentPassword}
+      setCurrentPassword={setCurrentPassword}
+      showDeleteModal={showDeleteModal}
+      setShowDeleteModal={setShowDeleteModal}
+      shopId={shopId}
+      isVisible={isVisible}
+      setIsVisible={setIsVisible}
+      isMyStore={isMyStore}
+    />
   )
 }
 

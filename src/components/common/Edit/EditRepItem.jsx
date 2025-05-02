@@ -1,53 +1,75 @@
 import { useState, useRef, useEffect } from 'react'
 
+import Spinner from '../Spinner'
 import { uploadImage } from '../../../api/api.js'
+import { useWebpConverter } from '../../../hooks/useWebpConverter'
 
 const EditRepItem = ({ data, onChange }) => {
   const [items, setItems] = useState([])
-  const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
+  const [loadingStates, setLoadingStates] = useState([])
   const bottomRef = useRef(null)
   const scrollableRef = useRef(null)
+  const convertToWebP = useWebpConverter()
 
-  if (!data) return null
-
-  const handleImgChange = async (e, index) => {
-    const file = e.target.files[0]
-    if (!file) return
-
-    const imageUrl = await uploadImage(file)
-    setItems(prevItems =>
-      prevItems.map((item, i) =>
-        i === index
-          ? {
-              ...item,
-              imageUrl,
-              file,
-              fileName: file.name,
-              preview: URL.createObjectURL(file),
-            }
-          : item
-      )
-    )
-  }
+  const generateId = () => Date.now().toString() + Math.random().toString(36).substring(2, 9)
 
   useEffect(() => {
     if (data && data.length > 0 && items.length === 0) {
       const initialized = data.map(item => ({
-        id: generateId(),
+        id: item.id || generateId(),
         file: null,
         fileName: item.imageUrl?.split('/').pop() || '상품 이미지를 첨부해주세요',
         preview: null,
         imageUrl: item.imageUrl || '',
-        productName: item.name || '',
-        productPrice: item.price || '',
+        productName: item.productName || item.name || '',
+        productPrice: item.price ? String(item.price) : '',
       }))
       setItems(initialized)
+      setLoadingStates(new Array(initialized.length).fill(false))
     }
   }, [data])
 
   useEffect(() => {
     onChange?.(items)
   }, [items])
+
+  const handleImgChange = async (e, index) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    setLoadingStates(prev => {
+      const updated = [...prev]
+      updated[index] = true
+      return updated
+    })
+
+    try {
+      const webpFile = await convertToWebP(file)
+      const imageUrl = await uploadImage(webpFile)
+
+      setItems(prevItems =>
+        prevItems.map((item, i) =>
+          i === index
+            ? {
+                ...item,
+                imageUrl,
+                file: webpFile,
+                fileName: file.name,
+                preview: URL.createObjectURL(file),
+              }
+            : item
+        )
+      )
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error)
+    } finally {
+      setLoadingStates(prev => {
+        const updated = [...prev]
+        updated[index] = false
+        return updated
+      })
+    }
+  }
 
   const handleProductChange = (e, index) => {
     const { name, value } = e.target
@@ -71,7 +93,9 @@ const EditRepItem = ({ data, onChange }) => {
       productName: '',
       productPrice: '',
     }
+
     setItems(prev => [...prev, newItem])
+    setLoadingStates(prev => [...prev, false])
   }
 
   useEffect(() => {
@@ -110,6 +134,7 @@ const EditRepItem = ({ data, onChange }) => {
                   onChange={e => handleImgChange(e, index)}
                   style={{ display: 'none' }}
                 />
+                {loadingStates[index] && <Spinner text="이미지 업로드 중..." />}
               </div>
 
               <div className="rep-item-name">

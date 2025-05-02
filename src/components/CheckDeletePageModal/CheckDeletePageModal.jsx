@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { deleteShop } from '../api/api'
-import Spinner from './common/Spinner'
-import eyes from '../assets/images/eyes.png'
+import { deleteShop } from '../../api/api'
+import Spinner from '../common/Spinner'
+import eyes from '../../assets/images/eyes.png'
 
 const CheckDeletePageModal = ({ onClose, id }) => {
   const [password, setPassword] = useState('')
