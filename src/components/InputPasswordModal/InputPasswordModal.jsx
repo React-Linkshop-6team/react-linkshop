@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { getShopById, putShopById } from '../../api/api'
 import Spinner from '../common/Spinner'
-import eyes from '../../assets/images/eyes.webP'
+import eyes from '../../assets/images/eyes.webp'
 
 const InputPasswordModal = ({ id, onClose }) => {
   const [password, setPassword] = useState('')

@@ -1,4 +1,4 @@
-import searchIcon from '../../assets/images/search-icon.webP'
+import searchIcon from '../../assets/images/search-icon.webp'
 
 const SearchBar = ({ onSearch }) => {
   return (

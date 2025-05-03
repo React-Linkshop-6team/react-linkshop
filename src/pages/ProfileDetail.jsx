@@ -1,8 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-import redBlueImg from '../assets/images/detail-img.webP'
-import goToBack from '../assets/images/go-to-back.webP'
+import redBlueImg from '../assets/images/detail-img.webp'
+import goToBack from '../assets/images/go-to-back.webp'
 import { getShopById } from '../api/api.js'
 import DetailPageItemList from '../components/DetailPageItemList/DetailPageItemList.jsx'
 import AboutShop from '../components/AboutShop/AboutShop.jsx'
