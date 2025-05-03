@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { useState, useRef } from 'react'
 import Spinner from '../Spinner'
-import Eyes from '../../../assets/images/eyes.webP'
-import EyeClick from '../../../assets/images/eyeClick.webP'
+import Eyes from '../../../assets/images/eyes.webp'
+import EyeClick from '../../../assets/images/eyeClick.webp'
 import { uploadImage } from '../../../api/api'
 import { useWebpConverter } from '../../../hooks/useWebpConverter'
 

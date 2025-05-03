@@ -1,6 +1,6 @@
 import React from 'react'
 
-import loadingImage from '../../assets/images/linkshop.webP'
+import loadingImage from '../../assets/images/linkshop.webp'
 
 const Spinner = ({ text = '샵 정보를 가져오는 중 입니다...' }) => {
   return (

@@ -3,8 +3,8 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
 import app from '../firebase'
-import eyes from '../assets/images/eyes.webP'
-import eyeClick from '../assets/images/eyeClick.webP'
+import eyes from '../assets/images/eyes.webp'
+import eyeClick from '../assets/images/eyeClick.webp'
 
 const Login = () => {
   const auth = getAuth(app)

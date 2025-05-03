@@ -1,4 +1,4 @@
-import logoImage from '../assets/images/linkshop.webP'
+import logoImage from '../assets/images/linkshop.webp'
 
 const NotFound = () => {
   const onGoBack = e => {

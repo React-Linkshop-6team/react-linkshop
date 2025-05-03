@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-import Eyes from '../../assets/images/eyes.webP'
+import Eyes from '../../assets/images/eyes.webp'
 import LinkShopById from '../../api/api.js'
 import uploadImage from '../../api/api.js'
 
