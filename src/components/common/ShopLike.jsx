@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import emptyHeart from '../../assets/images/empty-heart.webP'
-import heart from '../../assets/images/heart.webP'
+import emptyHeart from '../../assets/images/empty-heart.webp'
+import heart from '../../assets/images/heart.webp'
 import { addLike, removeLike } from '../../api/api'
 
 const ShopLike = ({ likes = 0, shopKey }) => {

@@ -4,8 +4,8 @@ import { ref, set } from 'firebase/database'
 import { useNavigate } from 'react-router-dom'
 
 import app, { db } from '../firebase'
-import eyes from '../assets/images/eyes.webP'
-import eyeClick from '../assets/images/eyeClick.webP'
+import eyes from '../assets/images/eyes.webp'
+import eyeClick from '../assets/images/eyeClick.webp'
 
 const Signup = () => {
   const auth = getAuth(app)
